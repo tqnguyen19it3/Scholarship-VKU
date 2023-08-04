@@ -4,7 +4,7 @@ function homeController() {
         // [GET] / HOME
         index(req, res) {
             res.status(200).send("home page");
-        },
+        }
     }
 }
 
