@@ -1,0 +1,117 @@
+<div class="right_col" role="main">
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Update Announcement Form</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a class="dropdown-item" href="#">Settings 1</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form action="/api/admin/update-announcement/<%= announcement._id %>?_method=PUT" method="POST" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" id="update-announcement-form">
+                            <div class="item form-group">
+                                <!-- Announcement Name -->
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Announcement Name <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" name="announcementName" required="required" class="form-control" value="<%= announcement.name %>">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 label-align">Announcement Image </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="file" name="announcementImage" accept="image/jpeg, image/jpg, image/png, image/gif" id="announcementImageFileInput" class="form-control" style="border: none;"><br>
+                                    <% if(announcement.image){ %>
+                                        <img id="previewImage" src="/uploads/announcements/<%= announcement.image %>" alt="IMG" height="100" width="100">
+                                    <% } else { %>
+                                        <img id="previewImage" src="/admin/img/announcement.png" alt="IMG" height="100" width="100">
+                                    <% } %>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Announcement Status</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <div class="btn-group" data-toggle="buttons" style="margin-top: 7px;">
+                                        <% if(announcement.status === 'show') { %>
+                                            Show:&nbsp;<input type="radio" class="flat" name="announcementStatus" value="show" checked="" />  &emsp;
+                                            Hide:&nbsp;<input type="radio" class="flat" name="announcementStatus" value="hide" />
+                                        <% } else { %>  
+                                            Show:&nbsp;<input type="radio" class="flat" name="announcementStatus" value="show" />  &emsp;
+                                            Hide:&nbsp;<input type="radio" class="flat" name="announcementStatus" value="hide" checked="" />
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <!-- Announcement description -->
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Announcement Description <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <textarea required="required" name="announcementDesc" class="form-control" rows="5"><%= announcement.description %></textarea>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 label-align">Announcement Content <span class="required">*</span>
+                                </label>
+                                <div class="col-md-9 col-sm-9 ">
+                                  <textarea required="required" class="form-control" rows="10" id="editorUpdateAnnouncement" name="announcementContent"><%= announcement.content %></textarea>
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="item form-group text-center">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    const fileInput = document.getElementById('announcementImageFileInput');
+        fileInput.addEventListener('change', function(event) {
+        // Lấy tệp tin đã chọn
+        const file = event.target.files[0];
+
+        if(file){
+            var reader = new FileReader();
+
+            reader.addEventListener('load', function() {
+                previewImage.src = reader.result;
+            });
+
+            reader.readAsDataURL(file);
+        }
+    });
+
+    $('#update-announcement-form').submit(function() {
+        const editorContent = CKEDITOR.instances.editorUpdateAnnouncement.getData().trim();
+        if (editorContent === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: 'Please enter your announcement content',
+            });
+            return false;
+        }
+    });
+</script>

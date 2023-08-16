@@ -25,7 +25,135 @@
     </div>
   </div>
     <!-- /top tiles -->
+    <div class="row" >
+      <div class="col-md-12 col-sm-12">
+        <div class="bg-white" style="padding: 10px;" role="tabpanel" data-example-id="togglable-tabs">
+          <ul id="myTab" class="nav nav-tabs bar_tabs bg-white" role="tablist">
+            <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Recent Contact Feedback</a>
+            </li>
+            <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Worked on</a>
+            </li>
+          </ul>
+          <div id="myTabContent" class="tab-content">
+            <div role="tabpanel" class="tab-pane active " id="tab_content1" aria-labelledby="home-tab">
 
+              <!-- start recent activity -->
+              <ul class="messages" id="contactList">
+                <% if(contactInfo.length > 0){
+                  contactInfo.forEach(function(contact) { %>
+                    <li id="contact-<%= contact._id %>">
+                      <img src="/admin/production/images/user.png" class="avatar" alt="Avatar">
+                      <div class="message_date">
+                        <p><%= moment(contact.createdAt).format("HH:mm") %></p>
+                        <h3 class="date text-info"><%= moment(contact.createdAt).format("DD") %></h3>
+                        <p class="month"><%= moment(contact.createdAt).format("MMM") %></p>
+                      </div>
+                      <div class="message_wrapper">
+                        <h4 class="heading"><%= contact.name %> - <%= contact.email %></h4>
+                        <blockquote class="message"><%= contact.message %></blockquote>
+                        <br />
+                        <p class="url" style="margin: 0px; padding: 15px;">
+                          <div class="float-left">
+                            <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                            <a href="mailto:<%= contact.email %>" class="text-info"><i class="fa fa-envelope"></i> Reply </a>
+                          </div>
+                          <div class="float-right text-danger">
+                            <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                            <a href="#" class="text-danger" onclick="confirmSoftDelContact('<%= contact._id %>', event)"><i class="fa fa-trash"></i> Delete </a>
+                          </div>
+                        </p>
+                      </div>
+                    </li>
+                <% })
+                  }else{ %> 
+                    <li>
+                      <div class="bs-example" data-example-id="simple-jumbotron">
+                        <div class="jumbotron">
+                          <h1>Empty Feedback!</h1>
+                          <p>There are currently no contact feedback from users sent to</p>
+                        </div>
+                      </div>
+                    </li>
+                <% } %>
+              </ul>
+              <% if(contactInfo.length > 0 && contactInfo.length < contactCount){ %>
+                <button class="text-center btn btn-info" id="viewMore" style="font-size: 0.75rem;"><i class="fa fa-eye"></i> View more... </button>
+              <% } %>
+              <a href="/api/admin/trash-contact" class="text-center float-right btn btn-danger" style="font-size: 0.75rem;">
+                <i class="fa fa-trash"></i>
+                Trash (<span id="soft-delete-count"><%= deletedContactCount %></span>)
+              </a>
+              <!-- end recent activity -->
+
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+
+              <!-- start user projects -->
+              <table class="data table table-striped no-margin">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Project Name</th>
+                    <th>Client Company</th>
+                    <th class="hidden-phone">Hours Spent</th>
+                    <th>Contribution</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>New Company Takeover Review</td>
+                    <td>Deveint Inc</td>
+                    <td class="hidden-phone">18</td>
+                    <td class="vertical-align-mid">
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-success" data-transitiongoal="35"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>New Partner Contracts Consultanci</td>
+                    <td>Deveint Inc</td>
+                    <td class="hidden-phone">13</td>
+                    <td class="vertical-align-mid">
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-danger" data-transitiongoal="15"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Partners and Inverstors report</td>
+                    <td>Deveint Inc</td>
+                    <td class="hidden-phone">30</td>
+                    <td class="vertical-align-mid">
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-success" data-transitiongoal="45"></div>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>New Company Takeover Review</td>
+                    <td>Deveint Inc</td>
+                    <td class="hidden-phone">28</td>
+                    <td class="vertical-align-mid">
+                      <div class="progress">
+                        <div class="progress-bar progress-bar-success" data-transitiongoal="75"></div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <!-- end user projects -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+    
     <div class="row">
       <div class="col-md-12 col-sm-12 ">
         <div class="dashboard_graph">
@@ -42,10 +170,10 @@
             </div>
           </div>
 
-          <div class="col-md-9 col-sm-9 ">
+          <div class="col-md-9 col-sm-9">
             <div id="chart_plot_01" class="demo-placeholder"></div>
           </div>
-          <div class="col-md-3 col-sm-3  bg-white">
+          <div class="col-md-3 col-sm-3 bg-white">
             <div class="x_title">
               <h2>Top Campaign Performance</h2>
               <div class="clearfix"></div>
@@ -91,6 +219,7 @@
           </div>
 
           <div class="clearfix"></div>
+          
         </div>
       </div>
 
@@ -98,8 +227,6 @@
     <br />
 
     <div class="row">
-
-
       <div class="col-md-4 col-sm-4 ">
         <div class="x_panel tile fixed_height_320">
           <div class="x_title">
@@ -611,3 +738,101 @@
       </div>
     </div>
   </div>
+
+
+  <script> 
+    //view more dữ liệu contact
+    $(document).ready(function() {
+
+      let skip = <%= contactInfo.length %>; // Số lượng dữ liệu đã hiển thị ban đầu
+      let contact_count = <%= contactCount %>;
+
+      // Xử lý sự kiện khi nhấn nút "Load more"
+      $('#viewMore').click(function() {
+        // Gửi yêu cầu AJAX để tải thêm dữ liệu
+        $.ajax({
+          url: 'http://localhost:5500/api/admin/view-more-contact',
+          method: 'GET',
+          data: { skip: skip },
+          success: function(response) {
+            // Xử lý dữ liệu trả về
+            const contactList = $('#contactList');
+            response.forEach(function(contact) {
+              const li = $('<li>').attr('id', `contact-${contact._id}`).html(
+                `<img src="/admin/production/images/user.png" class="avatar" alt="Avatar">
+                <div class="message_date">
+                  <p>${moment(contact.createdAt).format("HH:mm")}</p>
+                  <h3 class="date text-info">${moment(contact.createdAt).format("DD")}</h3>
+                  <p class="month">${moment(contact.createdAt).format("MMM")}</p>
+                </div>
+                <div class="message_wrapper">
+                  <h4 class="heading">${contact.name} - ${contact.email}</h4>
+                  <blockquote class="message">${contact.message}</blockquote>
+                  <br />
+                  <p class="url" style="margin: 0px; padding: 15px;">
+                    <div class="float-left">
+                      <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                      <a href="mailto:${contact.email}" class="text-info"><i class="fa fa-envelope"></i> Reply </a>
+                    </div>
+                    <div class="float-right text-danger">
+                      <span class="fs1 text-info" aria-hidden="true" data-icon=""></span>
+                      <a href="#" class="text-danger" onclick="confirmSoftDelContact('${contact._id}', event)"><i class="fa fa-trash"></i> Delete </a>
+                    </div>
+                  </p>
+                </div>`
+              );
+              contactList.append(li);
+            });
+
+            skip += response.length; // Tăng giá trị skip cho lần tải thêm tiếp theo
+
+            if (skip === contact_count) {
+              $('#viewMore').hide(); // Ẩn nút "view more" nếu không còn dữ liệu
+            }
+          },
+          error: function(xhr, status, error) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Failed!',
+              text: 'An error occurred while you were loading data! Please try again later',
+            });
+          }
+        });
+      });
+    });
+    
+
+    // xóa mềm contact
+    function confirmSoftDelContact(contactId, event) {
+      event.preventDefault();// Ngăn chặn hành vi mặc định của thẻ <a>
+
+      Swal.fire({
+        title: 'Move to trash',
+        text: 'Do you want to move this item to the trash?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Move',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Nếu người dùng xác nhận xóa
+          axios.delete(`/api/admin/soft-delete-contact/${contactId}`)
+            .then((response) => {
+              // Xóa thành công
+              if(response.status === 200){
+                Swal.fire('Successfully', response.data.message, 'success')
+                  .then(() => {
+                  location.reload(); // Reload lại trang
+                });
+              } else {
+                Swal.fire('Failed', 'Something went wrong!', 'error');
+              }
+            })
+            .catch((error) => {
+              // Xử lý lỗi khi xóa không thành công
+              Swal.fire('Failed', 'Something went wrong!', 'error');
+            });
+        }
+      });
+    }
+  </script>

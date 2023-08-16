@@ -11,6 +11,7 @@ const redisClient = require('../../../../config/redis');
 const userModel = require('../../models/user');
 
 function authController() {
+
     return {
         // [POST] / register
         async register(req, res, next) {
@@ -45,6 +46,7 @@ function authController() {
         // [POST] / login
         async login(req, res, next) {
             try {
+                
                 const { email, password } = req.body;
                 // validate all fields
                 const { error } = userLoginValidate(req.body);
@@ -65,16 +67,17 @@ function authController() {
                 const payload = {
                     _id: user._id,
                     name: user.name,
-                    role: user.role
+                    role: user.role,
+                    email: user.email
                 }
+
                 const accessTokenUser = await signAccessToken(payload);
                 const refreshTokenUser = await signRefreshToken(payload);
-                return res.status(200).json({
-                    message: "Login successfully!", 
-                    accessToken: accessTokenUser,
-                    refreshToken: refreshTokenUser
-                });
 
+                res.cookie('accessToken', accessTokenUser, { maxAge: process.env.ACCESS_EXPIRED_IN * 1000 });
+                res.cookie('refreshToken', refreshTokenUser, { maxAge: process.env.REFRESH_EXPIRED_IN * 1000 });
+
+                return res.redirect('/');
             } catch (error) {
                 next(error);
             }
@@ -85,9 +88,9 @@ function authController() {
                 const { refreshToken } = req.body;
                 if(!refreshToken) throw createError.BadRequest();
 
-                const { _id, name, role } = await verifyRefreshToken(refreshToken);
-                const accessTokenUser = await signAccessToken({ _id, name, role });
-                const refreshTokenUser = await signRefreshToken({ _id, name, role });
+                const { _id, name, role, email } = await verifyRefreshToken(refreshToken);
+                const accessTokenUser = await signAccessToken({ _id, name, role, email });
+                const refreshTokenUser = await signRefreshToken({ _id, name, role, email });
 
                 res.status(200).json({ 
                     message: "Refresh Token successfully!",
@@ -128,7 +131,8 @@ function authController() {
                     const payload = {
                         _id: user._id,
                         name: user.name,
-                        role: user.role
+                        role: user.role,
+                        email: user.email
                     }
                     const accessTokenUser = await signAccessToken(payload);
                     const refreshTokenUser = await signRefreshToken(payload);
@@ -145,7 +149,7 @@ function authController() {
         // [DELETE] / logout
         async logout(req, res, next) {
             try {
-                const { refreshToken } = req.body;
+                const refreshToken = req.cookies.refreshToken;
                 if(!refreshToken){
                     throw createError.BadRequest();
                 } 
@@ -153,10 +157,12 @@ function authController() {
                 redisClient.del(_id, (err, reply) => {
                     if(err){
                         throw createError.InternalServerError();
-                    } 
-                    res.status(200).json({
-                        'message': 'Logout Successfully!'
-                    })
+                    }
+                    // Xóa accessToken + refreshToken khỏi cookie
+                    res.clearCookie('accessToken');
+                    res.clearCookie('refreshToken');
+                    
+                    res.redirect('/');
                 });
             } catch (error) {
                 next(error);
@@ -166,16 +172,15 @@ function authController() {
         async forgotPassword(req, res, next){
             try {
                 const { email } = req.body;
-                if(!email) throw createError.Conflict(`Failed! Email is required`);
+                if(!email) throw createError.Conflict(`Thất bại! Trường email là bắt buộc`);
                 //check user exits
                 const user = await userModel.findOne({ email });
                 if(!user){
-                    throw createError.NotFound(`Failed! ${email} not registered`);
+                    throw createError.NotFound(`Thất bại! Tài khoản ${email} chưa được đăng ký`);
                 }
                 // create new password
                 const password  = await generateRandomPassword();
                 const hashedPassword = await bcrypt.hashSync(password, 10);
-                console.log(password);
                 // update new password in db
                 await userModel.updateOne({ email: email }, { password: hashedPassword });
 
@@ -188,7 +193,7 @@ function authController() {
                 );
 
                 return res.status(200).json({
-                    message: "You should receive an email!",
+                    message: "Yêu cầu đặt lại mật khẩu thành công! Vui lòng kiểm tra email của bạn",
                 });
                 
             } catch (error) {
@@ -198,9 +203,9 @@ function authController() {
         // [POST] / reset password
         async resetPassword(req, res, next){
             try {
-                if(!req.body || !req.payload){
+                if(!req.body){
                     return res.status(401).json({
-                        message: "Something went wrong!", 
+                        message: "Có gì đó không ổn!", 
                     });
                 }
                 const { oldPassword, newPassword } = req.body;
@@ -213,14 +218,14 @@ function authController() {
                 const user = await userModel.findById(req.payload._id);
                 if (!user) {
                     return res.status(404).json({
-                        message: "User not found!", 
+                        message: "Không tìm thấy người dùng này!", 
                     });
                 }
 
                 //check password
                 const isPassValid = await bcrypt.compareSync(oldPassword, user.password);
                 if(!isPassValid){
-                    throw createError.Unauthorized("Reset Password Failed! Invalid current password");
+                    throw createError.Unauthorized("Mật khẩu cũ không hợp lệ");
                 }
 
                 const hashedPassword = await bcrypt.hashSync(newPassword, 10)
@@ -228,7 +233,7 @@ function authController() {
                 await user.save();
 
                 return res.status(200).json({
-                    message: "Reset password successfully!", 
+                    message: "Đặt lại mật khẩu thành công!", 
                 });
 
             } catch (error) {

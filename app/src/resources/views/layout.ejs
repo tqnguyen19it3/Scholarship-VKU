@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta name="description" content="">
+        <meta name="author" content="">
+	    <link rel="icon" href="/favicon.ico" type="image/ico" />
+        <title>Quỹ nhân bản VKU</title>
+
+        <!-- CSS FILES -->                
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+        <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+        <link href="/site/css/bootstrap.min.css" rel="stylesheet">
+
+        <link href="/site/css/bootstrap-icons.css" rel="stylesheet">
+
+        <link href="/site/css/style.css" rel="stylesheet">
+
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+      
+    </head>
+    
+    <body>
+
+        <main>
+            <nav class="navbar navbar-expand-lg">                
+                <div class="container">
+                    <a class="navbar-brand d-flex align-items-center" href="#">
+                        <img src="/site/images/logoVKU.png" class="navbar-brand-image img-fluid" alt="LOGO VKU">
+                        <span class="navbar-brand-text">
+                            Đại học
+                            <small>CNTT & TT Việt - Hàn</small>
+                        </span>
+                    </a>
+
+                    <div class="d-lg-none ms-auto me-3">
+                        <!-- chưa đăng nhập-->
+                        <a class="btn custom-btn custom-border-btn loginButton" data-bs-toggle="offcanvas" href="#loginButton" role="button" aria-controls="offcanvasExample">Đăng nhập</a>
+                        <!-- đăng nhập admin thành công -->
+                        <a class="btn custom-btn custom-border-btn adminProfileButton" data-bs-toggle="offcanvas" href="#adminProfileButton" role="button" aria-controls="offcanvasExample" style="display: none;">Tài khoản</a>
+                        <!-- đăng nhập partner thành công -->
+                        <a class="btn custom-btn custom-border-btn partnerProfileButton" data-bs-toggle="offcanvas" href="#partnerProfileButton" role="button" aria-controls="offcanvasExample" style="display: none;">Tài khoản</a>
+                    </div>
+
+    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+    
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-lg-auto">
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="#">Trang chủ</a>
+                            </li>
+    
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="#gioi-thieu">Giới thiệu</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="#hanh-trinh-phat-trien">Hành trình phát triển</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="#cau-hoi-thuong-gap">Câu hỏi</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link click-scroll" href="#lien-he">Liên hệ</a>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Trang</a>
+
+                                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                                    <li><a class="dropdown-item" href="hoc-bong.html">Thông báo</a></li>  
+                                    <li><a class="dropdown-item" href="hoc-bong.html">Học bổng nhân bản</a></li>                
+                                    <li><a class="dropdown-item" href="ds-hs.html">Danh sách học sinh</a></li>
+                                    <!-- <li><a class="dropdown-item" href="event-listing.html">Event Listing</a></li>
+                                    <li><a class="dropdown-item" href="event-detail.html">Event Detail</a></li> -->
+                                    
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <div class="d-none d-lg-block ms-lg-3">
+                            <!-- chưa đăng nhập -->
+                            <a class="btn custom-btn custom-border-btn loginButton" data-bs-toggle="offcanvas" href="#loginButton" role="button" aria-controls="offcanvasExample">Đăng nhập</a>
+                            <!-- đăng nhập admin thành công -->
+                            <a class="btn custom-btn custom-border-btn adminProfileButton" data-bs-toggle="offcanvas" href="#adminProfileButton" role="button" aria-controls="offcanvasExample" style="display: none;">Tài khoản</a>
+                            <!-- đăng nhập partner thành công -->
+                            <a class="btn custom-btn custom-border-btn partnerProfileButton" data-bs-toggle="offcanvas" href="#partnerProfileButton" role="button" aria-controls="offcanvasExample" style="display: none;">Tài khoản</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <div class="offcanvas offcanvas-end" data-bs-scroll="true" id="loginButton" aria-labelledby="offcanvasExampleLabel">                
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Đăng nhập</h5>
+                    
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                
+                <div class="offcanvas-body d-flex flex-column">
+                    <form class="custom-form member-login-form" action="/api/auth/login" method="post" role="form">
+
+                        <span id="capslock" style="color: red; display:none;" class="text-center alert alert-warning">CẢNH BÁO! Capslock đang bật</span>
+                        <div class="member-login-form-body">
+                            <div class="mb-4">
+                                <label class="form-label mb-2" for="member-login-number">Email</label>
+
+                                <input type="email" name="email" id="member-login-email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Nhập email" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label mb-2" for="member-login-password">Mật khẩu</label>
+
+                                <input type="password" name="password" id="member-login-password" pattern="[0-9a-zA-Z@#$%&]{6,}" class="form-control" placeholder="Nhập mật khẩu" required="">
+
+                                <label style="cursor: pointer;">
+                                    <span id="show_hide_password" > Hiện mật khẩu </span>
+                                </label>
+                            </div>
+
+                            <div class="col-lg-5 col-md-7 col-8 mx-auto">
+                                <button type="submit" class="form-control">Đăng nhập</button>
+                            </div>
+
+                            <div class="text-center my-4">
+                                <a style="cursor: pointer;" onclick="handleForgetPassword()" data-bs-dismiss="offcanvas">Quên mật khẩu?</a>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="mt-auto mb-5 text-center">
+                        <button class="btn btn-outline-primary" type="submit" fullWidth variant="contained" onclick="handleGoogleLogin()">
+                            <img width="20px" style="margin-bottom: 3px; margin-right: 5px" alt="Google sign-in"
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png"/>
+                            Đăng nhập với Google
+                        </button>
+                    </div>
+                    
+                    <div class="mt-auto mb-5 text-center">
+                        <p>
+                            <strong class="text-white me-3">Liên hệ</strong>
+
+                            <span class="contact-link">
+                            	(0236) 3667 129
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3D405B" fill-opacity="1" d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
+            </div>
+
+            <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="adminProfileButton" aria-labelledby="offcanvasExampleLabel">                
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasExampleLabel">Tài khoản</h5>
+                    
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                
+                <div class="offcanvas-body d-flex flex-column">
+                    <div class="member-login-form-body">
+                        <div class="member-login-form-body">
+                            <div class="text-center">
+                                <img src="https://i.imgur.com/bDLhJiP.jpg" width="100" class="rounded-circle">
+                            </div>
+                                        
+                            <div class="text-center mt-3">
+                                <span id="adminRoleProfile" class="bg-secondary p-1 px-4 rounded text-white">Role</span>
+                                <h5 id="adminNameProfile" class="mt-2 mb-0">Name</h5>
+                                <span id="adminEmailProfile">Email</span>
+                                
+                                <div class="buttons mt-5">
+                                    <a href="/api/admin/dashboard" class="btn btn-primary px-4 ms-3 mb-2 mt-2">Admin Dashboard</a>
+                                    <a href="" class="btn btn-primary px-4 ms-3 mb-2 mt-2">DSHS</a>
+                                </div>
+                                <div class="buttons mt-5">
+                                    <a style="cursor: pointer;" onclick="handleChangePassword()" data-bs-dismiss="offcanvas" class="btn btn-info px-4 ms-3 mb-2 mt-2">Đổi mật khẩu</a>
+                                </div>
+                            </div>
+                        </div>
+                        <form class="text-center" method="POST" action="/api/auth/logout?_method=DELETE">
+                            <button type="submit" class="btn btn-danger px-4 ms-3 mb-2 mt-2">Đăng xuất</button>
+                        </form>
+                    </div>
+                    
+                    <div class="mt-auto mb-5 text-center">
+                        <p>
+                            <strong class="text-white me-3">Liên hệ</strong>
+
+                            <span class="contact-link">
+                            	(0236) 3667 129
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3D405B" fill-opacity="1" d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
+            </div>
+
+            <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="partnerProfileButton" aria-labelledby="offcanvasExampleLabel">                
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="partnerProfileLabel">Tài khoản</h5>
+                    
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                
+                <div class="offcanvas-body d-flex flex-column">
+                    <div class="member-login-form-body">
+                        <div class="text-center">
+                            <img src="https://i.imgur.com/bDLhJiP.jpg" width="100" class="rounded-circle">
+                        </div>
+                                    
+                        <div class="text-center mt-3">
+                            <span class="bg-secondary p-1 px-4 rounded text-white" id="partnerRoleProfile">Role</span>
+                            <h5 id="partnerNameProfile" class="mt-2 mb-0">Name</h5>
+                            <span id="partnerEmailProfile">Email</span>
+                            
+                            <div class="buttons mt-5">
+                                <button class="btn btn-outline-primary px-4 mb-2 mt-2">Message</button>
+                                <a href="" class="btn btn-primary px-4 ms-3 mb-2 mt-2">DSHS</a>
+                            </div>
+                            <div class="buttons mt-5">
+                                <a style="cursor: pointer;" onclick="handleChangePassword()" data-bs-dismiss="offcanvas" class="btn btn-info px-4 ms-3 mb-2 mt-2">Đổi mật khẩu</a>
+                            </div>
+                        </div>
+                    </div>
+                    <form class="text-center" method="POST" action="/api/auth/logout?_method=DELETE">
+                        <button type="submit" class="btn btn-danger px-4 ms-3 mb-2 mt-2">Đăng xuất</button>
+                    </form>
+                    <div class="mt-auto mb-5 text-center">
+                        <p>
+                            <strong class="text-white me-3">Liên hệ</strong>
+
+                            <span class="contact-link">
+                            	(0236) 3667 129
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#3D405B" fill-opacity="1" d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
+            </div>
+
+            <!-- PAGE BODY CONTENT -->
+            <%- body %>
+            <!-- END PAGE BODY CONTENT -->
+
+        </main>
+
+        <footer class="site-footer">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-12 me-auto mb-5 mb-lg-0">
+                        <a class="navbar-brand d-flex align-items-center" href="#">
+                            <img src="/site/images/logoVKU.png" class="navbar-brand-image img-fluid" alt="logoVKU">
+                            <span class="navbar-brand-text">
+                                Đại học
+                                <small>CNTT & TT Việt - Hàn</small>
+                            </span>
+                            
+                        </a><br>
+                        <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea perferendis distinctio quis ut accusantium eos asperiores, maiores odio assumenda provident, expedita magnam error voluptatum delectus nulla itaque ducimus ipsam sunt?</span>
+                    </div>
+
+                    <div class="col-lg-3 col-12">
+                        <h5 class="site-footer-title mb-4">Thời gian làm việc</h5>
+
+                        <p class="d-flex border-bottom pb-3 mb-3 me-lg-3">
+                            <span>Thứ 2 - Thứ 6</span>
+                            8:00 sáng - 5:00 chiều
+                        </p>
+                        <br>
+                        <p class="copyright-text">© 2023 VKU. All rights reserved. </p>
+                    </div>
+
+                        <div class="col-lg-2 col-12 ms-auto">
+                            <ul class="social-icon mt-lg-5 mt-3 mb-4">
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link bi-facebook"></a>
+                                </li>
+
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link bi-instagram"></a>
+                                </li>
+
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link bi-twitter"></a>
+                                </li>
+
+                            </ul>
+                            <p class="copyright-text">Design: <a rel="nofollow" href="#" target="_blank">TQNGUYEN</a></p>
+                            
+                        </div>
+
+                </div>
+            </div>
+
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#81B29A" fill-opacity="1" d="M0,224L34.3,192C68.6,160,137,96,206,90.7C274.3,85,343,139,411,144C480,149,549,107,617,122.7C685.7,139,754,213,823,240C891.4,267,960,245,1029,224C1097.1,203,1166,181,1234,160C1302.9,139,1371,117,1406,106.7L1440,96L1440,320L1405.7,320C1371.4,320,1303,320,1234,320C1165.7,320,1097,320,1029,320C960,320,891,320,823,320C754.3,320,686,320,617,320C548.6,320,480,320,411,320C342.9,320,274,320,206,320C137.1,320,69,320,34,320L0,320Z"></path></svg>
+        </footer>
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="/site/js/jquery.min.js"></script>
+        <script src="/site/js/bootstrap.bundle.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="/site/js/jquery.sticky.js"></script>
+        <!-- <script src="/site/js/click-scroll"></script> -->
+        <script src="/site/js/animated-headline.js"></script>
+        <script src="/site/js/modernizr.js"></script>
+        <script src="/site/js/counter.js"></script>
+        <script src="/site/js/custom.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="jwt-decode.js"></script>
+         <!-- carousel partner --->
+        <script>
+            $(document).ready(function(){
+                $('.customer-logos').slick({
+                    slidesToShow: 4,
+                    slidesToScroll: 1,
+                    autoplay: false,
+                    autoplaySpeed: 1500,
+                    arrows: true,
+                    dots: false,
+                    pauseOnHover: false,
+                    prevArrow: '<i class="slick-prev fas fa-angle-left"></i>',
+                    nextArrow: '<i class="slick-next fas fa-angle-right"></i>',
+                    responsive: [{
+                    breakpoint: 768,
+                    settings: {
+                        slidesToShow: 3
+                    }
+                    }, {
+                        breakpoint: 520,
+                        settings: {
+                            slidesToShow: 2
+                        }
+                    }]
+                });
+            });
+        </script>
+         <!-- Show/Hide Capslock --->
+        <script>
+            var email = document.getElementById("member-login-email");
+            var password = document.getElementById("member-login-password");
+            var text = document.getElementById("capslock");
+            email.addEventListener("keyup", function(event) {
+        
+            if (event.getModifierState("CapsLock")) {
+                text.style.display = "block";
+                } else {
+                text.style.display = "none"
+                }
+            });
+            password.addEventListener("keyup", function(event) {
+        
+            if (event.getModifierState("CapsLock")) {
+                text.style.display = "block";
+                } else {
+                text.style.display = "none"
+                }
+            });
+        </script>
+        <!-- Show/Hide Password --->
+        <script> 
+            var passwordInput = document.getElementById('member-login-password');
+            var toggleButton = document.getElementById('show_hide_password');
+
+            toggleButton.addEventListener('click', function() {
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                } else {
+                    passwordInput.type = 'password';
+                }
+            });
+        </script>
+        <script>
+            const loginButtons = document.getElementsByClassName("loginButton");
+            const partnerProfileButtons = document.getElementsByClassName("partnerProfileButton");
+            const adminProfileButtons = document.getElementsByClassName("adminProfileButton");
+
+            const partnerNameProfile = document.getElementById("partnerNameProfile");
+            const partnerEmailProfile = document.getElementById("partnerEmailProfile");
+            const partnerRoleProfile = document.getElementById("partnerRoleProfile");
+
+            const adminNameProfile = document.getElementById("adminNameProfile");
+            const adminEmailProfile = document.getElementById("adminEmailProfile");
+            const adminRoleProfile = document.getElementById("adminRoleProfile");
+
+            const accessToken = document.cookie
+                .split("; ")
+                .find((row) => row.startsWith("accessToken="))
+                ?.split("=")[1];
+
+            const payloadDecoded = jwt_decode(accessToken);
+
+            if (payloadDecoded.role === 'admin') {
+                // Nếu đăng nhập với role admin, ẩn nút "Đăng nhập" và hiển thị nút "Hồ sơ admin"
+                for (let i = 0; i < loginButtons.length; i++) {
+                    loginButtons[i].style.display = "none";
+                }
+
+                for (let i = 0; i < adminProfileButtons.length; i++) {
+                    adminProfileButtons[i].style.display = "block";
+                    adminProfileButtons[i].textContent = payloadDecoded.name;
+                }
+                adminNameProfile.textContent = payloadDecoded.name;
+                adminEmailProfile.textContent = payloadDecoded.email;
+                adminRoleProfile.textContent = payloadDecoded.role;
+
+            }else if(payloadDecoded.role === 'partner') {
+                // Nếu đăng nhập với role partner, ẩn nút "Đăng nhập" và hiển thị nút "Hồ sơ partner"
+                for (let i = 0; i < loginButtons.length; i++) {
+                    loginButtons[i].style.display = "none";
+                }
+
+                for (let i = 0; i < partnerProfileButtons.length; i++) {
+                    partnerProfileButtons[i].style.display = "block";
+                    partnerProfileButtons[i].textContent = payloadDecoded.name;
+                }
+                partnerNameProfile.textContent = payloadDecoded.name;
+                partnerEmailProfile.textContent = payloadDecoded.email;
+                partnerRoleProfile.textContent = payloadDecoded.role;
+            }
+        </script>
+        <script>
+            // lấy giá trị thông báo và gán vào biến tương ứng
+            let successMessage  = document.cookie
+                .split("; ")
+                .find((row) => row.startsWith("successMessage="))
+                ?.split("=")[1];
+            let errorMessage  = document.cookie
+                .split("; ")
+                .find((row) => row.startsWith("errorMessage="))
+                ?.split("=")[1];
+            // Xóa cookies sau khi đã lấy giá trị
+            document.cookie = 'successMessage=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            document.cookie = 'errorMessage=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+            let decodedSuccessMessage = decodeURIComponent(successMessage);
+            let decodedErrorMessage = decodeURIComponent(errorMessage);
+            // Hiển thị thông báo thành công
+            if (successMessage) {
+                Swal.fire('Thành công!', decodedSuccessMessage, 'success');
+            }
+            // Hiển thị thông báo thất bại
+            if (errorMessage) {
+                Swal.fire('Thất bại!', decodedErrorMessage, 'error');
+            }
+
+
+            // handle forget password
+            async function handleForgetPassword() {
+                Swal.fire({
+                    title: 'Nhập email của bạn',
+                    input: 'email',
+                    inputAttributes: {
+                        autocapitalize: 'off'
+                    },
+                    showCancelButton: true,
+                    confirmButtonText: 'Gửi yêu cầu',
+                    cancelButtonText: 'Hủy',
+                    showLoaderOnConfirm: true,
+                    preConfirm: async (email) => {
+                        try {
+                            const response = await axios.post('http://localhost:5500/api/auth/forgot-password', { email });
+                            if (response.status === 200) {
+                                return response.data;
+                            } else {
+                                throw new Error('Yêu cầu reset mật khẩu thất bại. Vui lòng thử lại sau.');
+                            }
+                        } catch (error) {
+                            Swal.showValidationMessage(`Lỗi: ${error}`);
+                        }
+                    },
+                    allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Xử lý phản hồi từ máy chủ (nếu cần)
+                        Swal.fire({
+                            title: 'Thành công',
+                            text: result.value.message,
+                            icon: 'success'
+                        });
+                    }
+                });
+            }
+
+            
+            // handle change password
+            async function handleChangePassword() {
+                const { value: formValues } = await Swal.fire({
+                    title: 'Đổi mật khẩu',
+                    html:
+                    '<input id="oldPassword" type="password" pattern="[0-9a-zA-Z@#$%&]{6,}" placeholder="Mật khẩu cũ" class="swal2-input" required>' +
+                    '<input id="newPassword" type="password" pattern="[0-9a-zA-Z@#$%&]{6,}" placeholder="Mật khẩu mới" class="swal2-input" required>',
+                    focusConfirm: false,
+                    showCancelButton: true,
+                    preConfirm: async () => {
+                        const oldPassword = document.getElementById('oldPassword').value;
+                        const newPassword = document.getElementById('newPassword').value;
+
+                        try {
+                            const response = await axios.post('http://localhost:5500/api/auth/reset-password', { oldPassword, newPassword });
+                            if (response.status === 200) {
+                                return response.data;
+                            } else {
+                                throw new Error('Đổi mật khẩu thất bại. Vui lòng thử lại sau.');
+                            }
+                        } catch (error) {
+                            Swal.showValidationMessage(`Lỗi: ${error}`);
+                        }
+                    },
+                    allowOutsideClick: () => !Swal.isLoading()
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Xử lý phản hồi từ máy chủ (nếu cần)
+                        Swal.fire({
+                            title: 'Thành công',
+                            text: result.value.message,
+                            icon: 'success'
+                        });
+                    }
+                });
+            }
+        </script>
+       
+    </body>
+</html>

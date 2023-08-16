@@ -1,0 +1,107 @@
+<div class="right_col" role="main">
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Add Announcement Form</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a class="dropdown-item" href="#">Settings 1</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form action="/api/admin/save-announcement" id="add-announcement-form" method="POST" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+                            <div class="item form-group">
+                                <!-- Announcement Name -->
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Announcement Name <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" name="announcementName" required="required" class="form-control">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 label-align">Announcement Image</label>
+                                 <div class="col-md-6 col-sm-6 ">
+                                    <input type="file" accept="image/jpeg, image/jpg, image/png, image/gif" id="announcementImageFileInput" name="announcementImage" class="form-control" style="border: none;">
+                                    <img id="previewImage" src="#" alt="Preview" width="100" height="100" style="display: none;">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Announcement Status</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <div class="btn-group" data-toggle="buttons" style="margin-top: 7px;">
+                                        Show:&nbsp;<input type="radio" class="flat" name="announcementStatus" value="show" checked="" />  &emsp;
+                                        Hide:&nbsp;<input type="radio" class="flat" name="announcementStatus" value="hide" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <!-- Announcement description -->
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Announcement Description <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <textarea required="required" name="announcementDesc" class="form-control" rows="5"></textarea>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="control-label col-md-3 col-sm-3 label-align">Announcement Content <span class="required">*</span>
+                                </label>
+                                <div class="col-md-9 col-sm-9 ">
+                                  <textarea class="form-control" rows="10" cols="6" id="editorAddAnnouncement" name="announcementContent" required="required" placeholder=""></textarea>
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="item form-group text-center">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button class="btn btn-secondary" type="button">Cancel</button>
+                                    <button class="btn btn-primary" type="reset">Reset</button>
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    const fileInput = document.getElementById('announcementImageFileInput');
+        fileInput.addEventListener('change', function(event) {
+        // Lấy tệp tin đã chọn
+        const file = event.target.files[0];
+
+        if(file){
+            const previewImage = document.getElementById('previewImage');
+            const previewURL = URL.createObjectURL(file);
+            previewImage.src = previewURL;
+            previewImage.style.display = 'block';
+        }
+    });
+
+    $('#add-announcement-form').submit(function() {
+        const editorContent = CKEDITOR.instances.editorAddAnnouncement.getData().trim();
+        if (editorContent === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: 'Please enter your announcement content',
+            });
+            return false;
+        }
+    });
+</script>
+

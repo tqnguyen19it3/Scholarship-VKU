@@ -4,14 +4,34 @@ const createError = require('http-errors');
 // Models
 const userModel = require('../../models/user');
 
-const isAuthentication = (req, res, next) => {
+// const isAuthentication = (req, res, next) => {
+//     try {
+//         // 1. Get token from client
+//         const bearerHeader = req.headers['authorization'];
+//         if(!bearerHeader){
+//             return next(createError.Unauthorized());
+//         }
+//         const accessToken = bearerHeader.split(' ')[1];
+//         // 2. verify token
+//         const jwtDecoded = jwt.verify(accessToken, process.env.SECRET_ACCESS_JWT);
+//         if(!jwtDecoded){
+//             return next(createError.Unauthorized());
+//         }
+//         req.payload = jwtDecoded;
+//         next();
+//     } catch (error) {
+//         return next(error);
+//     }
+// }
+
+
+const isAuthentication = (req, res, next) => { // verify accessToken from req.cookies (cookies-parser)
     try {
         // 1. Get token from client
-        const bearerHeader = req.headers['authorization'];
-        if(!bearerHeader){
+        const accessToken = req.cookies.accessToken;
+        if(!accessToken){
             return next(createError.Unauthorized());
         }
-        const accessToken = bearerHeader.split(' ')[1];
         // 2. verify token
         const jwtDecoded = jwt.verify(accessToken, process.env.SECRET_ACCESS_JWT);
         if(!jwtDecoded){

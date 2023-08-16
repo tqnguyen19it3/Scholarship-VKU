@@ -4,7 +4,7 @@ const redisClient = require('../config/redis');
 
 const signAccessToken = async (payload) => {
     return new Promise((resolve, reject) => {
-        jwt.sign(payload, process.env.SECRET_ACCESS_JWT , { expiresIn: '1h' }, (err, accessToken) => {
+        jwt.sign(payload, process.env.SECRET_ACCESS_JWT, { expiresIn: `${process.env.ACCESS_EXPIRED_IN}s` }, (err, accessToken) => {
             if(err){
                 reject(err);
             } 
@@ -15,11 +15,11 @@ const signAccessToken = async (payload) => {
 
 const signRefreshToken = async (payload) => {
     return new Promise((resolve, reject) => {
-        jwt.sign(payload, process.env.SECRET_REFRESH_JWT , { expiresIn: '1y' }, (err, refreshToken) => {
+        jwt.sign(payload, process.env.SECRET_REFRESH_JWT, { expiresIn: `${process.env.REFRESH_EXPIRED_IN}s` }, (err, refreshToken) => {
             if(err){
                 reject(err);
             } 
-            redisClient.set(payload._id.toString(), refreshToken, 'EX', 365 * 24 * 60 * 60, (err, reply) => {
+            redisClient.set(payload._id.toString(), refreshToken, 'EX', process.env.REFRESH_EXPIRED_IN, (err, reply) => {
                 if(err){
                     return reject(createError.InternalServerError());
                 }

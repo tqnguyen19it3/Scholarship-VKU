@@ -11,6 +11,7 @@ const methodOverride = require('method-override');
 const createError = require('http-errors');
 const errorHandler = require('./app/src/api/v1/http/middlewares/errorHandler');
 const connectDB = require('./app/src/config/mongodb');
+const cookieParser = require('cookie-parser');
 
 
 
@@ -28,6 +29,10 @@ connectDB(url);
 
 //handle cors error
 app.use(cors());
+
+
+//cookies
+app.use(cookieParser());
 
 
 // flash notification

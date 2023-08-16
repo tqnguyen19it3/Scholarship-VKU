@@ -38,6 +38,12 @@
 
     <!-- Custom Theme Style -->
     <link href="/admin/build/css/custom.min.css" rel="stylesheet">
+
+    <!-- script  -->
+    <script src="/admin/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="/admin/vendors/moment/min/moment.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
 
   <body class="nav-md">
@@ -46,7 +52,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="" class="site_title"><span>VKU</span></a>
+              <a href="/api/admin/dashboard" class="site_title"><span>VKU</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -54,11 +60,11 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="/admin/production/images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="/admin/production/images/user.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>ADMINATOR</h2>
+                <h2><%= adminInfo.name %></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -72,13 +78,13 @@
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="">Dashboard</a></li>
+                      <li><a href="/api/admin/dashboard">Dashboard</a></li>
                     </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Product <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> Announcement <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="./add-product">Add Product</a></li>
-                      <li><a href="./all-product">Manage Product</a></li>
+                      <li><a href="/api/admin/add-announcement">Add Announcement</a></li>
+                      <li><a href="/api/admin/all-announcement">Manage Announcement</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Orders <span class="fa fa-chevron-down"></span></a>
@@ -151,9 +157,10 @@
               <a data-toggle="tooltip" data-placement="top" title="Lock">
                 <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
               </a>
-              <form id="logout" action="/logout" method="POST">
-                <a data-toggle="tooltip" data-placement="top" title="Logout" onclick="document.getElementById('logout').submit()" href="">
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              <form id="logoutFooter" method="POST" action="/api/auth/logout?_method=DELETE">
+                <a data-toggle="tooltip" data-placement="top" title="Logout" onclick="document.getElementById('logoutFooter').submit()" href="#">
+                  <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+                </a>
               </form>
             </div>
             <!-- /menu footer buttons -->
@@ -170,16 +177,15 @@
               <ul class=" navbar-right">
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
                   <a href="" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                    <img src="/admin/production/images/img.jpg" alt="">ADMINATOR
+                    <img src="/admin/production/images/user.png" alt=""><%= adminInfo.name %>
                   </a>
                   <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item"  href="./admin-profile/"> Profile</a>
-                      <a class="dropdown-item"  href="./admin-account/">
-                        <span class="badge bg-red pull-right">Admin</span>
-                        <span>Account</span>
-                      </a>
-                  <form id="logout" action="/logout" method="POST">
-                    <a data-toggle="tooltip" data-placement="top" class="dropdown-item" title="Logout" onclick="document.getElementById('logout').submit()" href="">
+                    <a class="dropdown-item"  href="/api/admin/admin-profile/<%= adminInfo._id %>">
+                       <span class="badge bg-red pull-right"><%= adminInfo.role %></span>
+                        <span>Profile</span>
+                    </a>
+                  <form id="logoutMenu" method="POST" action="/api/auth/logout?_method=DELETE">
+                    <a data-toggle="tooltip" data-placement="top" class="dropdown-item" title="Logout" onclick="document.getElementById('logoutMenu').submit()" href="#">
                       <i class="fa fa-sign-out pull-right"></i> Log Out
                     </a>
                   </form>
@@ -194,7 +200,7 @@
                   <ul class="dropdown-menu list-unstyled msg_list" role="menu" aria-labelledby="navbarDropdown1">
                     <li class="nav-item">
                       <a class="dropdown-item">
-                        <span class="image"><img src="/admin/production/images/img.jpg" alt="Profile Image" /></span>
+                        <span class="image"><img src="/admin/production/images/user.png" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -235,8 +241,6 @@
       </div>
     </div>
 
-    <!-- jQuery -->
-    <script src="/admin/vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="/admin/vendors/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <!-- FastClick -->
@@ -272,7 +276,7 @@
     <script src="/admin/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
     <script src="/admin/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
     <!-- bootstrap-daterangepicker -->
-    <script src="/admin/vendors/moment/min/moment.min.js"></script>
+
     <script src="/admin/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 
     <!-- Datatables -->
@@ -295,18 +299,84 @@
     <!-- Custom Theme Scripts -->
     <script src="/admin/build/js/custom.min.js"></script>
 
+
+    <script>
+     // lấy giá trị thông báo và gán vào biến tương ứng
+      let adminSuccessMessage  = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("adminSuccessMessage="))
+          ?.split("=")[1];
+      let adminErrorMessage  = document.cookie
+          .split("; ")
+          .find((row) => row.startsWith("adminErrorMessage="))
+          ?.split("=")[1];
+      // Xóa cookies sau khi đã lấy giá trị
+      document.cookie = 'adminSuccessMessage=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+      document.cookie = 'adminErrorMessage=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+
+      let decodedAdminSuccessMessage = decodeURIComponent(adminSuccessMessage);
+      let decodedAdminErrorMessage = decodeURIComponent(adminErrorMessage);
+      // Hiển thị thông báo thành công
+      if (adminSuccessMessage) {
+          Swal.fire('Successfully!', decodedAdminSuccessMessage, 'success');
+      }
+      // Hiển thị thông báo thất bại
+      if (adminErrorMessage) {
+          Swal.fire('Failed!', decodedAdminErrorMessage, 'error');
+      }
+    </script>
+    
+    <script>
+      // handle change password
+      async function handleChangePassword() {
+          const { value: formValues } = await Swal.fire({
+              title: 'Change Password',
+              html:
+              '<input id="oldPassword" type="password" pattern="[0-9a-zA-Z@#$%&]{6,}" placeholder="Current password" class="swal2-input" required>' +
+              '<input id="newPassword" type="password" pattern="[0-9a-zA-Z@#$%&]{6,}" placeholder="New password" class="swal2-input" required>',
+              focusConfirm: false,
+              showCancelButton: true,
+              preConfirm: async () => {
+                  const oldPassword = document.getElementById('oldPassword').value;
+                  const newPassword = document.getElementById('newPassword').value;
+
+                  try {
+                      const response = await axios.post('http://localhost:5500/api/auth/reset-password', { oldPassword, newPassword });
+                      if (response.status === 200) {
+                          return response.data;
+                      } else {
+                          throw new Error('Password change failed. Please try again later');
+                      }
+                  } catch (error) {
+                      Swal.showValidationMessage(`Error: ${error}`);
+                  }
+              },
+              allowOutsideClick: () => !Swal.isLoading()
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  // Xử lý phản hồi từ máy chủ (nếu cần)
+                  Swal.fire({
+                      title: 'Successfully',
+                      text: result.value.message,
+                      icon: 'success'
+                  });
+              }
+          });
+      }
+    </script>
+
     <!-- CKEditor textarea -->
     <script src="/admin/ckeditor/ckeditor.js"></script>
     <script type="text/javascript">
-      CKEDITOR.replace('editorAddProduct',{
+      CKEDITOR.replace('editorAddAnnouncement',{
         extraPlugins: 'filebrowser',
         filebrowserUploadMethod : "form",
-        filebrowserUploadUrl : "./imgckeditor-product-upload"
+        filebrowserUploadUrl : "./imgCKEditor-announcement-upload"
       });
-      CKEDITOR.replace('editorUpdateProduct',{
+      CKEDITOR.replace('editorUpdateAnnouncement',{
         extraPlugins: 'filebrowser',
         filebrowserUploadMethod : "form",
-        filebrowserUploadUrl : "./imgCKEditor-product-upload"
+        filebrowserUploadUrl : "./imgCKEditor-announcement-upload"
       });
     </script>
 
