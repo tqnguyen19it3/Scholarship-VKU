@@ -1,0 +1,66 @@
+<div class="right_col" role="main">
+    <div class="">
+        <div class="clearfix"></div>
+        <div class="row">
+            <div class="col-md-12 col-sm-12 ">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Update FAQ Form</h2>
+                        <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li><a class="dropdown-item" href="#">Settings 1</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                        </ul>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <br />
+                        <form action="/api/admin/update-faq/<%= faq._id %>?_method=PUT" method="POST" data-parsley-validate class="form-horizontal form-label-left" id="update-faq-form">
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Question <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="text" name="faqQuestion" required="required" class="form-control" value="<%= faq.question %>">
+                                </div>
+                            </div>
+                            <div class="field item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Answer <span class="required">*</span></label>
+                                <div class="col-md-6 col-sm-6">
+                                    <textarea required="required" name="faqAnswer" class="form-control" rows="5"><%= faq.answer %></textarea>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Faq Status</label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <div class="btn-group" data-toggle="buttons" style="margin-top: 7px;">
+                                        <% if(faq.status === 'show') { %>
+                                            Show:&nbsp;<input type="radio" class="flat" name="faqStatus" value="show" checked="" />  &emsp;
+                                            Hide:&nbsp;<input type="radio" class="flat" name="faqStatus" value="hide" />
+                                        <% } else { %>  
+                                            Show:&nbsp;<input type="radio" class="flat" name="faqStatus" value="show" />  &emsp;
+                                            Hide:&nbsp;<input type="radio" class="flat" name="faqStatus" value="hide" checked="" />
+                                        <% } %>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ln_solid"></div>
+                            <div class="item form-group text-center">
+                                <div class="col-md-6 col-sm-6 offset-md-3">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

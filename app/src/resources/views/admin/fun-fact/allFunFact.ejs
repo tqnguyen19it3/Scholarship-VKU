@@ -1,0 +1,170 @@
+<div class="right_col" role="main">
+    <div class="">
+      <div class="page-title">
+        <div class="fa-hover col-md-3 col-sm-4">
+          <a href="/api/admin/trash-fun-fact" style="color: red;">
+            <h5><i class="fa fa-trash"></i> Manage Trash (<%= funFactDeletedCount %>)</h5>
+          </a>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Manage Fun Fact Table</h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Settings 1</a>
+                    </div>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content">
+              <div class="table-responsive">
+                <table class="table table-striped jambo_table bulk_action" id="datatable-buttons">
+                  <thead>
+                    <tr class="headings">
+                      <th>
+                        <input type="checkbox" id="check-all" class="flat">
+                      </th>
+                      <th class="column-title">Name</th>
+                      <th class="column-title">Statistics</th>
+                      <th class="column-title">Status</th>
+                      <th class="column-title no-link last"><span class="nobr">Action</span>
+                      </th>
+                      <th class="bulk-actions" colspan="7">
+                        <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    
+                  <% if(funFacts.length > 0){
+                    funFacts.forEach(function(funFact) { %>
+                      <tr class="even pointer">
+                        <td class="a-center ">
+                          <input type="checkbox" class="flat" name="table_records">
+                        </td>
+                        <td>
+                          <%= funFact.name %>
+                          <br />
+                          <small>Created at: <%= moment(funFact.createdAt).format('DD-MM-YYYY HH:mm A') %></small>
+                        </td>
+                        <td><%= funFact.statistics %></td>
+                        <td>
+                          <% if(funFact.status === 'show'){ %>
+                            <label>
+                              <input type="checkbox" class="js-switch" data-state="<%= funFact.status %>" data-id="<%= funFact._id %>" checked /> 
+                            </label>
+                          <% } else { %>
+                            <!-- <a href="" class="btn-update-status-funFact" data-state="<%= funFact.status %>" data-id="<%= funFact._id %>"><i class="fa fa-toggle-off" style="font-size: 20px; color: grey;"> Hide</i></a> -->
+                            <label>
+                              <input type="checkbox" class="js-switch" data-state="<%= funFact.status %>" data-id="<%= funFact._id %>" />
+                            </label>
+                          <% } %>
+                        </td>
+                        <td class=" last">
+                            <a href="/api/admin/edit-fun-fact/<%= funFact._id %>" class="btn btn-info btn-sm btn-restore-del-fun-fact">
+                                <i class="fa fa-edit"></i> <small>Edit</small>
+                            </a>
+                            <a href="#" class="btn btn-danger btn-sm"  onclick="confirmSoftDelFunFact('<%= funFact._id %>', event)">
+                              <i class="fa fa-trash"></i> <small>Trash</small>
+                            </a>
+                        </td>
+                      </tr>
+                    <% })
+                  }else{ %>
+                    <tr class="even pointer text-center">
+                      <td colspan="8" style="color: brown; font-weight: bold;"> No records found</td>
+                    </tr>
+                  <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      let btnUpdateStatusAnn = $('.js-switch');
+
+      $(document).on('change', '.js-switch', function(e){
+        e.preventDefault();
+        let id = $(this).data('id');
+        let state = $(this).data('state');
+        updateStateFunFact(id, state);
+      });
+
+      function updateStateFunFact(funFactId, state) {
+        let currentState = state;
+        axios.patch('/api/admin/update-state-fun-fact/' + funFactId + '?_method=PATCH', { status: currentState === 'hide' ? 'show' : 'hide' })
+          .then(res => {
+            if(res.status === 200){
+              Swal.fire({
+                icon: 'success',
+                title: 'Successfully',
+                text: res.data.message,
+              });
+            }
+          })
+          .catch(error => {
+            Swal.fire({
+              icon: 'error',
+              title: 'Failed',
+              text: 'Failed to update status',
+            });
+          })
+      }
+    });
+
+     // xóa mềm funFact
+     function confirmSoftDelFunFact(funFactId, event) {
+      event.preventDefault();// Ngăn chặn hành vi mặc định của thẻ <a>
+
+      Swal.fire({
+        title: 'Move to trash',
+        text: 'Do you want to move this item to the trash?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Move',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Nếu người dùng xác nhận xóa
+          axios.delete(`/api/admin/soft-delete-fun-fact/${funFactId}`)
+            .then((response) => {
+              // Xóa thành công
+              if(response.status === 200){
+                Swal.fire('Successfully', response.data.message, 'success')
+                  .then(() => {
+                  location.reload(); // Reload lại trang
+                });
+              } else {
+                Swal.fire('Failed', 'Something went wrong!', 'error');
+              }
+            })
+            .catch((error) => {
+              // Xử lý lỗi khi xóa không thành công
+              Swal.fire('Failed', 'Something went wrong!', 'error');
+            });
+        }
+      });
+    }
+  </script>
+
+

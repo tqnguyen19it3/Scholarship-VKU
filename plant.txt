@@ -9,5 +9,5 @@ Lấy lại mật khẩu khi quên ------- tạm ok
 Xử lý thêm chỗ handleError
 Thêm feedback contact client ----- done
 Xử lý feedback bên sv --- tạm ok
-announcement --- tạm ok
+announcement --- tạm ok (còn img upload ckeditor)
 
