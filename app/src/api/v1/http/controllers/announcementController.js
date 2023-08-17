@@ -62,11 +62,9 @@ function announcementController() {
             const adminInfo = req.payload;
             announcementModel.findById(req.params.id)
                 .then(announcement => {
-                    console.log("ann ne 123", announcement);
                     res.render('admin/announcement/editAnnouncement', { layout: 'admin/adminLayout', adminInfo, announcement })
                 })
                 .catch(err => {
-                    console.log("error ne", err);
                     next(err);
                 });
         },

@@ -22,6 +22,7 @@ function homeController() {
                     return res.cookie('errorMessage', 'Đã xảy ra lỗi trong lúc bạn gửi yêu cầu. Hãy thử lại sau').redirect('back');
                 });
         },
+        
     }
 }
 

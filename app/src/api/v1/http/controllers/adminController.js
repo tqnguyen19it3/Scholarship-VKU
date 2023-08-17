@@ -1,8 +1,9 @@
 const createError = require('http-errors');
 const moment = require('moment');
+
 //models
-const userModel = require('../../models/user');
 const contactModel = require('../../models/contact');
+const CSI_infoModel = require('../../models/CSI_info');
 
 function adminController() {
     return {
@@ -89,8 +90,37 @@ function adminController() {
             .catch(err => {
                 next(err);
             })
-        }
-        
+        },
+        // [GET] / CSIInfoView
+        async CSIInfoView(req, res, next) {
+            try {
+                const adminInfo = req.payload;
+                const CSIInfo = await CSI_infoModel.findOne();
+                console.log("CSIInfo123: ",CSIInfo)
+                res.render('admin/client-side/interfaceInfo' , { layout: 'admin/adminLayout', adminInfo, CSIInfo });
+            } catch (error) {
+                next(error);
+            }
+        },
+        // [PUT] / UPDATE FUN FACT
+        updateCSIInfo(req, res, next) {
+            const CSIInfo = { 
+                address: req.body.CSIInfoAddress,
+                email: req.body.CSIInfoEmail,
+                phoneNumber: req.body.CSIInfoPhoneNumber,
+                workingDates: req.body.CSIInfoWorkingDates,
+                workingHours: req.body.CSIInfoWorkingHours,
+                maps: req.body.CSIInfoMaps,
+                footerContent: req.body.CSIInfoFooterContent
+            }
+            CSI_infoModel.updateOne({ _id: req.params.id }, CSIInfo)
+                .then(() => {
+                    return res.cookie('adminSuccessMessage', 'Update successfully!').redirect('/api/admin/client-side-interface-information');
+                })
+                .catch(err => {
+                    return res.cookie('adminErrorMessage', 'Something went wrong!').redirect('/api/admin/client-side-interface-information');
+                });
+        },
     }
 }
 

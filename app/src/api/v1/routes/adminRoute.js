@@ -56,4 +56,8 @@ router.get('/trash-fun-fact', [auth.isAuthentication, auth.isAdmin], funFactCont
 router.patch('/restore-fun-fact/:id', [auth.isAuthentication, auth.isAdmin], funFactController().restoreFunFact);
 router.delete('/destroy-fun-fact/:id', [auth.isAuthentication, auth.isAdmin], funFactController().destroyFunFact);
 
+// client-side interface
+router.get('/client-side-interface-information', [auth.isAuthentication, auth.isAdmin], adminController().CSIInfoView);
+router.put('/update-client-side-interface-information/:id', [auth.isAuthentication, auth.isAdmin], adminController().updateCSIInfo);
+
 module.exports = router;
