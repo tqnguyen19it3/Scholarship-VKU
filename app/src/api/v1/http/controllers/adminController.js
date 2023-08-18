@@ -91,18 +91,17 @@ function adminController() {
                 next(err);
             })
         },
-        // [GET] / CSIInfoView
+        // [GET] / CSIInfo View
         async CSIInfoView(req, res, next) {
             try {
                 const adminInfo = req.payload;
                 const CSIInfo = await CSI_infoModel.findOne();
-                console.log("CSIInfo123: ",CSIInfo)
                 res.render('admin/client-side/interfaceInfo' , { layout: 'admin/adminLayout', adminInfo, CSIInfo });
             } catch (error) {
                 next(error);
             }
         },
-        // [PUT] / UPDATE FUN FACT
+        // [PUT] / UPDATE CSIInfo
         updateCSIInfo(req, res, next) {
             const CSIInfo = { 
                 address: req.body.CSIInfoAddress,

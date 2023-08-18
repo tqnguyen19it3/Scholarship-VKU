@@ -81,6 +81,11 @@
                       <li><a href="/api/admin/dashboard">Dashboard</a></li>
                     </ul>
                   </li>
+                  <li><a><i class="fa fa-book"></i> About Us Management <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/api/admin/about-us-management">General Introduction</a></li>
+                    </ul>
+                  </li>
                   <li><a><i class="fa fa-edit"></i> Announcement <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="/api/admin/add-announcement">Add Announcement</a></li>
@@ -97,6 +102,12 @@
                     <ul class="nav child_menu">
                       <li><a href="/api/admin/add-fun-fact">Add Fun Fact</a></li>
                       <li><a href="/api/admin/all-fun-fact">Manage Fun Fact</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-users"></i> User Management <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="/api/admin/fund-management">Fund Management</a></li>
+                      <li><a href="/api/admin/partner-management">Partner Management</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Client-side Interface <span class="fa fa-chevron-down"></span></a>
@@ -370,7 +381,7 @@
                   const newPassword = document.getElementById('newPassword').value;
 
                   try {
-                      const response = await axios.post('http://localhost:5500/api/auth/reset-password', { oldPassword, newPassword });
+                      const response = await axios.post('/api/auth/reset-password', { oldPassword, newPassword });
                       if (response.status === 200) {
                           return response.data;
                       } else {

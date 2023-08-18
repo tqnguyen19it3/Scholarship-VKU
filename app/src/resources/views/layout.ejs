@@ -474,7 +474,7 @@
                     showLoaderOnConfirm: true,
                     preConfirm: async (email) => {
                         try {
-                            const response = await axios.post('http://localhost:5500/api/auth/forgot-password', { email });
+                            const response = await axios.post('/api/auth/forgot-password', { email });
                             if (response.status === 200) {
                                 return response.data;
                             } else {
@@ -512,7 +512,7 @@
                         const newPassword = document.getElementById('newPassword').value;
 
                         try {
-                            const response = await axios.post('http://localhost:5500/api/auth/reset-password', { oldPassword, newPassword });
+                            const response = await axios.post('/api/auth/reset-password', { oldPassword, newPassword });
                             if (response.status === 200) {
                                 return response.data;
                             } else {

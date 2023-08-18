@@ -6,6 +6,8 @@ const adminController = require('../http/controllers/adminController');
 const announcementController = require('../http/controllers/announcementController');
 const faqController = require('../http/controllers/faqController');
 const funFactController = require('../http/controllers/funFactController');
+const userManagementController = require('../http/controllers/userManagementController');
+const aboutUsController = require('../http/controllers/aboutUsController');
 
 //---------------- Middleware ----------------
 const auth = require('../../v1/http/middlewares/auth');
@@ -14,6 +16,8 @@ const upload = require('../../v1/http/middlewares/upload');
 //---------------- Router ----------------
 router.get('/dashboard', [auth.isAuthentication, auth.isAdmin], adminController().index);
 router.get('/admin-profile/:id', [auth.isAuthentication, auth.isAdmin], adminController().adminProfile);
+
+// contact
 router.get('/view-more-contact', [auth.isAuthentication, auth.isAdmin], adminController().viewMoreContact);
 router.delete('/soft-delete-contact/:id', [auth.isAuthentication, auth.isAdmin], adminController().softDelContact);
 router.get('/trash-contact', [auth.isAuthentication, auth.isAdmin], adminController().trashContact);
@@ -55,6 +59,17 @@ router.delete('/soft-delete-fun-fact/:id', [auth.isAuthentication, auth.isAdmin]
 router.get('/trash-fun-fact', [auth.isAuthentication, auth.isAdmin], funFactController().trashFunFact);
 router.patch('/restore-fun-fact/:id', [auth.isAuthentication, auth.isAdmin], funFactController().restoreFunFact);
 router.delete('/destroy-fun-fact/:id', [auth.isAuthentication, auth.isAdmin], funFactController().destroyFunFact);
+
+// management
+router.get('/fund-management', [auth.isAuthentication, auth.isAdmin], userManagementController().fundManagement);
+router.get('/partner-management', [auth.isAuthentication, auth.isAdmin], userManagementController().partnerManagement);
+
+// about us management
+router.get('/about-us-management', [auth.isAuthentication, auth.isAdmin], aboutUsController().aboutUsManagement);
+router.put('/update-general-introduction/:id', [auth.isAuthentication, auth.isAdmin], aboutUsController().updateGeneralIntroduction);
+router.put('/update-development-journey/:id', [auth.isAuthentication, auth.isAdmin], aboutUsController().updateDevelopmentJourney);
+router.put('/update-purpose/:id', [auth.isAuthentication, auth.isAdmin], aboutUsController().updatePurpose);
+router.put('/update-mission-statement/:id', [auth.isAuthentication, auth.isAdmin], aboutUsController().updateMissionStatement);
 
 // client-side interface
 router.get('/client-side-interface-information', [auth.isAuthentication, auth.isAdmin], adminController().CSIInfoView);

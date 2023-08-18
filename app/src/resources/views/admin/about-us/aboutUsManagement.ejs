@@ -1,0 +1,254 @@
+<div class="right_col" role="main">
+    <div class="">
+        <div class="page-title">
+            <div class="title_left">
+            <h3>About Us Management</h3>
+            </div>
+        </div>
+        
+        <div class="clearfix"></div>
+        <% if(aboutUs){%>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>General Introduction</h2>
+                            
+                            <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                
+                            <div class="col-md-5 col-sm-5 ">
+                                <div class="product-image">
+                                    <img src="/site/images/logoVKU.png" alt="IMG" />
+                                </div>
+                            </div>
+                
+                            <div class="col-md-7 col-sm-7 " style="border:0px solid #e5e5e5;">
+                                <h3 class="prod_title">General introduction of VKU cloning fund</h3>
+                                
+                                <p><%= aboutUs.introduction %></p>
+    
+                                <button onclick="showEditGeneralIntroductionForm('<%= aboutUs._id %>')" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update General Introduction</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Development Journey</h2>
+                            
+                            <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                
+                            <div class="col-md-5 col-sm-5 ">
+                                <div class="product-image">
+                                    <img src="/site/images/development-journey.jpg" alt="IMG" />
+                                </div>
+                            </div>
+                
+                            <div class="col-md-7 col-sm-7 " style="border:0px solid #e5e5e5;">
+                                <h3 class="prod_title">Development Journey</h3>
+                                
+                                <p><%= aboutUs.developmentJourney %></p>
+
+                                <button onclick="showEditDevelopmentJourneyForm('<%= aboutUs._id %>')" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>  Update Development Journey</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-sm-12 ">
+                    <div class="x_panel">
+                        <div class="x_title">
+                            <h2>Mission Statement & Purpose</h2>
+                            
+                            <ul class="nav navbar-right panel_toolbox">
+                            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                            </li>
+                            <li><a class="close-link"><i class="fa fa-close"></i></a>
+                            </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="x_content">
+                
+                            <div class="col-md-6 col-sm-6 ">
+                                <div class="product-image">
+                                    <img src="/site/images/nn.jpg" alt="IMG" />
+                                </div>
+                                <div class="product_gallery">
+                                    <div class="">
+                                        <div class="product_price">
+                                            <h3 style="font-weight: 400; color: #26B99A; margin: 0;">Purpose</h3>
+                                            <span class="price-tax"><%= aboutUs.purpose %></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button onclick="showEditPurposeForm('<%= aboutUs._id %>')" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update Purpose</button>
+                            </div>
+                
+                            <div class="col-md-5 col-sm-5 " style="border:0px solid #e5e5e5;">
+                                <h3 class="prod_title">Mission Statement</h3>
+                                <p><%= aboutUs.missionStatement %></p>
+                                <button onclick="showEditMissionStatementForm('<%= aboutUs._id %>')" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update Mission Statement</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %> 
+    </div>
+</div>
+
+<script>
+
+    // handle update General introduction
+    function showEditGeneralIntroductionForm(aboutUsId) {
+        Swal.fire({
+            title: 'Editing The General Introduction',
+            html: `<textarea id="generalIntroductionContentTextarea" class="form-control" rows="10" required="required"></textarea>`,
+            showCancelButton: true,
+            focusConfirm: false,
+            preConfirm: async () => {
+            const content = document.getElementById('generalIntroductionContentTextarea').value;
+
+            if (!content) {
+                Swal.showValidationMessage('Please enter the general introduction content.');
+                return false; // Ngăn chặn gửi yêu cầu PUT khi nội dung rỗng
+            }
+
+            try {
+                const response = await axios.put(`/api/admin/update-general-introduction/${aboutUsId}`, {
+                    generalIntroduction: content
+                });
+
+                return response.data;
+            } catch (error) {
+                Swal.showValidationMessage(`Error: ${error}`);
+            }
+        }}).then(result => {
+            if (result.isConfirmed) {
+                Swal.fire('Successfully', result.value.message, 'success').then(() => {
+                    location.reload(); // Reload lại trang
+                });
+            }
+        });
+    }
+
+    // handle update Development Journey
+    function showEditDevelopmentJourneyForm(aboutUsId) {
+        Swal.fire({
+            title: 'Editing The Development Journey',
+            html: `<textarea id="developmentJourneyContentTextarea" class="form-control" rows="10" required="required"></textarea>`,
+            showCancelButton: true,
+            focusConfirm: false,
+            preConfirm: async () => {
+            const content = document.getElementById('developmentJourneyContentTextarea').value;
+
+            if (!content) {
+                Swal.showValidationMessage('Please enter the development journey content.');
+                return false; // Ngăn chặn gửi yêu cầu PUT khi nội dung rỗng
+            }
+
+            try {
+                const response = await axios.put(`/api/admin/update-development-journey/${aboutUsId}`, {
+                    developmentJourney: content
+                });
+
+                return response.data;
+            } catch (error) {
+                Swal.showValidationMessage(`Error: ${error}`);
+            }
+        }}).then(result => {
+            if (result.isConfirmed) {
+                Swal.fire('Successfully', result.value.message, 'success').then(() => {
+                    location.reload(); // Reload lại trang
+                });
+            }
+        });
+    }
+
+    // handle update purpose
+    function showEditPurposeForm(aboutUsId) {
+        Swal.fire({
+            title: 'Editing The Purpose',
+            html: `<textarea id="purposeContentTextarea" class="form-control" rows="10" required="required"></textarea>`,
+            showCancelButton: true,
+            focusConfirm: false,
+            preConfirm: async () => {
+            const content = document.getElementById('purposeContentTextarea').value;
+
+            if (!content) {
+                Swal.showValidationMessage('Please enter the purpose content.');
+                return false; // Ngăn chặn gửi yêu cầu PUT khi nội dung rỗng
+            }
+
+            try {
+                const response = await axios.put(`/api/admin/update-purpose/${aboutUsId}`, {
+                    purpose: content
+                });
+
+                return response.data;
+            } catch (error) {
+                Swal.showValidationMessage(`Error: ${error}`);
+            }
+        }}).then(result => {
+            if (result.isConfirmed) {
+                Swal.fire('Successfully', result.value.message, 'success').then(() => {
+                    location.reload(); // Reload lại trang
+                });
+            }
+        });
+    }
+
+     // handle update Mission Statement
+     function showEditMissionStatementForm(aboutUsId) {
+        Swal.fire({
+            title: 'Editing the Mission Statement',
+            html: `<textarea id="missionStatementContentTextarea" class="form-control" rows="10" required="required"></textarea>`,
+            showCancelButton: true,
+            focusConfirm: false,
+            preConfirm: async () => {
+            const content = document.getElementById('missionStatementContentTextarea').value;
+
+            if (!content) {
+                Swal.showValidationMessage('Please enter the mission statement content.');
+                return false; // Ngăn chặn gửi yêu cầu PUT khi nội dung rỗng
+            }
+
+            try {
+                const response = await axios.put(`/api/admin/update-mission-statement/${aboutUsId}`, {
+                    missionStatement: content
+                });
+
+                return response.data;
+            } catch (error) {
+                Swal.showValidationMessage(`Error: ${error}`);
+            }
+        }}).then(result => {
+            if (result.isConfirmed) {
+                Swal.fire('Successfully', result.value.message, 'success').then(() => {
+                    location.reload(); // Reload lại trang
+                });
+            }
+        });
+    }
+</script>
