@@ -3,8 +3,7 @@ const Schema = mongoose.Schema
 
 const aboutUsSchema = new Schema({
     introduction: { type: String },
-    missionStatement: { type: String },
-    purpose: { type: String },
+    missionStatementAndPurpose: { type: String },
     developmentJourney: { type: String }
 }, { timestamps: true });
 

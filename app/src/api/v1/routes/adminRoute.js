@@ -68,8 +68,7 @@ router.get('/partner-management', [auth.isAuthentication, auth.isAdmin], userMan
 router.get('/about-us-management', [auth.isAuthentication, auth.isAdmin], aboutUsController().aboutUsManagement);
 router.put('/update-general-introduction/:id', [auth.isAuthentication, auth.isAdmin], aboutUsController().updateGeneralIntroduction);
 router.put('/update-development-journey/:id', [auth.isAuthentication, auth.isAdmin], aboutUsController().updateDevelopmentJourney);
-router.put('/update-purpose/:id', [auth.isAuthentication, auth.isAdmin], aboutUsController().updatePurpose);
-router.put('/update-mission-statement/:id', [auth.isAuthentication, auth.isAdmin], aboutUsController().updateMissionStatement);
+router.put('/update-mission-statement-and-purpose/:id', [auth.isAuthentication, auth.isAdmin], aboutUsController().updateMissionStatementAndPurpose);
 
 // client-side interface
 router.get('/client-side-interface-information', [auth.isAuthentication, auth.isAdmin], adminController().CSIInfoView);

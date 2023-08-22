@@ -86,9 +86,11 @@ function authController() {
         async refreshToken(req, res, next) {
             try {
                 const { refreshToken } = req.body;
+
                 if(!refreshToken) throw createError.BadRequest();
 
                 const { _id, name, role, email } = await verifyRefreshToken(refreshToken);
+
                 const accessTokenUser = await signAccessToken({ _id, name, role, email });
                 const refreshTokenUser = await signRefreshToken({ _id, name, role, email });
 

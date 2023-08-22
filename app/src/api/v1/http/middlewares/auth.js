@@ -24,7 +24,6 @@ const userModel = require('../../models/user');
 //     }
 // }
 
-
 const isAuthentication = (req, res, next) => { // verify accessToken from req.cookies (cookies-parser)
     try {
         // 1. Get token from client

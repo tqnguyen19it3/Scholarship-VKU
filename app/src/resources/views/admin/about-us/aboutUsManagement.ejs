@@ -33,7 +33,7 @@
                             <div class="col-md-7 col-sm-7 " style="border:0px solid #e5e5e5;">
                                 <h3 class="prod_title">General introduction of VKU cloning fund</h3>
                                 
-                                <p><%= aboutUs.introduction %></p>
+                                <p><%- aboutUs.introduction %></p>
     
                                 <button onclick="showEditGeneralIntroductionForm('<%= aboutUs._id %>')" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update General Introduction</button>
                             </div>
@@ -66,7 +66,7 @@
                             <div class="col-md-7 col-sm-7 " style="border:0px solid #e5e5e5;">
                                 <h3 class="prod_title">Development Journey</h3>
                                 
-                                <p><%= aboutUs.developmentJourney %></p>
+                                <p><%- aboutUs.developmentJourney %></p>
 
                                 <button onclick="showEditDevelopmentJourneyForm('<%= aboutUs._id %>')" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i>  Update Development Journey</button>
                             </div>
@@ -90,25 +90,22 @@
                         </div>
                         <div class="x_content">
                 
-                            <div class="col-md-6 col-sm-6 ">
-                                <div class="product-image">
-                                    <img src="/site/images/nn.jpg" alt="IMG" />
-                                </div>
+                            <div class="col-md-7 col-sm-7 " style="border:0px solid #e5e5e5;">
                                 <div class="product_gallery">
                                     <div class="">
                                         <div class="product_price">
-                                            <h3 style="font-weight: 400; color: #26B99A; margin: 0;">Purpose</h3>
-                                            <span class="price-tax"><%= aboutUs.purpose %></span>
+                                            <h3 style="font-weight: 400; color: #26B99A; margin: 0;">Mission Statement & Purpose</h3>
+                                            <span class="price-tax"><%- aboutUs.missionStatementAndPurpose %></span>
                                         </div>
                                     </div>
                                 </div>
-                                <button onclick="showEditPurposeForm('<%= aboutUs._id %>')" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update Purpose</button>
+                                <button onclick="showEditMissionStatementAndPurposeForm('<%= aboutUs._id %>')" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update Mission Statement And Purpose</button>
                             </div>
-                
-                            <div class="col-md-5 col-sm-5 " style="border:0px solid #e5e5e5;">
-                                <h3 class="prod_title">Mission Statement</h3>
-                                <p><%= aboutUs.missionStatement %></p>
-                                <button onclick="showEditMissionStatementForm('<%= aboutUs._id %>')" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Update Mission Statement</button>
+
+                            <div class="col-md-5 col-sm-5 ">
+                                <div class="product-image">
+                                    <img src="/site/images/nn.jpg" alt="IMG" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -124,30 +121,38 @@
     function showEditGeneralIntroductionForm(aboutUsId) {
         Swal.fire({
             title: 'Editing The General Introduction',
-            html: `<textarea id="generalIntroductionContentTextarea" class="form-control" rows="10" required="required"></textarea>`,
+            html: '<div id="generalIntroductionContentTextarea"></div>',
             showCancelButton: true,
             focusConfirm: false,
+            didOpen: () => {
+                CKEDITOR.replace('generalIntroductionContentTextarea');
+                document.querySelector('.swal2-modal').style.width = 'auto';
+            },
             preConfirm: async () => {
-            const content = document.getElementById('generalIntroductionContentTextarea').value;
+                const editorData = CKEDITOR.instances.generalIntroductionContentTextarea.getData();
 
-            if (!content) {
-                Swal.showValidationMessage('Please enter the general introduction content.');
-                return false; // Ngăn chặn gửi yêu cầu PUT khi nội dung rỗng
+                if (!editorData) {
+                    Swal.showValidationMessage('Please enter the content.');
+                    return false;
+                }
+
+                try {
+                    const response = await axios.put(`/api/admin/update-general-introduction/${aboutUsId}`, {
+                        generalIntroduction: editorData
+                    });
+
+                    return response.data;
+                } catch (error) {
+                    Swal.showValidationMessage(`Error: ${error}`);
+                }
+            },
+            willClose: () => {
+                CKEDITOR.instances.generalIntroductionContentTextarea.destroy();
             }
-
-            try {
-                const response = await axios.put(`/api/admin/update-general-introduction/${aboutUsId}`, {
-                    generalIntroduction: content
-                });
-
-                return response.data;
-            } catch (error) {
-                Swal.showValidationMessage(`Error: ${error}`);
-            }
-        }}).then(result => {
+        }).then(result => {
             if (result.isConfirmed) {
                 Swal.fire('Successfully', result.value.message, 'success').then(() => {
-                    location.reload(); // Reload lại trang
+                    location.reload();
                 });
             }
         });
@@ -157,96 +162,79 @@
     function showEditDevelopmentJourneyForm(aboutUsId) {
         Swal.fire({
             title: 'Editing The Development Journey',
-            html: `<textarea id="developmentJourneyContentTextarea" class="form-control" rows="10" required="required"></textarea>`,
+            html: '<div id="developmentJourneyContentTextarea" ></div>',
             showCancelButton: true,
             focusConfirm: false,
+            didOpen: () => {
+                CKEDITOR.replace('developmentJourneyContentTextarea');
+                document.querySelector('.swal2-modal').style.width = 'auto';
+            },
             preConfirm: async () => {
-            const content = document.getElementById('developmentJourneyContentTextarea').value;
+                const editorData = CKEDITOR.instances.developmentJourneyContentTextarea.getData();
 
-            if (!content) {
-                Swal.showValidationMessage('Please enter the development journey content.');
-                return false; // Ngăn chặn gửi yêu cầu PUT khi nội dung rỗng
+                if (!editorData) {
+                    Swal.showValidationMessage('Please enter the content.');
+                    return false;
+                }
+
+                try {
+                    const response = await axios.put(`/api/admin/update-development-journey/${aboutUsId}`, {
+                        developmentJourney: editorData
+                    });
+
+                    return response.data;
+                } catch (error) {
+                    Swal.showValidationMessage(`Error: ${error}`);
+                }
+            },
+            willClose: () => {
+                CKEDITOR.instances.developmentJourneyContentTextarea.destroy();
             }
-
-            try {
-                const response = await axios.put(`/api/admin/update-development-journey/${aboutUsId}`, {
-                    developmentJourney: content
-                });
-
-                return response.data;
-            } catch (error) {
-                Swal.showValidationMessage(`Error: ${error}`);
-            }
-        }}).then(result => {
+        }).then(result => {
             if (result.isConfirmed) {
                 Swal.fire('Successfully', result.value.message, 'success').then(() => {
-                    location.reload(); // Reload lại trang
+                    location.reload();
                 });
             }
         });
     }
 
-    // handle update purpose
-    function showEditPurposeForm(aboutUsId) {
+    // handle update Mission Statement And Purpose
+    function showEditMissionStatementAndPurposeForm(aboutUsId) {
         Swal.fire({
-            title: 'Editing The Purpose',
-            html: `<textarea id="purposeContentTextarea" class="form-control" rows="10" required="required"></textarea>`,
+            title: 'Editing The Mission Statement & Purpose',
+            html: '<div id="missionStatementAndPurposeContentTextarea" ></div>',
             showCancelButton: true,
             focusConfirm: false,
+            didOpen: () => {
+                CKEDITOR.replace('missionStatementAndPurposeContentTextarea');
+                document.querySelector('.swal2-modal').style.width = 'auto';
+            },
             preConfirm: async () => {
-            const content = document.getElementById('purposeContentTextarea').value;
+                const editorData = CKEDITOR.instances.missionStatementAndPurposeContentTextarea.getData();
 
-            if (!content) {
-                Swal.showValidationMessage('Please enter the purpose content.');
-                return false; // Ngăn chặn gửi yêu cầu PUT khi nội dung rỗng
+                if (!editorData) {
+                    Swal.showValidationMessage('Please enter the content.');
+                    return false;
+                }
+
+                try {
+                    const response = await axios.put(`/api/admin/update-mission-statement-and-purpose/${aboutUsId}`, {
+                        missionStatementAndPurpose: editorData
+                    });
+
+                    return response.data;
+                } catch (error) {
+                    Swal.showValidationMessage(`Error: ${error}`);
+                }
+            },
+            willClose: () => {
+                CKEDITOR.instances.missionStatementAndPurposeContentTextarea.destroy();
             }
-
-            try {
-                const response = await axios.put(`/api/admin/update-purpose/${aboutUsId}`, {
-                    purpose: content
-                });
-
-                return response.data;
-            } catch (error) {
-                Swal.showValidationMessage(`Error: ${error}`);
-            }
-        }}).then(result => {
+        }).then(result => {
             if (result.isConfirmed) {
                 Swal.fire('Successfully', result.value.message, 'success').then(() => {
-                    location.reload(); // Reload lại trang
-                });
-            }
-        });
-    }
-
-     // handle update Mission Statement
-     function showEditMissionStatementForm(aboutUsId) {
-        Swal.fire({
-            title: 'Editing the Mission Statement',
-            html: `<textarea id="missionStatementContentTextarea" class="form-control" rows="10" required="required"></textarea>`,
-            showCancelButton: true,
-            focusConfirm: false,
-            preConfirm: async () => {
-            const content = document.getElementById('missionStatementContentTextarea').value;
-
-            if (!content) {
-                Swal.showValidationMessage('Please enter the mission statement content.');
-                return false; // Ngăn chặn gửi yêu cầu PUT khi nội dung rỗng
-            }
-
-            try {
-                const response = await axios.put(`/api/admin/update-mission-statement/${aboutUsId}`, {
-                    missionStatement: content
-                });
-
-                return response.data;
-            } catch (error) {
-                Swal.showValidationMessage(`Error: ${error}`);
-            }
-        }}).then(result => {
-            if (result.isConfirmed) {
-                Swal.fire('Successfully', result.value.message, 'success').then(() => {
-                    location.reload(); // Reload lại trang
+                    location.reload();
                 });
             }
         });

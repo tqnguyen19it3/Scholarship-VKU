@@ -46,32 +46,16 @@ function aboutUsController() {
                 next(error);
             }
         },
-        // [PUT] / UPDATE PURPOSE
-        async updatePurpose(req, res, next) {    
+        // [PUT] / UPDATE MISSION STATEMENT & PURPOSE
+        async updateMissionStatementAndPurpose(req, res, next) {    
             try {
-                const updatedPurpose = await aboutUsModel.findByIdAndUpdate({ _id: req.params.id }, { purpose : req.body.purpose}, { new: true });
-                if (updatedPurpose) {
+                const updatedMissionStatementAndPurpose = await aboutUsModel.findByIdAndUpdate({ _id: req.params.id }, { missionStatementAndPurpose : req.body.missionStatementAndPurpose}, { new: true });
+                if (updatedMissionStatementAndPurpose) {
                     return res.status(200).json({
-                        message: "Updated purpose successful!", 
+                        message: "Updated mission statement & purpose successful!", 
                     });
                 } else {
-                    throw createError.NotFound(`Failed! No records found for purpose`);
-                }
-            } catch (error) {
-                next(error);
-            }
-        },
-
-        // [PUT] / UPDATE MISSION STATEMENT
-        async updateMissionStatement(req, res, next) {    
-            try {
-                const updatedMissionStatement = await aboutUsModel.findByIdAndUpdate({ _id: req.params.id }, { missionStatement : req.body.missionStatement}, { new: true });
-                if (updatedMissionStatement) {
-                    return res.status(200).json({
-                        message: "Updated mission statement successful!", 
-                    });
-                } else {
-                    throw createError.NotFound(`Failed! No records found for mission statement`);
+                    throw createError.NotFound(`Failed! No records found for mission statement & purpose`);
                 }
             } catch (error) {
                 next(error);
