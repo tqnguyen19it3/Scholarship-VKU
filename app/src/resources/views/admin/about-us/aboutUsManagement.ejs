@@ -125,7 +125,11 @@
             showCancelButton: true,
             focusConfirm: false,
             didOpen: () => {
-                CKEDITOR.replace('generalIntroductionContentTextarea');
+                CKEDITOR.replace('generalIntroductionContentTextarea',{
+                    extraPlugins: 'filebrowser',
+                    filebrowserUploadMethod : "form",
+                    filebrowserUploadUrl : "/api/admin/imgCKEditor-general-introduction-upload"
+                });
                 document.querySelector('.swal2-modal').style.width = 'auto';
             },
             preConfirm: async () => {
@@ -166,7 +170,11 @@
             showCancelButton: true,
             focusConfirm: false,
             didOpen: () => {
-                CKEDITOR.replace('developmentJourneyContentTextarea');
+                CKEDITOR.replace('developmentJourneyContentTextarea',{
+                    extraPlugins: 'filebrowser',
+                    filebrowserUploadMethod : "form",
+                    filebrowserUploadUrl : "/api/admin/imgCKEditor-development-journey-upload"
+                });
                 document.querySelector('.swal2-modal').style.width = 'auto';
             },
             preConfirm: async () => {
@@ -207,7 +215,11 @@
             showCancelButton: true,
             focusConfirm: false,
             didOpen: () => {
-                CKEDITOR.replace('missionStatementAndPurposeContentTextarea');
+                CKEDITOR.replace('missionStatementAndPurposeContentTextarea',{
+                    extraPlugins: 'filebrowser',
+                    filebrowserUploadMethod : "form",
+                    filebrowserUploadUrl : "/api/admin/imgCKEditor-mission-statement-and-purpose-upload"
+                });
                 document.querySelector('.swal2-modal').style.width = 'auto';
             },
             preConfirm: async () => {

@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const multipart = require('connect-multiparty');
 
 // ---------------- Controllers ----------------
 const adminController = require('../http/controllers/adminController');
@@ -12,6 +13,7 @@ const aboutUsController = require('../http/controllers/aboutUsController');
 //---------------- Middleware ----------------
 const auth = require('../../v1/http/middlewares/auth');
 const upload = require('../../v1/http/middlewares/upload');
+const multipartMiddleware = multipart();
 
 //---------------- Router ----------------
 router.get('/dashboard', [auth.isAuthentication, auth.isAdmin], adminController().index);
@@ -35,6 +37,7 @@ router.delete('/soft-delete-announcement/:id', [auth.isAuthentication, auth.isAd
 router.get('/trash-announcement', [auth.isAuthentication, auth.isAdmin], announcementController().trashAnnouncement);
 router.patch('/restore-announcement/:id', [auth.isAuthentication, auth.isAdmin], announcementController().restoreAnnouncement);
 router.delete('/destroy-announcement/:id', [auth.isAuthentication, auth.isAdmin], announcementController().destroyAnnouncement);
+router.post('/imgCKEditor-announcement-upload', [auth.isAuthentication, auth.isAdmin, multipartMiddleware], announcementController().imgCKEditorAnnouncement);
 
 // faq
 router.get('/add-faq', [auth.isAuthentication, auth.isAdmin], faqController().addFaq);
@@ -69,6 +72,9 @@ router.get('/about-us-management', [auth.isAuthentication, auth.isAdmin], aboutU
 router.put('/update-general-introduction/:id', [auth.isAuthentication, auth.isAdmin], aboutUsController().updateGeneralIntroduction);
 router.put('/update-development-journey/:id', [auth.isAuthentication, auth.isAdmin], aboutUsController().updateDevelopmentJourney);
 router.put('/update-mission-statement-and-purpose/:id', [auth.isAuthentication, auth.isAdmin], aboutUsController().updateMissionStatementAndPurpose);
+router.post('/imgCKEditor-general-introduction-upload', [auth.isAuthentication, auth.isAdmin, multipartMiddleware], aboutUsController().imgCKEditorGeneralIntroduction);
+router.post('/imgCKEditor-development-journey-upload', [auth.isAuthentication, auth.isAdmin, multipartMiddleware], aboutUsController().imgCKEditorDevelopmentJourney);
+router.post('/imgCKEditor-mission-statement-and-purpose-upload', [auth.isAuthentication, auth.isAdmin, multipartMiddleware], aboutUsController().imgCKEditorMissionStatementAndPurpose);
 
 // client-side interface
 router.get('/client-side-interface-information', [auth.isAuthentication, auth.isAdmin], adminController().CSIInfoView);

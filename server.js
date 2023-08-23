@@ -5,7 +5,6 @@ const cors = require('cors');
 const morgan = require('morgan');
 const ejs = require('ejs');
 const expressLayout = require('express-ejs-layouts');
-const flash = require('express-flash');
 const path = require('path');
 const methodOverride = require('method-override');
 const createError = require('http-errors');
@@ -20,7 +19,7 @@ const url = process.env.DB_CONNECTION_STRING;
 
 
 // use extension morgan
-app.use(morgan());
+// app.use(morgan());
 
 
 //connect database
@@ -33,10 +32,6 @@ app.use(cors());
 
 //cookies
 app.use(cookieParser());
-
-
-// flash notification
-// app.use(flash());
 
 
 //middleware get info from client by req.body

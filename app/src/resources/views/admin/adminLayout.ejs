@@ -412,22 +412,13 @@
       CKEDITOR.replace('editorAddAnnouncement',{
         extraPlugins: 'filebrowser',
         filebrowserUploadMethod : "form",
-        filebrowserUploadUrl : "./imgCKEditor-announcement-upload"
+        filebrowserUploadUrl : "/api/admin/imgCKEditor-announcement-upload"
       });
       CKEDITOR.replace('editorUpdateAnnouncement',{
         extraPlugins: 'filebrowser',
         filebrowserUploadMethod : "form",
-        filebrowserUploadUrl : "./imgCKEditor-announcement-upload"
+        filebrowserUploadUrl : "/api/admin/imgCKEditor-announcement-upload"
       });
     </script>
-
-    <!-- <script type="text/javascript">
-      setTimeout(() => {
-          const boxAlert = document.getElementById('boxAlert');
-          boxAlert.style.visibility = 'hidden';
-      }, 3000);
-    </script> -->
-
-	
   </body>
 </html>

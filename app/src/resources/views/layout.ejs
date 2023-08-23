@@ -415,27 +415,27 @@
             const accessToken = getCookieValue("accessToken");
             if(accessToken){
                 const payloadDecoded = jwt_decode(accessToken);
-                const currentTimestamp = Math.floor(Date.now() / 1000);
-                console.log(payloadDecoded.exp);
-                console.log(currentTimestamp);
+                // const currentTimestamp = Math.floor(Date.now() / 1000);
+                // console.log(payloadDecoded.exp);
+                // console.log(currentTimestamp);
                 
-                if(currentTimestamp > payloadDecoded.exp){
-                    const refreshToken = getCookieValue("refreshToken");
+                // if(currentTimestamp > payloadDecoded.exp){
+                //     const refreshToken = getCookieValue("refreshToken");
 
-                    if (refreshToken) {
-                        axios.post("/api/auth/refresh-token", {
-                                refreshToken: refreshToken,
-                            })
-                            .then((response) => {
-                                console.log(response);
-                            })
-                            .catch((error) => {
-                                console.log("Lỗi khi làm mới access token:", error);
-                            });
-                    } else {
-                        console.log("Không tìm thấy refresh token trong cookie");
-                    }
-                }
+                //     if (refreshToken) {
+                //         axios.post("/api/auth/refresh-token", {
+                //                 refreshToken: refreshToken,
+                //             })
+                //             .then((response) => {
+                //                 console.log(response);
+                //             })
+                //             .catch((error) => {
+                //                 console.log("Lỗi khi làm mới access token:", error);
+                //             });
+                //     } else {
+                //         console.log("Không tìm thấy refresh token trong cookie");
+                //     }
+                // }
                 if (payloadDecoded.role === 'admin') {
                     // Nếu đăng nhập với role admin, ẩn nút "Đăng nhập" và hiển thị nút "Hồ sơ admin"
                     for (let i = 0; i < loginButtons.length; i++) {

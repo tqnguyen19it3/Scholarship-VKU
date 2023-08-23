@@ -1,5 +1,7 @@
 const createError = require('http-errors');
 const moment = require('moment');
+const fs = require('fs');
+const path = require('path');
 
 //models
 const aboutUsModel = require('../../models/about_us');
@@ -59,6 +61,72 @@ function aboutUsController() {
                 }
             } catch (error) {
                 next(error);
+            }
+        },
+        // [POST] / UPLOAD IMG GENERAL INTRODUCTION
+        imgCKEditorGeneralIntroduction(req, res){
+            try {
+                fs.readFile(req.files.upload.path, function (err, data) {
+                    let newImgName = Date.now() + "_" + req.files.upload.name;
+                    var newPath = path.join(__dirname, '../../../../public/uploads/about-us/img_introduction_CKEditor/' + newImgName);
+                    fs.writeFile(newPath, data, function (err) {
+                        if (err) console.log({err: err});
+                        else {
+                            let fileName = newImgName;
+                            let url = '/uploads/about-us/img_introduction_CKEditor/' + fileName;                    
+                            let msg = 'Upload image successfully';
+                            let funcNum = req.query.CKEditorFuncNum;
+                           
+                            res.status(201).send("<script>window.parent.CKEDITOR.tools.callFunction('"+funcNum+"','"+url+"','"+msg+"');</script>");
+                        }
+                    });
+                });
+            } catch (error) {
+                next(error);;
+            }
+        },
+        // [POST] / UPLOAD IMG DEVELOPMENT JOURNEY
+        imgCKEditorDevelopmentJourney(req, res){
+            try {
+                fs.readFile(req.files.upload.path, function (err, data) {
+                    let newImgName = Date.now() + "_" + req.files.upload.name;
+                    var newPath = path.join(__dirname, '../../../../public/uploads/about-us/img_developmentJourney_CKEditor/' + newImgName);
+                    fs.writeFile(newPath, data, function (err) {
+                        if (err) console.log({err: err});
+                        else {
+                            let fileName = newImgName;
+                            let url = '/uploads/about-us/img_developmentJourney_CKEditor/' + fileName;                    
+                            let msg = 'Upload image successfully';
+                            let funcNum = req.query.CKEditorFuncNum;
+                           
+                            res.status(201).send("<script>window.parent.CKEDITOR.tools.callFunction('"+funcNum+"','"+url+"','"+msg+"');</script>");
+                        }
+                    });
+                });
+            } catch (error) {
+                next(error);;
+            }
+        },
+        // [POST] / UPLOAD IMG MISSION STATEMENT AND PURPOSE
+        imgCKEditorMissionStatementAndPurpose(req, res){
+            try {
+                fs.readFile(req.files.upload.path, function (err, data) {
+                    let newImgName = Date.now() + "_" + req.files.upload.name;
+                    var newPath = path.join(__dirname, '../../../../public/uploads/about-us/img_missionStatementAndPurpose_CKEditor/' + newImgName);
+                    fs.writeFile(newPath, data, function (err) {
+                        if (err) console.log({err: err});
+                        else {
+                            let fileName = newImgName;
+                            let url = '/uploads/about-us/img_missionStatementAndPurpose_CKEditor/' + fileName;                    
+                            let msg = 'Upload image successfully';
+                            let funcNum = req.query.CKEditorFuncNum;
+                           
+                            res.status(201).send("<script>window.parent.CKEDITOR.tools.callFunction('"+funcNum+"','"+url+"','"+msg+"');</script>");
+                        }
+                    });
+                });
+            } catch (error) {
+                next(error);;
             }
         },
     }

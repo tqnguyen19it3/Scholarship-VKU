@@ -157,7 +157,29 @@ function announcementController() {
             .catch(err => {
                 next(err);
             })
-        }
+        },
+        // [POST] / UPLOAD IMG ANNOUNCEMENT
+        imgCKEditorAnnouncement(req, res){
+            try {
+                fs.readFile(req.files.upload.path, function (err, data) {
+                    let newImgName = Date.now() + "_" + req.files.upload.name;
+                    var newPath = path.join(__dirname, '../../../../public/uploads/announcements/img_CKEditor/' + newImgName);
+                    fs.writeFile(newPath, data, function (err) {
+                        if (err) console.log({err: err});
+                        else {
+                            let fileName = newImgName;
+                            let url = '/uploads/announcements/img_CKEditor/' + fileName;                    
+                            let msg = 'Upload image successfully';
+                            let funcNum = req.query.CKEditorFuncNum;
+                           
+                            res.status(201).send("<script>window.parent.CKEDITOR.tools.callFunction('"+funcNum+"','"+url+"','"+msg+"');</script>");
+                        }
+                    });
+                });
+            } catch (error) {
+                next(error);;
+            }
+        },
         
     }
 }

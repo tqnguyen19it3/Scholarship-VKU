@@ -1,13 +1,12 @@
 redis-commander
 
 
-
-Đăng xuất (xử lý chỗ refreshToken) ------- done
 Lấy lại accessToken khi hết hạn
 Lấy lại mật khẩu khi quên ------- tạm ok
 Đổi mật khẩu mới ------- tạm ok
 Xử lý thêm chỗ handleError
-Thêm feedback contact client ----- done
 Xử lý feedback bên sv --- tạm ok
-announcement --- tạm ok (còn img upload ckeditor)
+announcement --- tạm ok
+ckeditor upload img --- tạm ok (chưa xử lý validate khi upload file ko phải file ảnh + xóa + quản lý các file đã uplaod để tái sử dụng)
+about-us --- chưa đưa nội dung cũ lên phần textarea khi update nội dung
 
