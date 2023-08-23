@@ -5,7 +5,7 @@
             <div class="col-md-12 col-sm-12 ">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Add Announcement Form</h2>
+                        <h2>Add Scholarship Form</h2>
                         <ul class="nav navbar-right panel_toolbox">
                             <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -23,43 +23,80 @@
                     </div>
                     <div class="x_content">
                         <br />
-                        <form action="/api/admin/save-announcement" id="add-announcement-form" method="POST" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+                        <form action="/api/admin/save-scholarship" id="add-scholarship-form" method="POST" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
                             <div class="item form-group">
-                                <!-- Announcement Name -->
+                                <!--Scholarship Name -->
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Name <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <input type="text" name="announcementName" required="required" class="form-control">
+                                    <input type="text" name="scholarshipName" required="required" class="form-control">
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 label-align">Image</label>
                                  <div class="col-md-6 col-sm-6 ">
-                                    <input type="file" accept="image/jpeg, image/jpg, image/png, image/gif" id="announcementImageFileInput" name="announcementImage" class="form-control" style="border: none;">
+                                    <input type="file" accept="image/jpeg, image/jpg, image/png, image/gif" id="scholarshipImageFileInput" name="scholarshipImage" class="form-control" style="border: none;">
                                     <img id="previewImage" src="#" alt="Preview" width="100" height="100" style="display: none;">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Amount <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="number" name="scholarshipAmount" class="form-control" min="1" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required="required">
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Start date <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="date" id="start_date" name="scholarshipStartDate" onchange="validateDates()" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">End date <span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <input type="date" id="end_date" name="scholarshipEndDate" onchange="validateDates()" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Provider</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6 ">
+                                    <select class="js-multiple-select form-control" multiple="multiple" name="scholarshipProvider">
+                                        <option value="Design">Design</option>
+                                        <option value="HTML5">HTML5</option>
+                                        <option value="CSS3">CSS3</option>
+                                        <option value="jQuery">jQuery</option>
+                                        <option value="BS4">BS4</option>
+                                        <option value="Bootstrap">Bootstrap</option>
+                                        <option value="WordPress">WordPress</option>
+                                        <option value="FrontEnd">FrontEnd</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Status</label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <div class="btn-group" data-toggle="buttons" style="margin-top: 7px;">
-                                        Show:&nbsp;<input type="radio" class="flat" name="announcementStatus" value="show" checked="" />  &emsp;
-                                        Hide:&nbsp;<input type="radio" class="flat" name="announcementStatus" value="hide" />
+                                        Show:&nbsp;<input type="radio" class="flat" name="scholarshipStatus" value="show" checked="" />  &emsp;
+                                        Hide:&nbsp;<input type="radio" class="flat" name="scholarshipStatus" value="hide" />
                                     </div>
                                 </div>
                             </div>
                             <div class="field item form-group">
-                                <!-- Announcement description -->
+                                <!-- Scholarship description -->
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Description <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
-                                    <textarea required="required" name="announcementDesc" class="form-control" rows="5"></textarea>
+                                    <textarea required="required" name="scholarshipDesc" class="form-control" rows="5"></textarea>
                                 </div>
                             </div>
                             <div class="item form-group">
                                 <label class="control-label col-md-3 col-sm-3 label-align">Content <span class="required">*</span>
                                 </label>
                                 <div class="col-md-9 col-sm-9 ">
-                                  <textarea class="form-control" rows="10" cols="6" id="editorAddAnnouncement" name="announcementContent" required="required" placeholder=""></textarea>
+                                  <textarea class="form-control" rows="10" cols="6" id="editorAddScholarship" name="scholarshipContent" required="required" placeholder=""></textarea>
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -79,7 +116,7 @@
 </div>
 
 <script type="text/javascript">
-    const fileInput = document.getElementById('announcementImageFileInput');
+    const fileInput = document.getElementById('scholarshipImageFileInput');
         fileInput.addEventListener('change', function(event) {
         // Lấy tệp tin đã chọn
         const file = event.target.files[0];
@@ -92,16 +129,17 @@
         }
     });
 
-    $('#add-announcement-form').submit(function() {
-        const editorContent = CKEDITOR.instances.editorAddAnnouncement.getData().trim();
+    $('#add-scholarship-form').submit(function() {
+        const editorContent = CKEDITOR.instances.editorAddScholarship.getData().trim();
         if (editorContent === '') {
             Swal.fire({
                 icon: 'error',
                 title: 'Failed',
-                text: 'Please enter your announcement content',
+                text: 'Please enter your scholarship content',
             });
             return false;
         }
     });
 </script>
+
 

@@ -26,14 +26,14 @@
                         <form action="/api/admin/update-announcement/<%= announcement._id %>?_method=PUT" method="POST" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" id="update-announcement-form">
                             <div class="item form-group">
                                 <!-- Announcement Name -->
-                                <label class="col-form-label col-md-3 col-sm-3 label-align">Announcement Name <span class="required">*</span>
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Name <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <input type="text" name="announcementName" required="required" class="form-control" value="<%= announcement.name %>">
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 label-align">Announcement Image </label>
+                                <label class="control-label col-md-3 col-sm-3 label-align">Image </label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <input type="file" name="announcementImage" accept="image/jpeg, image/jpg, image/png, image/gif" id="announcementImageFileInput" class="form-control" style="border: none;"><br>
                                     <% if(announcement.image){ %>
@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label class="col-form-label col-md-3 col-sm-3 label-align">Announcement Status</label>
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Status</label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <div class="btn-group" data-toggle="buttons" style="margin-top: 7px;">
                                         <% if(announcement.status === 'show') { %>
@@ -59,13 +59,13 @@
                             </div>
                             <div class="field item form-group">
                                 <!-- Announcement description -->
-                                <label class="col-form-label col-md-3 col-sm-3 label-align">Announcement Description <span class="required">*</span></label>
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Description <span class="required">*</span></label>
                                 <div class="col-md-6 col-sm-6">
                                     <textarea required="required" name="announcementDesc" class="form-control" rows="5"><%= announcement.description %></textarea>
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 label-align">Announcement Content <span class="required">*</span>
+                                <label class="control-label col-md-3 col-sm-3 label-align">Content <span class="required">*</span>
                                 </label>
                                 <div class="col-md-9 col-sm-9 ">
                                   <textarea required="required" class="form-control" rows="10" id="editorUpdateAnnouncement" name="announcementContent"><%= announcement.content %></textarea>

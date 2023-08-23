@@ -5,6 +5,7 @@ const multipart = require('connect-multiparty');
 // ---------------- Controllers ----------------
 const adminController = require('../http/controllers/adminController');
 const announcementController = require('../http/controllers/announcementController');
+const scholarshipController = require('../http/controllers/scholarshipController');
 const faqController = require('../http/controllers/faqController');
 const funFactController = require('../http/controllers/funFactController');
 const userManagementController = require('../http/controllers/userManagementController');
@@ -12,7 +13,7 @@ const aboutUsController = require('../http/controllers/aboutUsController');
 
 //---------------- Middleware ----------------
 const auth = require('../../v1/http/middlewares/auth');
-const upload = require('../../v1/http/middlewares/upload');
+const { announcementsUpload, scholarshipUpload } = require('../../v1/http/middlewares/upload');
 const multipartMiddleware = multipart();
 
 //---------------- Router ----------------
@@ -28,16 +29,29 @@ router.delete('/destroy-contact/:id', [auth.isAuthentication, auth.isAdmin], adm
 
 // announcement
 router.get('/add-announcement', [auth.isAuthentication, auth.isAdmin], announcementController().addAnnouncement);
-router.post('/save-announcement', [auth.isAuthentication, auth.isAdmin, upload.single('announcementImage')], announcementController().saveAnnouncement);
+router.post('/save-announcement', [auth.isAuthentication, auth.isAdmin, announcementsUpload.single('announcementImage')], announcementController().saveAnnouncement);
 router.get('/all-announcement', [auth.isAuthentication, auth.isAdmin], announcementController().allAnnouncement);
 router.patch('/update-state-announcement/:id', [auth.isAuthentication, auth.isAdmin], announcementController().updateStateAnnouncement);
 router.get('/edit-announcement/:id', [auth.isAuthentication, auth.isAdmin], announcementController().editAnnouncement);
-router.put('/update-announcement/:id', [auth.isAuthentication, auth.isAdmin, upload.single('announcementImage')], announcementController().updateAnnouncement);
+router.put('/update-announcement/:id', [auth.isAuthentication, auth.isAdmin, announcementsUpload.single('announcementImage')], announcementController().updateAnnouncement);
 router.delete('/soft-delete-announcement/:id', [auth.isAuthentication, auth.isAdmin], announcementController().softDelAnnouncement);
 router.get('/trash-announcement', [auth.isAuthentication, auth.isAdmin], announcementController().trashAnnouncement);
 router.patch('/restore-announcement/:id', [auth.isAuthentication, auth.isAdmin], announcementController().restoreAnnouncement);
 router.delete('/destroy-announcement/:id', [auth.isAuthentication, auth.isAdmin], announcementController().destroyAnnouncement);
 router.post('/imgCKEditor-announcement-upload', [auth.isAuthentication, auth.isAdmin, multipartMiddleware], announcementController().imgCKEditorAnnouncement);
+
+// scholarship
+router.get('/add-scholarship', [auth.isAuthentication, auth.isAdmin], scholarshipController().addScholarship);
+router.post('/save-scholarship', [auth.isAuthentication, auth.isAdmin, scholarshipUpload.single('scholarshipImage')], scholarshipController().saveScholarship);
+router.get('/all-scholarship', [auth.isAuthentication, auth.isAdmin], scholarshipController().allScholarship);
+router.patch('/update-state-scholarship/:id', [auth.isAuthentication, auth.isAdmin], scholarshipController().updateStateScholarship);
+router.get('/edit-scholarship/:id', [auth.isAuthentication, auth.isAdmin], scholarshipController().editScholarship);
+// router.put('/update-scholarship/:id', [auth.isAuthentication, auth.isAdmin, scholarshipUpload.single('scholarshipImage')], scholarshipController().updateScholarship);
+// router.delete('/soft-delete-scholarship/:id', [auth.isAuthentication, auth.isAdmin], scholarshipController().softDelScholarship);
+// router.get('/trash-scholarship', [auth.isAuthentication, auth.isAdmin], scholarshipController().trashScholarship);
+// router.patch('/restore-scholarship/:id', [auth.isAuthentication, auth.isAdmin], scholarshipController().restoreScholarship);
+// router.delete('/destroy-scholarship/:id', [auth.isAuthentication, auth.isAdmin], scholarshipController().destroyScholarship);
+// router.post('/imgCKEditor-scholarship-upload', [auth.isAuthentication, auth.isAdmin, multipartMiddleware], scholarshipController().imgCKEditorScholarship);
 
 // faq
 router.get('/add-faq', [auth.isAuthentication, auth.isAdmin], faqController().addFaq);

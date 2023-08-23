@@ -744,9 +744,10 @@
     //view more dữ liệu contact
     $(document).ready(function() {
 
-      let skip = <%= contactInfo.length %>; // Số lượng dữ liệu đã hiển thị ban đầu
-      let contact_count = <%= contactCount %>;
-
+      let skip = Number('<%= contactInfo.length %>'); // Số lượng dữ liệu đã hiển thị ban đầu
+      let contact_count = Number('<%= contactCount %>');
+      console.log("kkkk", skip);
+      console.log("hahha", contact_count);
       // Xử lý sự kiện khi nhấn nút "Load more"
       $('#viewMore').click(function() {
         // Gửi yêu cầu AJAX để tải thêm dữ liệu
