@@ -47,7 +47,7 @@ const isAdmin = async (req, res, next) => {
     try {
         const userID = req.payload._id;
         const user = await userModel.findById({ _id: userID });
-        if(user.role !== 'admin'){
+        if(user.role !== 'Admin'){
             return next(createError.Forbidden());
         }else{
             next();
@@ -57,7 +57,22 @@ const isAdmin = async (req, res, next) => {
     }
 }
 
+// const isFundManagementBoard = async (req, res, next) => {
+//     try {
+//         const userID = req.payload._id;
+//         const user = await userModel.findById({ _id: userID });
+//         if(user.role !== 'Fund Management Board'){
+//             return next(createError.Forbidden());
+//         }else{
+//             next();
+//         } 
+//     } catch (error) {
+//         return next(error);
+//     }
+// }
+
 module.exports = {
     isAuthentication,
-    isAdmin
+    isAdmin,
+    // isFundManagementBoard
 }

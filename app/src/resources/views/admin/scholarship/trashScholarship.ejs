@@ -1,7 +1,7 @@
 <div class="right_col" role="main">
   <div class="">
       <div class="page-title">
-          <div class="fa-hover col-md-3 col-sm-4"><a href="/api/admin/all-announcement" style="color: green;"><h5><i class="fa fa-reply"></i> Back</h5></a>
+          <div class="fa-hover col-md-3 col-sm-4"><a href="/api/admin/all-scholarship" style="color: green;"><h5><i class="fa fa-reply"></i> Back</h5></a>
           </div>
       </div>
       <div class="clearfix"></div>
@@ -9,7 +9,7 @@
           <div class="col-md-12 col-sm-12  ">
               <div class="x_panel">
                 <div class="x_title">
-                  <h2>Manage The Announcement In Trash</h2>
+                  <h2>Manage The Scholarship In Trash</h2>
                   <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -33,9 +33,13 @@
                           <th>
                             <input type="checkbox" id="check-all" class="flat">
                           </th>
+                          
                           <th class="column-title">Name</th>
                           <th class="column-title">Image</th>
-                          <th class="column-title">Description</th>
+                          <th class="column-title">Amount</th>
+                          <th class="column-title">Start date</th>
+                          <th class="column-title">End Date</th>
+                          <th class="column-title">Sponsor</th>
                           <th class="column-title no-link last"><span class="nobr">Action</span>
                           </th>
                           <th class="bulk-actions" colspan="7">
@@ -46,28 +50,31 @@
 
                       <tbody>
                         
-                      <% if(deletedAnnouncements.length > 0){
-                          deletedAnnouncements.forEach(function(delAnn) { %>
+                      <% if(deletedScholarships.length > 0){
+                          deletedScholarships.forEach(function(delScholarship) { %>
                             <tr class="even pointer">
                               <td class="a-center ">
                                 <input type="checkbox" class="flat" name="table_records">
                               </td>
                               <td>
-                                <%= delAnn.name %>
+                                <%= delScholarship.name %>
                                 <br />
-                                <small>Deleted at: <%= moment(delAnn.deletedAt).format('DD-MM-YYYY HH:mm A') %></small>
+                                <small>Deleted at: <%= moment(delScholarship.deletedAt).format('DD-MM-YYYY HH:mm A') %></small>
                               </td>
-                              <% if(delAnn.image){ %>
-                                <td><img class="h-40 mb-4 mx-auto" src="/uploads/announcements/<%= delAnn.image %>" width="70" height="70" alt="announcement image"></td>
+                              <% if(delScholarship.image){ %>
+                                <td><img class="h-40 mb-4 mx-auto" src="/uploads/scholarships/<%= delScholarship.image %>" width="70" height="70" alt="scholarship image"></td>
                                 <% } else { %>
-                                <td><img class="h-40 mb-4 mx-auto" src="/admin/img/announcement.png" width="70" height="70" alt="announcement image"></td>
+                                <td><img class="h-40 mb-4 mx-auto" src="/admin/img/scholarship.jpg" width="70" height="70" alt="scholarship image"></td>
                                 <% } %>
-                              <td class="truncate-desc"><%= delAnn.description %></td>
+                              <td><%= delScholarship.amount %></td>
+                              <td><%= moment(delScholarship.start_deadline).format('DD-MM-YYYY HH:mm A') %></td>
+                              <td><%= moment(delScholarship.end_deadline).format('DD-MM-YYYY HH:mm A') %></td>
+                              <td><%= delScholarship.provider %></td>
                               <td class=" last">
-                                <a href="#" class="btn btn-info btn-sm btn-restore-delAnn" onclick="confirmRestoreAnnouncement('<%= delAnn._id %>', event)">
+                                <a href="#" class="btn btn-info btn-sm btn-restore-delScholarship" onclick="confirmRestoreScholarship('<%= delScholarship._id %>', event)">
                                     <i class="fa fa-recycle"></i> <small>Restore</small>
                                 </a>
-                                <a href="#" class="btn btn-danger btn-sm btn-destroy-delAnn" onclick="confirmDestroyAnnouncement('<%= delAnn._id %>', event)">
+                                <a href="#" class="btn btn-danger btn-sm" onclick="confirmDestroyScholarship('<%= delScholarship._id %>', event)">
                                   <i class="fa fa-trash"></i> <small>Destroy</small>
                                 </a>
                               </td>
@@ -88,20 +95,9 @@
   </div>
 </div>
 <script>
-function truncateDescString() {
-  const tableCells = document.querySelectorAll('td.truncate-desc');
-  tableCells.forEach((cell) => {
-    const content = cell.textContent;
-  if (content.length > 50) {
-    const truncatedContent = content.substring(0, 50) + '...';
-    cell.textContent = truncatedContent;
-  }
-  });
-}
-truncateDescString();
 
-//   // khôi phục announcement
-function confirmRestoreAnnouncement(announcementId, event) {
+// khôi phục scholarship
+function confirmRestoreScholarship(scholarshipId, event) {
   event.preventDefault();
 
   Swal.fire({
@@ -114,7 +110,7 @@ function confirmRestoreAnnouncement(announcementId, event) {
   }).then((result) => {
     if (result.isConfirmed) {
       // Nếu người dùng xác nhận xóa
-      axios.patch(`/api/admin/restore-announcement/${announcementId}`)
+      axios.patch(`/api/admin/restore-scholarship/${scholarshipId}`)
         .then((response) => {
           // thành công
           if(response.status === 200){
@@ -133,8 +129,8 @@ function confirmRestoreAnnouncement(announcementId, event) {
   });
 }
 
-// xóa vĩnh viễn announcement
-function confirmDestroyAnnouncement(announcementId, event) {
+// xóa vĩnh viễn scholarship
+function confirmDestroyScholarship(scholarshipId, event) {
   event.preventDefault();
 
   Swal.fire({
@@ -147,7 +143,7 @@ function confirmDestroyAnnouncement(announcementId, event) {
   }).then((result) => {
     if (result.isConfirmed) {
       // Nếu người dùng xác nhận xóa
-      axios.delete(`/api/admin/destroy-announcement/${announcementId}`)
+      axios.delete(`/api/admin/destroy-scholarship/${scholarshipId}`)
         .then((response) => {
           // Xóa thành công
           if(response.status === 200){

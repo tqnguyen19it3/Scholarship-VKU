@@ -46,12 +46,12 @@ router.post('/save-scholarship', [auth.isAuthentication, auth.isAdmin, scholarsh
 router.get('/all-scholarship', [auth.isAuthentication, auth.isAdmin], scholarshipController().allScholarship);
 router.patch('/update-state-scholarship/:id', [auth.isAuthentication, auth.isAdmin], scholarshipController().updateStateScholarship);
 router.get('/edit-scholarship/:id', [auth.isAuthentication, auth.isAdmin], scholarshipController().editScholarship);
-// router.put('/update-scholarship/:id', [auth.isAuthentication, auth.isAdmin, scholarshipUpload.single('scholarshipImage')], scholarshipController().updateScholarship);
-// router.delete('/soft-delete-scholarship/:id', [auth.isAuthentication, auth.isAdmin], scholarshipController().softDelScholarship);
-// router.get('/trash-scholarship', [auth.isAuthentication, auth.isAdmin], scholarshipController().trashScholarship);
-// router.patch('/restore-scholarship/:id', [auth.isAuthentication, auth.isAdmin], scholarshipController().restoreScholarship);
-// router.delete('/destroy-scholarship/:id', [auth.isAuthentication, auth.isAdmin], scholarshipController().destroyScholarship);
-// router.post('/imgCKEditor-scholarship-upload', [auth.isAuthentication, auth.isAdmin, multipartMiddleware], scholarshipController().imgCKEditorScholarship);
+router.put('/update-scholarship/:id', [auth.isAuthentication, auth.isAdmin, scholarshipUpload.single('scholarshipImage')], scholarshipController().updateScholarship);
+router.delete('/soft-delete-scholarship/:id', [auth.isAuthentication, auth.isAdmin], scholarshipController().softDelScholarship);
+router.get('/trash-scholarship', [auth.isAuthentication, auth.isAdmin], scholarshipController().trashScholarship);
+router.patch('/restore-scholarship/:id', [auth.isAuthentication, auth.isAdmin], scholarshipController().restoreScholarship);
+router.delete('/destroy-scholarship/:id', [auth.isAuthentication, auth.isAdmin], scholarshipController().destroyScholarship);
+router.post('/imgCKEditor-scholarship-upload', [auth.isAuthentication, auth.isAdmin, multipartMiddleware], scholarshipController().imgCKEditorScholarship);
 
 // faq
 router.get('/add-faq', [auth.isAuthentication, auth.isAdmin], faqController().addFaq);
@@ -77,9 +77,11 @@ router.get('/trash-fun-fact', [auth.isAuthentication, auth.isAdmin], funFactCont
 router.patch('/restore-fun-fact/:id', [auth.isAuthentication, auth.isAdmin], funFactController().restoreFunFact);
 router.delete('/destroy-fun-fact/:id', [auth.isAuthentication, auth.isAdmin], funFactController().destroyFunFact);
 
-// management
+// user management
+router.get('/add-member', [auth.isAuthentication, auth.isAdmin], userManagementController().addMember);
+router.post('/save-member', [auth.isAuthentication, auth.isAdmin], userManagementController().saveMember);
 router.get('/fund-management', [auth.isAuthentication, auth.isAdmin], userManagementController().fundManagement);
-router.get('/partner-management', [auth.isAuthentication, auth.isAdmin], userManagementController().partnerManagement);
+router.get('/sponsor-management', [auth.isAuthentication, auth.isAdmin], userManagementController().sponsorManagement);
 
 // about us management
 router.get('/about-us-management', [auth.isAuthentication, auth.isAdmin], aboutUsController().aboutUsManagement);

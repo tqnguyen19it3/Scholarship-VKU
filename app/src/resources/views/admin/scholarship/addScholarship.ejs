@@ -65,14 +65,9 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <select class="js-multiple-select form-control" multiple="multiple" name="scholarshipProvider">
-                                        <option value="Design">Design</option>
-                                        <option value="HTML5">HTML5</option>
-                                        <option value="CSS3">CSS3</option>
-                                        <option value="jQuery">jQuery</option>
-                                        <option value="BS4">BS4</option>
-                                        <option value="Bootstrap">Bootstrap</option>
-                                        <option value="WordPress">WordPress</option>
-                                        <option value="FrontEnd">FrontEnd</option>
+                                        <% for (let i = 0; i < provider.length; i++) { %>
+                                            <option value="<%= provider[i] %>"><%= provider[i] %></option>
+                                        <% } %>
                                     </select>
                                 </div>
                             </div>

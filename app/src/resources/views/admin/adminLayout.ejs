@@ -57,7 +57,10 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="/api/admin/dashboard" class="site_title"><span>VKU</span></a>
+              <a href="/api/admin/dashboard" class="site_title">
+                <i class="fa fa-university"></i>
+                <span>VKU</span>
+              </a>
             </div>
 
             <div class="clearfix"></div>
@@ -117,13 +120,18 @@
                   </li>
                   <li><a><i class="fa fa-users"></i> User Management <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/api/admin/fund-management">Fund Management</a></li>
-                      <li><a href="/api/admin/partner-management">Partner Management</a></li>
+                      <li><a href="/api/admin/add-member">Add Member</a></li>
+                      <li><a>Manage Member<span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                          <li><a href="/api/admin/fund-management">Fund Management</a></li>
+                          <li><a href="/api/admin/sponsor-management">Sponsor Management</a></li>
+                        </ul>
+                      </li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-desktop"></i> Client-side Interface <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="/api/admin/client-side-interface-information">View Info</a></li>
+                      <li><a href="/api/admin/client-side-interface-information">Edit Basic Display Information</a></li>
                     </ul>
                   </li>
                   <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
@@ -456,7 +464,7 @@
           let endDate = endDateInput.value;
   
           if (startDate && endDate) {
-              if (startDate > endDate) {
+              if (startDate >= endDate) {
                   Swal.fire({
                       title: 'Invalid date',
                       icon: 'warning',

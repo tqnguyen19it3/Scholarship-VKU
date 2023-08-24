@@ -11,7 +11,7 @@ const userSchema = new Schema({
         unique: true,
         sparse: true
     },
-    role: { type: String, default: 'regular' }
+    role: { type: String, default: 'Regular' }
 }, { timestamps: true });
 
 //add plugins
