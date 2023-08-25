@@ -10,8 +10,8 @@ function announcementController() {
     return {
         // [GET] / ADD ANNOUNCEMENT PAGE
         async addAnnouncement(req, res, next) {
-            const adminInfo = req.payload;
-            return res.render('admin/announcement/addAnnouncement' , { layout: 'admin/adminLayout', adminInfo });
+            const userInfo = req.payload;
+            return res.render('admin/announcement/addAnnouncement' , { layout: 'admin/adminLayout', userInfo });
         },
         // [POST] / ADD ANNOUNCEMENT
         saveAnnouncement(req, res, next) {
@@ -35,10 +35,10 @@ function announcementController() {
         // [GET] / ALL ANNOUNCEMENT PAGE
         async allAnnouncement(req, res, next) {
             try {
-                const adminInfo = req.payload;
+                const userInfo = req.payload;
                 const announcementDeletedCount = await announcementModel.countDocumentsDeleted();
                 const announcements = await announcementModel.find().sort({ createdAt: -1 });
-                return res.render('admin/announcement/allAnnouncement' , { layout: 'admin/adminLayout', adminInfo, announcementDeletedCount, announcements, moment });
+                return res.render('admin/announcement/allAnnouncement' , { layout: 'admin/adminLayout', userInfo, announcementDeletedCount, announcements, moment });
             } catch (error) {
                 next(error);
             }
@@ -59,10 +59,10 @@ function announcementController() {
         },
          // [GET] / EDIT ANNOUNCEMENT PAGE
         editAnnouncement(req, res, next) {
-            const adminInfo = req.payload;
+            const userInfo = req.payload;
             announcementModel.findById(req.params.id)
                 .then(announcement => {
-                    res.render('admin/announcement/editAnnouncement', { layout: 'admin/adminLayout', adminInfo, announcement })
+                    res.render('admin/announcement/editAnnouncement', { layout: 'admin/adminLayout', userInfo, announcement })
                 })
                 .catch(err => {
                     next(err);
@@ -118,9 +118,9 @@ function announcementController() {
         // [GET] / TRASH ANNOUNCEMENT PAGE
         async trashAnnouncement(req, res, next) {
             try {
-                const adminInfo = req.payload;
+                const userInfo = req.payload;
                 const deletedAnnouncements = await announcementModel.findDeleted();
-                return res.render('admin/announcement/trashAnnouncement', { layout: 'admin/adminLayout', deletedAnnouncements, adminInfo, moment });
+                return res.render('admin/announcement/trashAnnouncement', { layout: 'admin/adminLayout', deletedAnnouncements, userInfo, moment });
             } catch (error) {
                 next(error);
             }

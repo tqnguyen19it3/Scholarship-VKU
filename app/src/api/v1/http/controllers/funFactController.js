@@ -8,8 +8,8 @@ function funFactController() {
     return {
         // [GET] / ADD FUN FACT PAGE
         async addFunFact(req, res, next) {
-            const adminInfo = req.payload;
-            return res.render('admin/fun-fact/addFunFact' , { layout: 'admin/adminLayout', adminInfo });
+            const userInfo = req.payload;
+            return res.render('admin/fun-fact/addFunFact' , { layout: 'admin/adminLayout', userInfo });
         },
         // [POST] / ADD FUN FACT
         saveFunFact(req, res, next) {
@@ -29,10 +29,10 @@ function funFactController() {
         // [GET] / ALL FUN FACT PAGE
         async allFunFact(req, res, next) {
             try {
-                const adminInfo = req.payload;
+                const userInfo = req.payload;
                 const funFactDeletedCount = await funFactModel.countDocumentsDeleted();
                 const funFacts = await funFactModel.find().sort({ createdAt: -1 });
-                return res.render('admin/fun-fact/allFunFact' , { layout: 'admin/adminLayout', adminInfo, funFactDeletedCount, funFacts, moment });
+                return res.render('admin/fun-fact/allFunFact' , { layout: 'admin/adminLayout', userInfo, funFactDeletedCount, funFacts, moment });
             } catch (error) {
                 next(error);
             }
@@ -53,10 +53,10 @@ function funFactController() {
         },
          // [GET] / EDIT FUN FACT PAGE
         editFunFact(req, res, next) {
-            const adminInfo = req.payload;
+            const userInfo = req.payload;
             funFactModel.findById(req.params.id)
                 .then(funFact => {
-                    res.render('admin/fun-fact/editFunFact', { layout: 'admin/adminLayout', adminInfo, funFact })
+                    res.render('admin/fun-fact/editFunFact', { layout: 'admin/adminLayout', userInfo, funFact })
                 })
                 .catch(err => {
                     next(err);
@@ -92,9 +92,9 @@ function funFactController() {
         // [GET] / TRASH FUN FACT PAGE
         async trashFunFact(req, res, next) {
             try {
-                const adminInfo = req.payload;
+                const userInfo = req.payload;
                 const deletedFunFacts = await funFactModel.findDeleted();
-                return res.render('admin/fun-fact/trashFunFact', { layout: 'admin/adminLayout', deletedFunFacts, adminInfo, moment });
+                return res.render('admin/fun-fact/trashFunFact', { layout: 'admin/adminLayout', deletedFunFacts, userInfo, moment });
             } catch (error) {
                 next(error);
             }

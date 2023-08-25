@@ -10,7 +10,7 @@ function scholarshipController() {
     return {
         // [GET] / ADD SCHOLARSHIP PAGE
         async addScholarship(req, res, next) {
-            const adminInfo = req.payload;
+            const userInfo = req.payload;
             const provider = [
                 "Design",
                 "HTML5",
@@ -21,7 +21,7 @@ function scholarshipController() {
                 "WordPress",
                 "FrontEnd"
             ];
-            return res.render('admin/scholarship/addScholarship' , { layout: 'admin/adminLayout', adminInfo, provider });
+            return res.render('admin/scholarship/addScholarship' , { layout: 'admin/adminLayout', userInfo, provider });
         },
         // [POST] / ADD SCHOLARSHIP
         saveScholarship(req, res, next) {
@@ -51,10 +51,10 @@ function scholarshipController() {
         // [GET] / ALL SCHOLARSHIP PAGE
         async allScholarship(req, res, next) {
             try {
-                const adminInfo = req.payload;
+                const userInfo = req.payload;
                 const scholarshipDeletedCount = await scholarshipModel.countDocumentsDeleted();
                 const scholarships = await scholarshipModel.find().sort({ createdAt: -1 });
-                return res.render('admin/scholarship/allScholarship' , { layout: 'admin/adminLayout', adminInfo, scholarshipDeletedCount, scholarships, moment });
+                return res.render('admin/scholarship/allScholarship' , { layout: 'admin/adminLayout', userInfo, scholarshipDeletedCount, scholarships, moment });
             } catch (error) {
                 next(error);
             }
@@ -75,7 +75,7 @@ function scholarshipController() {
         },
          // [GET] / EDIT SCHOLARSHIP PAGE
         editScholarship(req, res, next) {
-            const adminInfo = req.payload;
+            const userInfo = req.payload;
             scholarshipModel.findById(req.params.id)
                 .then(scholarship => {
                     const provider = [
@@ -88,7 +88,7 @@ function scholarshipController() {
                         "WordPress",
                         "FrontEnd"
                     ];
-                    res.render('admin/scholarship/editScholarship', { layout: 'admin/adminLayout', adminInfo, scholarship, provider })
+                    res.render('admin/scholarship/editScholarship', { layout: 'admin/adminLayout', userInfo, scholarship, provider })
                 })
                 .catch(err => {
                     next(err);
@@ -151,9 +151,9 @@ function scholarshipController() {
         // [GET] / TRASH SCHOLARSHIP PAGE
         async trashScholarship(req, res, next) {
             try {
-                const adminInfo = req.payload;
+                const userInfo = req.payload;
                 const deletedScholarships = await scholarshipModel.findDeleted();
-                return res.render('admin/scholarship/trashScholarship', { layout: 'admin/adminLayout', deletedScholarships, adminInfo, moment });
+                return res.render('admin/scholarship/trashScholarship', { layout: 'admin/adminLayout', deletedScholarships, userInfo, moment });
             } catch (error) {
                 next(error);
             }

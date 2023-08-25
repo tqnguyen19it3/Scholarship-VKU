@@ -72,7 +72,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2><%= adminInfo.name %></h2>
+                <h2><%= userInfo.name %></h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -83,108 +83,84 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>General</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/api/admin/dashboard">Dashboard</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-book"></i> About Us Management <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/api/admin/about-us-management">General Introduction</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> Announcement <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/api/admin/add-announcement">Add Announcement</a></li>
-                      <li><a href="/api/admin/all-announcement">Manage Announcement</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> Scholarship <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/api/admin/add-scholarship">Add Scholarship</a></li>
-                      <li><a href="/api/admin/all-scholarship">Manage Scholarship</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> FAQ <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/api/admin/add-faq">Add FAQ</a></li>
-                      <li><a href="/api/admin/all-faq">Manage FAQ</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-edit"></i> Fun Fact <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/api/admin/add-fun-fact">Add Fun Fact</a></li>
-                      <li><a href="/api/admin/all-fun-fact">Manage Fun Fact</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-users"></i> User Management <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/api/admin/add-member">Add Member</a></li>
-                      <li><a>Manage Member<span class="fa fa-chevron-down"></span></a>
-                        <ul class="nav child_menu">
-                          <li><a href="/api/admin/fund-management">Fund Management</a></li>
-                          <li><a href="/api/admin/sponsor-management">Sponsor Management</a></li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-desktop"></i> Client-side Interface <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="/api/admin/client-side-interface-information">Edit Basic Display Information</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="tables.html">Tables</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="chartjs.html">Chart JS</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-              <div class="menu_section">
-                <h3>Live On</h3>
-                <ul class="nav side-menu">
-                  <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="e_commerce.html">E-commerce</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="page_403.html">403 Error</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-sitemap"></i> Multilevel Menu <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                        <li><a href="#level1_1">Level One</a>
-                        <li><a>Level One<span class="fa fa-chevron-down"></span></a>
+                <% if(userInfo.role == 'Admin'){ %>
+                  <ul class="nav side-menu">
+                    <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="/api/admin/dashboard">Dashboard</a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="fa fa-book"></i> About Us Management <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="/api/admin/about-us-management">General Introduction</a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="fa fa-edit"></i> Announcement <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="/api/admin/add-announcement">Add Announcement</a></li>
+                        <li><a href="/api/admin/all-announcement">Manage Announcement</a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="fa fa-edit"></i> Scholarship <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="/api/admin/add-scholarship">Add Scholarship</a></li>
+                        <li><a href="/api/admin/all-scholarship">Manage Scholarship</a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="fa fa-edit"></i> FAQ <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="/api/admin/add-faq">Add FAQ</a></li>
+                        <li><a href="/api/admin/all-faq">Manage FAQ</a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="fa fa-edit"></i> Fun Fact <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="/api/admin/add-fun-fact">Add Fun Fact</a></li>
+                        <li><a href="/api/admin/all-fun-fact">Manage Fun Fact</a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="fa fa-users"></i> User Management <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="/api/admin/add-member">Add Member</a></li>
+                        <li><a>Manage Member<span class="fa fa-chevron-down"></span></a>
                           <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="level2.html">Level Two</a>
-                            </li>
-                            <li><a href="#level2_1">Level Two</a>
-                            </li>
-                            <li><a href="#level2_2">Level Two</a>
-                            </li>
+                            <li><a href="/api/admin/fund-management-board">Fund Management Board</a></li>
+                            <li><a href="/api/admin/sponsorship-management">Sponsorship Management</a></li>
                           </ul>
                         </li>
-                        <li><a href="#level1_2">Level One</a>
-                        </li>
-                    </ul>
-                  </li>                  
-                  <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page</a></li>
-                </ul>
+                      </ul>
+                    </li>
+                    <li><a><i class="fa fa-desktop"></i> Client-side Interface <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="/api/admin/client-side-interface-information">Edit Basic Display Information</a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="tables.html">Tables</a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="chartjs.html">Chart JS</a></li>
+                      </ul>
+                    </li>
+                    <li><a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                <% } else { %>
+                  <ul class="nav side-menu">
+                    <li><a><i class="fa fa-home"></i> Profile <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="/api/admin/user-profile/<%= userInfo._id %>">View Profile</a></li>
+                      </ul>
+                    </li>
+                  </ul>
+                <% } %>
               </div>
-
             </div>
             <!-- /sidebar menu -->
 
@@ -219,13 +195,20 @@
               <ul class=" navbar-right">
                 <li class="nav-item dropdown open" style="padding-left: 15px;">
                   <a href="" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
-                    <img src="/admin/production/images/user.png" alt=""><%= adminInfo.name %>
+                    <img src="/admin/production/images/user.png" alt=""><%= userInfo.name %>
                   </a>
                   <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item"  href="/api/admin/admin-profile/<%= adminInfo._id %>">
-                       <span class="badge bg-red pull-right"><%= adminInfo.role %></span>
-                        <span>Profile</span>
-                    </a>
+                    <% if(userInfo.role == 'Admin'){ %>
+                      <a class="dropdown-item"  href="/api/admin/admin-profile/<%= userInfo._id %>">
+                        <span class="badge bg-red pull-right"><%= userInfo.role %></span>
+                          <span>Profile</span>
+                      </a>
+                    <% } else { %>
+                      <a class="dropdown-item"  href="/api/admin/user-profile/<%= userInfo._id %>">
+                        <span class="badge bg-red pull-right"><%= userInfo.role %></span>
+                          <span>Profile</span>
+                      </a>
+                    <% } %>
                   <form id="logoutMenu" method="POST" action="/api/auth/logout?_method=DELETE">
                     <a data-toggle="tooltip" data-placement="top" class="dropdown-item" title="Logout" onclick="document.getElementById('logoutMenu').submit()" href="#">
                       <i class="fa fa-sign-out pull-right"></i> Log Out

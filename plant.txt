@@ -8,8 +8,8 @@ Xử lý thêm chỗ handleError
 Xử lý feedback bên sv --- tạm ok
 announcement --- tạm ok
 ckeditor upload img --- tạm ok (chưa xử lý validate khi upload file ko phải file ảnh + xóa + quản lý các file đã uplaod để tái sử dụng)
-about-us --- chưa đưa nội dung cũ lên phần textarea khi update nội dung
 
 scholarship --- tạm ok (còn xử lý chỗ provider từ db load ra thay vì mảng cố định cho trước)
-add member --- tạm ok (còn quản lý + chỉnh sửa hồ sơ người dùng)
+xóa mềm + destroy member --- ok
+còn quản lý + chỉnh sửa hồ sơ người dùng
 xử lý phân quyền cho fund management board 

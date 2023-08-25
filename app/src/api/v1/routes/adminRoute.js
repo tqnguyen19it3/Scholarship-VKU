@@ -80,8 +80,15 @@ router.delete('/destroy-fun-fact/:id', [auth.isAuthentication, auth.isAdmin], fu
 // user management
 router.get('/add-member', [auth.isAuthentication, auth.isAdmin], userManagementController().addMember);
 router.post('/save-member', [auth.isAuthentication, auth.isAdmin], userManagementController().saveMember);
-router.get('/fund-management', [auth.isAuthentication, auth.isAdmin], userManagementController().fundManagement);
-router.get('/sponsor-management', [auth.isAuthentication, auth.isAdmin], userManagementController().sponsorManagement);
+router.delete('/soft-delete-member/:id', [auth.isAuthentication, auth.isAdmin], userManagementController().softDelMember);
+router.patch('/restore-member/:id', [auth.isAuthentication, auth.isAdmin], userManagementController().restoreMember);
+router.delete('/destroy-member/:id', [auth.isAuthentication, auth.isAdmin], userManagementController().destroyMember);
+    // fund
+router.get('/fund-management-board', [auth.isAuthentication, auth.isAdmin], userManagementController().fundManagementBoard);
+router.get('/trash-fund-management-board', [auth.isAuthentication, auth.isAdmin], userManagementController().trashFundManagementBoard);
+    // sponsor
+router.get('/sponsorship-management', [auth.isAuthentication, auth.isAdmin], userManagementController().sponsorshipManagement);
+router.get('/trash-sponsorship-management', [auth.isAuthentication, auth.isAdmin], userManagementController().trashSponsorshipManagement);
 
 // about us management
 router.get('/about-us-management', [auth.isAuthentication, auth.isAdmin], aboutUsController().aboutUsManagement);

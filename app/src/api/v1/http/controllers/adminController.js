@@ -10,11 +10,11 @@ function adminController() {
         // [GET] / ADMIN DASHBOARD
         async index(req, res, next) {
             try {
-                const adminInfo = req.payload;
+                const userInfo = req.payload;
                 const contactInfo = await contactModel.find().sort({ createdAt: -1 }).limit(2);
                 const contactCount = await contactModel.count();
                 const deletedContactCount = await contactModel.countDocumentsDeleted();
-                res.render('admin/dashboard/adminHome' , { layout: 'admin/adminLayout', adminInfo, contactInfo, contactCount, deletedContactCount, moment });
+                res.render('admin/dashboard/adminHome' , { layout: 'admin/adminLayout', userInfo, contactInfo, contactCount, deletedContactCount, moment });
             } catch (error) {
                 next(error);
             }
@@ -23,12 +23,8 @@ function adminController() {
         // [GET] / ADMIN PROFILE
         async adminProfile(req, res, next) {
             try{
-                const adminInfo = req.payload;
-                // const contactInfo = await contactModel.find().sort({ createdAt: -1 }).limit(2);
-                // const contactCount = await contactModel.count();
-                // const deletedContactCount = await contactModel.countDocumentsDeleted();
-                // return res.render('admin/dashboard/adminProfile' , { layout: 'admin/adminLayout', adminInfo, contactInfo, contactCount, deletedContactCount, moment });
-                return res.render('admin/dashboard/adminProfile' , { layout: 'admin/adminLayout', adminInfo });
+                const userInfo = req.payload;
+                return res.render('admin/dashboard/adminProfile' , { layout: 'admin/adminLayout', userInfo });
             } catch (error) {
                 next(error);
             }
@@ -60,9 +56,9 @@ function adminController() {
         // [GET] / TRASH CONTACT PAGE
         async trashContact(req, res, next) {
             try {
-                const adminInfo = req.payload;
+                const userInfo = req.payload;
                 const deletedContacts = await contactModel.findDeleted();
-                return res.render('admin/contact/trashContact', { layout: 'admin/adminLayout', deletedContacts, adminInfo, moment });
+                return res.render('admin/contact/trashContact', { layout: 'admin/adminLayout', deletedContacts, userInfo, moment });
             } catch (error) {
                 next(error);
             }
@@ -94,9 +90,9 @@ function adminController() {
         // [GET] / CSIInfo View
         async CSIInfoView(req, res, next) {
             try {
-                const adminInfo = req.payload;
+                const userInfo = req.payload;
                 const CSIInfo = await CSI_infoModel.findOne();
-                res.render('admin/client-side/interfaceInfo' , { layout: 'admin/adminLayout', adminInfo, CSIInfo });
+                res.render('admin/client-side/interfaceInfo' , { layout: 'admin/adminLayout', userInfo, CSIInfo });
             } catch (error) {
                 next(error);
             }

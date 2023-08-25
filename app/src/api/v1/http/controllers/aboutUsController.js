@@ -11,9 +11,9 @@ function aboutUsController() {
         // [GET] / ABOUT US MANAGEMENT PAGE
         async aboutUsManagement(req, res, next) {
             try {
-                const adminInfo = req.payload;
+                const userInfo = req.payload;
                 const aboutUs = await aboutUsModel.findOne();
-                res.render('admin/about-us/aboutUsManagement' , { layout: 'admin/adminLayout', adminInfo, aboutUs });
+                res.render('admin/about-us/aboutUsManagement' , { layout: 'admin/adminLayout', userInfo, aboutUs });
             } catch (error) {
                 next(error);
             }

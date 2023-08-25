@@ -8,8 +8,8 @@ function faqController() {
     return {
         // [GET] / ADD FAQ PAGE
         async addFaq(req, res, next) {
-            const adminInfo = req.payload;
-            return res.render('admin/faq/addFaq' , { layout: 'admin/adminLayout', adminInfo });
+            const userInfo = req.payload;
+            return res.render('admin/faq/addFaq' , { layout: 'admin/adminLayout', userInfo });
         },
         // [POST] / ADD FAQ
         saveFaq(req, res, next) {
@@ -29,10 +29,10 @@ function faqController() {
         // [GET] / ALL FAQ PAGE
         async allFaq(req, res, next) {
             try {
-                const adminInfo = req.payload;
+                const userInfo = req.payload;
                 const faqDeletedCount = await faqModel.countDocumentsDeleted();
                 const faqs = await faqModel.find().sort({ createdAt: -1 });
-                return res.render('admin/faq/allFaq' , { layout: 'admin/adminLayout', adminInfo, faqDeletedCount, faqs, moment });
+                return res.render('admin/faq/allFaq' , { layout: 'admin/adminLayout', userInfo, faqDeletedCount, faqs, moment });
             } catch (error) {
                 next(error);
             }
@@ -53,10 +53,10 @@ function faqController() {
         },
          // [GET] / EDIT FAQ PAGE
         editFaq(req, res, next) {
-            const adminInfo = req.payload;
+            const userInfo = req.payload;
             faqModel.findById(req.params.id)
                 .then(faq => {
-                    res.render('admin/faq/editFaq', { layout: 'admin/adminLayout', adminInfo, faq })
+                    res.render('admin/faq/editFaq', { layout: 'admin/adminLayout', userInfo, faq })
                 })
                 .catch(err => {
                     next(err);
@@ -92,9 +92,9 @@ function faqController() {
         // [GET] / TRASH FAQ PAGE
         async trashFaq(req, res, next) {
             try {
-                const adminInfo = req.payload;
+                const userInfo = req.payload;
                 const deletedFaqs = await faqModel.findDeleted();
-                return res.render('admin/faq/trashFaq', { layout: 'admin/adminLayout', deletedFaqs, adminInfo, moment });
+                return res.render('admin/faq/trashFaq', { layout: 'admin/adminLayout', deletedFaqs, userInfo, moment });
             } catch (error) {
                 next(error);
             }

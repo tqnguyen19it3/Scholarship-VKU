@@ -95,7 +95,7 @@
                                     <div class="">
                                         <div class="product_price">
                                             <h3 style="font-weight: 400; color: #26B99A; margin: 0;">Mission Statement & Purpose</h3>
-                                            <span class="price-tax"><%- aboutUs.missionStatementAndPurpose %></span>
+                                            <span class="price-tax" id="missionStatementAndPurposeContent"><%- aboutUs.missionStatementAndPurpose %></span>
                                         </div>
                                     </div>
                                 </div>
@@ -116,9 +116,9 @@
 </div>
 
 <script>
-
     // handle update General introduction
     function showEditGeneralIntroductionForm(aboutUsId) {
+        const oldContent = `<%- aboutUs.introduction %>`;
         Swal.fire({
             title: 'Editing The General Introduction',
             html: '<div id="generalIntroductionContentTextarea"></div>',
@@ -130,6 +130,10 @@
                     filebrowserUploadMethod : "form",
                     filebrowserUploadUrl : "/api/admin/imgCKEditor-general-introduction-upload"
                 });
+
+                // Đặt nội dung cũ vào CKEditor
+                CKEDITOR.instances.generalIntroductionContentTextarea.setData(oldContent);
+
                 document.querySelector('.swal2-modal').style.width = 'auto';
             },
             preConfirm: async () => {
@@ -164,6 +168,7 @@
 
     // handle update Development Journey
     function showEditDevelopmentJourneyForm(aboutUsId) {
+        const oldContent = `<%- aboutUs.developmentJourney %>`;
         Swal.fire({
             title: 'Editing The Development Journey',
             html: '<div id="developmentJourneyContentTextarea" ></div>',
@@ -175,6 +180,10 @@
                     filebrowserUploadMethod : "form",
                     filebrowserUploadUrl : "/api/admin/imgCKEditor-development-journey-upload"
                 });
+
+                // Đặt nội dung cũ vào CKEditor
+                CKEDITOR.instances.developmentJourneyContentTextarea.setData(oldContent);
+
                 document.querySelector('.swal2-modal').style.width = 'auto';
             },
             preConfirm: async () => {
@@ -209,6 +218,8 @@
 
     // handle update Mission Statement And Purpose
     function showEditMissionStatementAndPurposeForm(aboutUsId) {
+        const oldContent = `<%- aboutUs.missionStatementAndPurpose %>`;
+        // Lấy nội dung cũ từ một nguồn dữ liệu, ví dụ: từ server
         Swal.fire({
             title: 'Editing The Mission Statement & Purpose',
             html: '<div id="missionStatementAndPurposeContentTextarea" ></div>',
@@ -220,6 +231,10 @@
                     filebrowserUploadMethod : "form",
                     filebrowserUploadUrl : "/api/admin/imgCKEditor-mission-statement-and-purpose-upload"
                 });
+
+                // Đặt nội dung cũ vào CKEditor
+                CKEDITOR.instances.missionStatementAndPurposeContentTextarea.setData(oldContent);
+
                 document.querySelector('.swal2-modal').style.width = 'auto';
             },
             preConfirm: async () => {

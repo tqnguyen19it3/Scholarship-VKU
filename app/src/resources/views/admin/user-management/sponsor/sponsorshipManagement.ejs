@@ -1,0 +1,110 @@
+<div class="right_col" role="main">
+  <div class="page-title">
+    <div class="title_left">
+      <h3>Sponsorship Management</h3>
+    </div>
+    <div style="float: right; display: block;">
+      <a href="/api/admin/trash-sponsorship-management" style="color: red;">
+        <h3><i class="fa fa-trash"></i> Trash (<%= sponsorshipManagementDeletedCount %>)</h3>
+      </a>
+    </div>
+  </div>
+
+  <div class="clearfix"></div>
+
+  <div class="row">
+      <div class="x_panel">
+        <div class="x_content">
+          <div class="col-md-12 col-sm-12  text-center"></div>
+            <div class="clearfix"></div>
+            <% if(sponsorshipManagement.length > 0){ 
+              sponsorshipManagement.forEach(function(SM) { %>
+              <div class="col-md-4 col-sm-4  profile_details">
+                <div class="well profile_view">
+                  <div class="col-sm-12">
+                    <h4 class="brief"><i><%= SM.role %></i></h4>
+                    <div class="left col-md-7 col-sm-7">
+                      <h2><%= SM.name %></h2>
+                      <p><strong>About: </strong> Web Designer / UX / Graphic Artist / Coffee Lover </p>
+                      <ul class="list-unstyled">
+                        <li><i class="fa fa-building"></i> Address: </li>
+                        <li><i class="fa fa-email"></i> Email: <%= SM.email %></li>
+                        <li><i class="fa fa-phone"></i> Phone: </li>
+                      </ul>
+                    </div>
+                    <div class="right col-md-5 col-sm-5 text-center">
+                      <img src="/admin/production/images/user.png" alt="" class="img-circle img-fluid">
+                    </div>
+                  </div>
+                  <div class=" profile-bottom text-center">
+                    <div class=" col-sm-6 emphasis">
+                      <p class="ratings">
+                        <a>4.0</a>
+                        <a href="#"><span class="fa fa-star"></span></a>
+                        <a href="#"><span class="fa fa-star"></span></a>
+                        <a href="#"><span class="fa fa-star"></span></a>
+                        <a href="#"><span class="fa fa-star"></span></a>
+                        <a href="#"><span class="fa fa-star-o"></span></a>
+                      </p>
+                    </div>
+                    <div class=" col-sm-6 emphasis">
+                      <button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
+                        </i> <i class="fa fa-comments-o"></i> </button>
+                      <a href="#" class="btn btn-danger btn-sm"  onclick="confirmSoftDelSponsor('<%= SM._id %>', event)">
+                        <i class="fa fa-trash"></i> <small>Trash</small>
+                      </a>
+                      <button type="button" class="btn btn-primary btn-sm">
+                        <i class="fa fa-user"> </i> View Profile
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <% })
+              } else { %>
+              <div class="alert alert-warning alert-dismissible " role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span>
+                </button>
+                No sponsors found in the system
+              </div>
+            <% } %>
+        </div>
+      </div>
+  </div>
+</div>
+
+<script>
+  // xóa mềm sponsor
+  function confirmSoftDelSponsor(sponsorId, event) {
+      event.preventDefault();// Ngăn chặn hành vi mặc định của thẻ <a>
+
+      Swal.fire({
+        title: 'Move to trash',
+        text: 'Do you want to move this user to the trash?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Move',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Nếu người dùng xác nhận xóa
+          axios.delete(`/api/admin/soft-delete-member/${sponsorId}`)
+            .then((response) => {
+              // Xóa thành công
+              if(response.status === 200){
+                Swal.fire('Successfully', response.data.message, 'success')
+                  .then(() => {
+                  location.reload(); // Reload lại trang
+                });
+              } else {
+                Swal.fire('Failed', 'Something went wrong!', 'error');
+              }
+            })
+            .catch((error) => {
+              // Xử lý lỗi khi xóa không thành công
+              Swal.fire('Failed', 'Something went wrong!', 'error');
+            });
+        }
+      });
+    }
+</script>

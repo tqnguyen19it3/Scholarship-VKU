@@ -56,7 +56,7 @@ function authController() {
                 //check user exits
                 const user = await userModel.findOne({ email });
                 if(!user){
-                    throw createError.NotFound(`Login Failed! ${email} not registered`);
+                    throw createError.NotFound(`Login Failed! ${email} not registered or the account has been deleted`);
                 }
                 //check password
                 const isPassValid = bcrypt.compareSync(password, user.password);
