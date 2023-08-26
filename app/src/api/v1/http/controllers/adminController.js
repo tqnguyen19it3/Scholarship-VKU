@@ -3,6 +3,7 @@ const moment = require('moment');
 
 //models
 const contactModel = require('../../models/contact');
+const userModel = require('../../models/user');
 const CSI_infoModel = require('../../models/CSI_info');
 
 function adminController() {
@@ -23,8 +24,19 @@ function adminController() {
         // [GET] / ADMIN PROFILE
         async adminProfile(req, res, next) {
             try{
-                const userInfo = req.payload;
+                const userId = req.params.id;
+                const userInfo = await userModel.findById(userId);
+
+                if (!userInfo) {
+                    throw createError.NotFound(`Failed! This user profile could not be found`);
+                }
+
+                if(userInfo._id.toString() !== req.payload._id){
+                    throw createError.Forbidden(`Failed! You are not authorized to access this user profile`);
+                }
+
                 return res.render('admin/dashboard/adminProfile' , { layout: 'admin/adminLayout', userInfo });
+
             } catch (error) {
                 next(error);
             }

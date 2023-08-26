@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+
+    <title>Hồ sơ người dùng</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"rel="stylesheet"/>
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" href="/member/css/style.css">
+	<link rel="icon" href="/favicon.ico" type="image/ico" />
+
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+  </head>
+  <body>
+	<nav class="navbar navbar-inverse" style="border-radius: 0%;">
+		<div class="container-fluid">
+		  <div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+			  <span class="icon-bar"></span>
+			  <span class="icon-bar"></span>
+			  <span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand d-flex align-items-center" href="/">
+				<span class="navbar-brand-text">
+					Đại học
+					<small>CNTT & TT Việt - Hàn</small>
+				</span>
+			</a>
+		  </div>
+		  <div class="collapse navbar-collapse" id="myNavbar">
+			<ul class="nav navbar-nav">
+			  <li class="active"><a href="#">Hồ sơ</a></li>
+			  <li><a href="#">Page</a></li>
+			</ul>
+			<ul class="nav navbar-nav navbar-right">
+			  	<li>
+					<form method="POST" action="/api/auth/logout?_method=DELETE">
+						<button type="submit" class="btn btn-danger" style="margin-top: 8px;"><span class="glyphicon glyphicon-log-in"></span> Đăng xuất</button>
+					</form>
+				</li>
+			</ul>
+		  </div>
+		</div>
+	  </nav>
+
+       <!-- page content -->
+       <%- body %>
+       <!-- /page content -->
+
+	<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	<script>
+		// lấy giá trị thông báo và gán vào biến tương ứng
+		let memberSuccessMessage = document.cookie
+			 .split("; ")
+			 .find((row) => row.startsWith("memberSuccessMessage="))
+			 ?.split("=")[1];
+		let memberErrorMessage  = document.cookie
+			 .split("; ")
+			 .find((row) => row.startsWith("memberErrorMessage="))
+			 ?.split("=")[1];
+		 // Xóa cookies sau khi đã lấy giá trị
+		document.cookie = 'memberSuccessMessage=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+		document.cookie = 'memberErrorMessage=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+   
+		let decodedMemberSuccessMessage = decodeURIComponent(memberSuccessMessage);
+		let decodedMemberErrorMessage = decodeURIComponent(memberErrorMessage);
+		 // Hiển thị thông báo thành công
+		if (memberSuccessMessage) {
+			Swal.fire('Successfully!', decodedMemberSuccessMessage, 'success');
+		 }
+		// Hiển thị thông báo thất bại
+		if (memberErrorMessage) {
+			Swal.fire('Failed!', decodedMemberErrorMessage, 'error');
+		}
+	</script>
+  </body>
+</html>

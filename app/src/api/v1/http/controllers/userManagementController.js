@@ -101,7 +101,7 @@ function userManagementController() {
                 const userInfo = req.payload;
                 const fundManagementBoard = await userModel.find({ role: "Fund Management Board" }).sort({ createdAt: -1 });
                 const fundManagementBoardDeletedCount = await userModel.countDocumentsDeleted({ role: "Fund Management Board" });
-                res.render('admin/user-management/fund/fundManagementBoard' , { layout: 'admin/adminLayout', userInfo, fundManagementBoard, fundManagementBoardDeletedCount });
+                res.render('admin/user-management/fund/fundManagementBoard' , { layout: 'admin/adminLayout', userInfo, fundManagementBoard, fundManagementBoardDeletedCount, moment });
             } catch (error) {
                 next(error);
             }
@@ -122,7 +122,7 @@ function userManagementController() {
                 const userInfo = req.payload;
                 const sponsorshipManagement = await userModel.find({ role: "Sponsor" }).sort({ createdAt: -1 });
                 const sponsorshipManagementDeletedCount = await userModel.countDocumentsDeleted({ role: "Sponsor" });
-                res.render('admin/user-management/sponsor/sponsorshipManagement' , { layout: 'admin/adminLayout', userInfo, sponsorshipManagement, sponsorshipManagementDeletedCount });
+                res.render('admin/user-management/sponsor/sponsorshipManagement' , { layout: 'admin/adminLayout', userInfo, sponsorshipManagement, sponsorshipManagementDeletedCount, moment });
             } catch (error) {
                 next(error);
             }

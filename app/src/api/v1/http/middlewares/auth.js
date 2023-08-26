@@ -57,6 +57,19 @@ const isAdmin = async (req, res, next) => {
     }
 }
 
+const isMember = async (req, res, next) => {
+    try {
+        const userID = req.payload._id;
+        const user = await userModel.findById({ _id: userID });
+        if(user.role !== 'Fund Management Board' && user.role !== 'Sponsor'){
+            return next(createError.Forbidden());
+        }else{
+            next();
+        } 
+    } catch (error) {
+        return next(error);
+    }
+}
 // const isFundManagementBoard = async (req, res, next) => {
 //     try {
 //         const userID = req.payload._id;
@@ -71,8 +84,24 @@ const isAdmin = async (req, res, next) => {
 //     }
 // }
 
+// const isSponsor = async (req, res, next) => {
+//     try {
+//         const userID = req.payload._id;
+//         const user = await userModel.findById({ _id: userID });
+//         if(user.role !== 'Sponsor'){
+//             return next(createError.Forbidden());
+//         }else{
+//             next();
+//         } 
+//     } catch (error) {
+//         return next(error);
+//     }
+// }
+
 module.exports = {
     isAuthentication,
     isAdmin,
-    // isFundManagementBoard
+    isMember
+    // isFundManagementBoard,
+    // isSponsor
 }

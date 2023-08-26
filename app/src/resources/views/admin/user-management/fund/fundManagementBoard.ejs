@@ -25,28 +25,24 @@
                     <h4 class="brief"><i><%= FMB.role %></i></h4>
                     <div class="left col-md-7 col-sm-7">
                       <h2><%= FMB.name %></h2>
-                      <p><strong>About: </strong> Web Designer / UX / Graphic Artist / Coffee Lover </p>
                       <ul class="list-unstyled">
-                        <li><i class="fa fa-building"></i> Address: </li>
                         <li><i class="fa fa-email"></i> Email: <%= FMB.email %></li>
-                        <li><i class="fa fa-phone"></i> Phone: </li>
+                        <li><i class="fa fa-phone"></i> Phone: <%= FMB.phoneNumber %></li>
+                        <li><i class="fa fa-building"></i> DOB: <%= moment(FMB.dob).format('DD-MM-YYYY') %></li>
+                        <li><i class="fa fa-building"></i> Gender: <%= FMB.gender %></li>
+                        <li><i class="fa fa-building"></i> Address: <%= FMB.address %></li>
+                        <li><i class="fa fa-building"></i> Company: <%= FMB.company %></li>
                       </ul>
                     </div>
                     <div class="right col-md-5 col-sm-5 text-center">
+                    <% if(!FMB.avatar) { %>
                       <img src="/admin/production/images/user.png" alt="" class="img-circle img-fluid">
+                    <% } else { %>
+                      <img src="/uploads/member/avatar/<%= FMB.avatar %>" alt="avatar" class="img-circle img-fluid">
+                    <% } %>
                     </div>
                   </div>
                   <div class=" profile-bottom text-center">
-                    <div class=" col-sm-6 emphasis">
-                      <p class="ratings">
-                        <a>4.0</a>
-                        <a href="#"><span class="fa fa-star"></span></a>
-                        <a href="#"><span class="fa fa-star"></span></a>
-                        <a href="#"><span class="fa fa-star"></span></a>
-                        <a href="#"><span class="fa fa-star"></span></a>
-                        <a href="#"><span class="fa fa-star-o"></span></a>
-                      </p>
-                    </div>
                     <div class=" col-sm-6 emphasis">
                       <button type="button" class="btn btn-success btn-sm"> <i class="fa fa-user">
                         </i> <i class="fa fa-comments-o"></i> </button>

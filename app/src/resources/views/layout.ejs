@@ -173,7 +173,7 @@
                     <div class="member-login-form-body">
                         <div class="member-login-form-body">
                             <div class="text-center">
-                                <img src="https://i.imgur.com/bDLhJiP.jpg" width="100" class="rounded-circle">
+                                <img src="/member/img/user.png" id="adminAvatarProfile" width="100" class="rounded-circle">
                             </div>
                                         
                             <div class="text-center mt-3">
@@ -181,17 +181,17 @@
                                 <h5 id="adminNameProfile" class="mt-2 mb-0">Name</h5>
                                 <span id="adminEmailProfile">Email</span>
                                 
-                                <div class="buttons mt-5">
+                                <div class="buttons mt-5 mb-1">
                                     <a href="/api/admin/dashboard" class="btn btn-outline-primary px-4 ms-3 mb-2 mt-2 col-sm-9">Dashboard</a>
                                     <a href="" class="btn btn-primary px-4 ms-3 mb-2 mt-2">DSHS</a>
                                 </div>
-                                <div class="buttons mt-5">
+                                <!-- <div class="buttons mt-5">
                                     <a style="cursor: pointer;" onclick="handleChangePassword()" data-bs-dismiss="offcanvas" class="btn btn-info px-4 ms-3 mb-2 mt-2">Đổi mật khẩu</a>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                         <form class="text-center" method="POST" action="/api/auth/logout?_method=DELETE">
-                            <button type="submit" class="btn btn-danger px-4 ms-3 mb-2 mt-2">Đăng xuất</button>
+                            <button type="submit" class="btn btn-danger px-4 ms-3 mb-2 mt-5">Đăng xuất</button>
                         </form>
                     </div>
                     
@@ -219,7 +219,7 @@
                 <div class="offcanvas-body d-flex flex-column">
                     <div class="member-login-form-body">
                         <div class="text-center">
-                            <img src="https://i.imgur.com/bDLhJiP.jpg" width="100" class="rounded-circle">
+                            <img src="/member/img/user.png" id="FMBAvatarProfile" width="100" class="rounded-circle">
                         </div>
                                     
                         <div class="text-center mt-3">
@@ -227,18 +227,18 @@
                             <h5 id="FMBNameProfile" class="mt-2 mb-0">Name</h5>
                             <span id="FMBEmailProfile">Email</span>
                             
-                            <div class="buttons mt-5">
+                            <div class="buttons mt-5 mb-1">
                                 <a href="/api/admin/dashboard" class="btn btn-outline-primary px-4 ms-3 mb-2 mt-2 col-sm-9">Dashboard</a>
-                                <a href="" class="btn btn-primary px-4 mb-2 mt-2">Hồ sơ</a>
+                                <a href="" id="fmb-profile-btn" class="btn btn-primary px-4 mb-2 mt-2">Hồ sơ</a>
                                 <a href="" class="btn btn-primary px-4 mb-2 mt-2">DSHS</a>
                             </div>
-                            <div class="buttons mt-5">
+                            <!-- <div class="buttons mt-5">
                                 <a style="cursor: pointer;" onclick="handleChangePassword()" data-bs-dismiss="offcanvas" class="btn btn-info px-4 ms-3 mb-2 mt-2">Đổi mật khẩu</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <form class="text-center" method="POST" action="/api/auth/logout?_method=DELETE">
-                        <button type="submit" class="btn btn-danger px-4 ms-3 mb-2 mt-2">Đăng xuất</button>
+                        <button type="submit" class="btn btn-danger px-4 ms-3 mb-2 mt-5">Đăng xuất</button>
                     </form>
                     <div class="mt-auto mb-5 text-center">
                         <p>
@@ -264,7 +264,7 @@
                 <div class="offcanvas-body d-flex flex-column">
                     <div class="member-login-form-body">
                         <div class="text-center">
-                            <img src="https://i.imgur.com/bDLhJiP.jpg" width="100" class="rounded-circle">
+                            <img src="/member/img/user.png" id="sponsorAvatarProfile" width="100" class="rounded-circle">
                         </div>
                                     
                         <div class="text-center mt-3">
@@ -272,17 +272,17 @@
                             <h5 id="sponsorNameProfile" class="mt-2 mb-0">Name</h5>
                             <span id="sponsorEmailProfile">Email</span>
                             
-                            <div class="buttons mt-5">
-                                <a href="" class="btn btn-primary px-4 mb-2 mt-2">Hồ sơ</a>
+                            <div class="buttons mt-5 mb-1">
+                                <a href="" id="sponsor-profile-btn" class="btn btn-primary px-4 mb-2 mt-2">Hồ sơ</a>
                                 <a href="" class="btn btn-primary px-4 mb-2 mt-2">DSHS</a>
                             </div>
-                            <div class="buttons mt-5">
+                            <!-- <div class="buttons mt-5">
                                 <a style="cursor: pointer;" onclick="handleChangePassword()" data-bs-dismiss="offcanvas" class="btn btn-info px-4 ms-3 mb-2 mt-2">Đổi mật khẩu</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <form class="text-center" method="POST" action="/api/auth/logout?_method=DELETE">
-                        <button type="submit" class="btn btn-danger px-4 ms-3 mb-2 mt-2">Đăng xuất</button>
+                        <button type="submit" class="btn btn-danger px-4 ms-3 mb-2 mt-5">Đăng xuất</button>
                     </form>
                     <div class="mt-auto mb-5 text-center">
                         <p>
@@ -441,14 +441,17 @@
             const sponsorNameProfile = document.getElementById("sponsorNameProfile");
             const sponsorEmailProfile = document.getElementById("sponsorEmailProfile");
             const sponsorRoleProfile = document.getElementById("sponsorRoleProfile");
+            const sponsorAvatarProfile = document.getElementById("sponsorAvatarProfile");
 
             const adminNameProfile = document.getElementById("adminNameProfile");
             const adminEmailProfile = document.getElementById("adminEmailProfile");
             const adminRoleProfile = document.getElementById("adminRoleProfile");
+            const adminAvatarProfile = document.getElementById("adminAvatarProfile");
 
             const FMBNameProfile = document.getElementById("FMBNameProfile");
             const FMBEmailProfile = document.getElementById("FMBEmailProfile");
             const FMBRoleProfile = document.getElementById("FMBRoleProfile");
+            const FMBAvatarProfile = document.getElementById("FMBAvatarProfile");
 
             // const accessToken = document.cookie
             //     .split("; ")
@@ -501,7 +504,9 @@
                     adminNameProfile.textContent = payloadDecoded.name;
                     adminEmailProfile.textContent = payloadDecoded.email;
                     adminRoleProfile.textContent = payloadDecoded.role;
-
+                    if(payloadDecoded.avatar){
+                        adminAvatarProfile.src = `/uploads/member/avatar/${payloadDecoded.avatar}`;
+                    }
                 }else if(payloadDecoded.role === 'Sponsor') {
                     // Nếu đăng nhập với role sponsor, ẩn nút "Đăng nhập" và hiển thị nút "Hồ sơ sponsor"
                     for (let i = 0; i < loginButtons.length; i++) {
@@ -515,6 +520,12 @@
                     sponsorNameProfile.textContent = payloadDecoded.name;
                     sponsorEmailProfile.textContent = payloadDecoded.email;
                     sponsorRoleProfile.textContent = payloadDecoded.role;
+                    if(payloadDecoded.avatar){
+                        sponsorAvatarProfile.src = `/uploads/member/avatar/${payloadDecoded.avatar}`
+                    }
+
+                    const profileBtnSponsor = document.getElementById("sponsor-profile-btn");
+                    profileBtnSponsor.setAttribute('href', `/api/member/profile/${payloadDecoded._id}`);
 
                 }else if(payloadDecoded.role === 'Fund Management Board') {
                     // Nếu đăng nhập với role sponsor, ẩn nút "Đăng nhập" và hiển thị nút "Hồ sơ sponsor"
@@ -529,6 +540,13 @@
                     FMBNameProfile.textContent = payloadDecoded.name;
                     FMBEmailProfile.textContent = payloadDecoded.email;
                     FMBRoleProfile.textContent = payloadDecoded.role;
+                    if(payloadDecoded.avatar){
+                        FMBAvatarProfile.src = `/uploads/member/avatar/${payloadDecoded.avatar}`
+                    }
+                    console.log(payloadDecoded.avatar)
+
+                    const profileBtnFMB = document.getElementById("fmb-profile-btn");
+                    profileBtnFMB.setAttribute('href', `/api/member/profile/${payloadDecoded._id}`);
                 }
             }
         </script>

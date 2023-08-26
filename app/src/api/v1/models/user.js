@@ -11,7 +11,13 @@ const userSchema = new Schema({
         unique: true,
         sparse: true
     },
-    role: { type: String, default: 'Regular' }
+    role: { type: String, default: 'Regular' },
+    phoneNumber: { type: String },
+    dob: { type: Date},
+    gender: { type: String },
+    address: { type: String },
+    company: { type: String },
+    avatar: { type: String }
 }, { timestamps: true });
 
 //add plugins

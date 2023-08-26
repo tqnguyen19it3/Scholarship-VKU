@@ -68,7 +68,8 @@ function authController() {
                     _id: user._id,
                     name: user.name,
                     role: user.role,
-                    email: user.email
+                    email: user.email,
+                    avatar: user.avatar
                 }
 
                 const accessTokenUser = await signAccessToken(payload);
@@ -89,10 +90,10 @@ function authController() {
 
                 if(!refreshToken) throw createError.BadRequest();
 
-                const { _id, name, role, email } = await verifyRefreshToken(refreshToken);
+                const { _id, name, role, email, avatar } = await verifyRefreshToken(refreshToken);
 
-                const accessTokenUser = await signAccessToken({ _id, name, role, email });
-                const refreshTokenUser = await signRefreshToken({ _id, name, role, email });
+                const accessTokenUser = await signAccessToken({ _id, name, role, email, avatar });
+                const refreshTokenUser = await signRefreshToken({ _id, name, role, email, avatar });
 
                 res.status(200).json({ 
                     message: "Refresh Token successfully!",
@@ -134,7 +135,8 @@ function authController() {
                         _id: user._id,
                         name: user.name,
                         role: user.role,
-                        email: user.email
+                        email: user.email,
+                        avatar: user.avatar
                     }
                     const accessTokenUser = await signAccessToken(payload);
                     const refreshTokenUser = await signRefreshToken(payload);

@@ -50,6 +50,7 @@ app.set('views', path.join(__dirname, './app/src/resources/views'));
 app.set('layout', 'layout');
 app.set('layoutError', './app/src/resources/views/errors/error');
 app.set('layoutAdmin', './app/src/resources/views/admin/adminLayout');
+app.set('layoutMember', './app/src/resources/views/member/memberLayout');
 app.set('view engine', 'ejs')
 
 

@@ -1,6 +1,7 @@
 // child route
 const authRoute = require('./authRoute');
 const adminRoute = require('./adminRoute');
+const memberRoute = require('./memberRoute');
 
 //---------------- Controllers ----------------
 const homeController = require('../http/controllers/homeController');
@@ -16,6 +17,9 @@ function initRoutes(app) {
 
     //admin
     app.use('/api/admin', adminRoute);
+
+    //admin
+    app.use('/api/member', memberRoute);
 
 }
 

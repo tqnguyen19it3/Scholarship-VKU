@@ -22,15 +22,21 @@
                       <h4 class="brief"><i><%= delUser.role %></i></h4>
                       <div class="left col-md-7 col-sm-7">
                         <h2><%= delUser.name %></h2>
-                        <p><strong>About: </strong> Web Designer / UX / Graphic Artist / Coffee Lover </p>
                         <ul class="list-unstyled">
-                          <li><i class="fa fa-building"></i> Address: </li>
                           <li><i class="fa fa-email"></i> Email: <%= delUser.email %></li>
-                          <li><i class="fa fa-phone"></i> Phone: </li>
+                        <li><i class="fa fa-phone"></i> Phone: <%= delUser.phoneNumber %></li>
+                        <li><i class="fa fa-building"></i> DOB: <%= moment(delUser.dob).format('DD-MM-YYYY') %></li>
+                        <li><i class="fa fa-building"></i> Gender: <%= delUser.gender %></li>
+                        <li><i class="fa fa-building"></i> Address: <%= delUser.address %></li>
+                        <li><i class="fa fa-building"></i> Company: <%= delUser.company %></li>
                         </ul>
                       </div>
                       <div class="right col-md-5 col-sm-5 text-center">
+                      <% if(!delUser.avatar) { %>
                         <img src="/admin/production/images/user.png" alt="" class="img-circle img-fluid">
+                      <% } else { %>
+                        <img src="/uploads/member/avatar/<%= delUser.avatar %>" alt="avatar" class="img-circle img-fluid">
+                      <% } %>
                       </div>
                     </div>
                     <div class=" profile-bottom text-center">

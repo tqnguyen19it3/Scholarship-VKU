@@ -83,7 +83,6 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <h3>General</h3>
-                <% if(userInfo.role == 'Admin'){ %>
                   <ul class="nav side-menu">
                     <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
@@ -151,15 +150,6 @@
                       </ul>
                     </li>
                   </ul>
-                <% } else { %>
-                  <ul class="nav side-menu">
-                    <li><a><i class="fa fa-home"></i> Profile <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="/api/admin/user-profile/<%= userInfo._id %>">View Profile</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                <% } %>
               </div>
             </div>
             <!-- /sidebar menu -->
@@ -198,17 +188,10 @@
                     <img src="/admin/production/images/user.png" alt=""><%= userInfo.name %>
                   </a>
                   <div class="dropdown-menu dropdown-usermenu pull-right" aria-labelledby="navbarDropdown">
-                    <% if(userInfo.role == 'Admin'){ %>
-                      <a class="dropdown-item"  href="/api/admin/admin-profile/<%= userInfo._id %>">
-                        <span class="badge bg-red pull-right"><%= userInfo.role %></span>
-                          <span>Profile</span>
-                      </a>
-                    <% } else { %>
-                      <a class="dropdown-item"  href="/api/admin/user-profile/<%= userInfo._id %>">
-                        <span class="badge bg-red pull-right"><%= userInfo.role %></span>
-                          <span>Profile</span>
-                      </a>
-                    <% } %>
+                    <a class="dropdown-item"  href="/api/admin/admin-profile/<%= userInfo._id %>">
+                      <span class="badge bg-red pull-right"><%= userInfo.role %></span>
+                        <span>Profile</span>
+                    </a>
                   <form id="logoutMenu" method="POST" action="/api/auth/logout?_method=DELETE">
                     <a data-toggle="tooltip" data-placement="top" class="dropdown-item" title="Logout" onclick="document.getElementById('logoutMenu').submit()" href="#">
                       <i class="fa fa-sign-out pull-right"></i> Log Out
