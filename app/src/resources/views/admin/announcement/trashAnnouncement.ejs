@@ -34,7 +34,6 @@
                             <input type="checkbox" id="check-all" class="flat">
                           </th>
                           <th class="column-title">Name</th>
-                          <th class="column-title">Image</th>
                           <th class="column-title">Description</th>
                           <th class="column-title no-link last"><span class="nobr">Action</span>
                           </th>
@@ -57,7 +56,6 @@
                                 <br />
                                 <small>Deleted at: <%= moment(delAnn.deletedAt).format('DD-MM-YYYY HH:mm A') %></small>
                               </td>
-                                <td><img class="h-40 mb-4 mx-auto" src="/admin/img/announcement.png" width="70" height="70" alt="announcement image"></td>
                               <td class="truncate-desc"><%= delAnn.description %></td>
                               <td class=" last">
                                 <a href="#" class="btn btn-info btn-sm btn-restore-delAnn" onclick="confirmRestoreAnnouncement('<%= delAnn._id %>', event)">

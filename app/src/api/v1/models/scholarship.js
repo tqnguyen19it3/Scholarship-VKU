@@ -17,6 +17,10 @@ const humanityFundSchema = new Schema({
         type: String,
         required: true
     },
+    total: {
+        type: Number,
+        required: true
+    },
     amount: {
         type: Number,
         required: true

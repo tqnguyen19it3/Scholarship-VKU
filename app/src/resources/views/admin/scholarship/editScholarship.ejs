@@ -44,10 +44,19 @@
                                 </div>
                             </div>
                             <div class="item form-group">
-                                <label class="col-form-label col-md-3 col-sm-3 label-align">Amount <span class="required">*</span>
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Amount<span class="required">*</span>
+                                </label>
+                                <div class="col-md-6 col-sm-6" style="display: flex;
+                                justify-content: space-between;">
+                                    <input type="number" name="scholarshipAmount" value="<%= scholarship.amount %>" class="form-control" min="1" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required="required">&ensp; 
+                                    <span style="color: red;">VNĐ</span>
+                                </div>
+                            </div>
+                            <div class="item form-group">
+                                <label class="col-form-label col-md-3 col-sm-3 label-align">Total <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
-                                    <input type="number" name="scholarshipAmount" value="<%= scholarship.amount %>" class="form-control" min="1" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required="required">
+                                    <input type="number" name="scholarshipTotal" value="<%= scholarship.total %>" class="form-control" min="1" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required="required">
                                 </div>
                             </div>
                             <div class="item form-group">

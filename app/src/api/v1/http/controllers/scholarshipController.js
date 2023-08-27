@@ -27,6 +27,7 @@ function scholarshipController() {
         saveScholarship(req, res, next) {
             const scholarship = new scholarshipModel({ 
                 name: req.body.scholarshipName,
+                total: req.body.scholarshipTotal,
                 amount: req.body.scholarshipAmount,
                 start_deadline: req.body.scholarshipStartDate,
                 end_deadline: req.body.scholarshipEndDate,
@@ -98,6 +99,7 @@ function scholarshipController() {
         updateScholarship(req, res, next) {
             const scholarship = { 
                 name: req.body.scholarshipName,
+                total: req.body.scholarshipTotal,
                 amount: req.body.scholarshipAmount,
                 start_deadline: req.body.scholarshipStartDate,
                 end_deadline: req.body.scholarshipEndDate,

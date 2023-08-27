@@ -39,6 +39,7 @@
                       <th class="column-title">Name</th>
                       <th class="column-title">Image</th>
                       <th class="column-title">Amount</th>
+                      <th class="column-title">Total</th>
                       <th class="column-title">Start date</th>
                       <th class="column-title">End Date</th>
                       <th class="column-title">Sponsor</th>
@@ -69,9 +70,10 @@
                         <% } else { %>
                         <td><img class="h-40 mb-4 mx-auto" src="/admin/img/scholarship.jpg" width="70" height="70" alt="scholarship image"></td>
                         <% } %>
-                        <td><%= scholarship.amount %></td>
-                        <td><%= moment(scholarship.start_deadline).format('DD-MM-YYYY HH:mm A') %></td>
-                        <td><%= moment(scholarship.end_deadline).format('DD-MM-YYYY HH:mm A') %></td>
+                        <td class="formattedAmount"><%= scholarship.amount %></td>
+                        <td><%= scholarship.total %></td>
+                        <td><%= moment(scholarship.start_deadline).format('DD-MM-YYYY') %></td>
+                        <td><%= moment(scholarship.end_deadline).format('DD-MM-YYYY') %></td>
                         <td><%= scholarship.provider %></td>
                         <td>
                           <% if(scholarship.status === 'show'){ %>
@@ -112,6 +114,30 @@
 
   <script>
 
+    document.addEventListener('DOMContentLoaded', function() {
+      // Lấy danh sách các thẻ <td> dựa trên lớp CSS
+      var tdElements = document.getElementsByClassName('formattedAmount');
+
+      // Lặp qua danh sách các thẻ <td>
+      for (var i = 0; i < tdElements.length; i++) {
+        var tdElement = tdElements[i];
+
+        // Lấy nội dung của thẻ <td>
+        var amount = tdElement.textContent;
+
+        // Định dạng số tiền
+        var formattedAmount = formatCurrency(amount);
+
+        // Cập nhật nội dung trong thẻ <td> với số tiền đã định dạng
+        tdElement.textContent = formattedAmount;
+      }
+    });
+
+    function formatCurrency(amount) {
+      var formattedValue = parseFloat(amount).toLocaleString('en-US');
+      return formattedValue + " VNĐ";
+    }
+    
     document.addEventListener('DOMContentLoaded', function(){
       let btnUpdateStatusAnn = $('.js-switch');
 

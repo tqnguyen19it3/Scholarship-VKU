@@ -37,7 +37,6 @@
                         <input type="checkbox" id="check-all" class="flat">
                       </th>
                       <th class="column-title">Name</th>
-                      <th class="column-title">Image</th>
                       <th class="column-title">Description</th>
                       <th class="column-title">Status</th>
                       <th class="column-title no-link last"><span class="nobr">Action</span>
@@ -61,7 +60,6 @@
                           <br />
                           <small>Created at: <%= moment(announcement.createdAt).format('DD-MM-YYYY HH:mm A') %></small>
                         </td>
-                        <td><img class="h-40 mb-4 mx-auto" src="/admin/img/announcement.png" width="70" height="70" alt="announcement image"></td>
                         <td class="truncate-description"><%= announcement.description %></td>
                         <td>
                           <% if(announcement.status === 'show'){ %>
