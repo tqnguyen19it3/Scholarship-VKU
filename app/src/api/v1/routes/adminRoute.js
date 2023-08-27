@@ -13,7 +13,7 @@ const aboutUsController = require('../http/controllers/aboutUsController');
 
 //---------------- Middleware ----------------
 const auth = require('../../v1/http/middlewares/auth');
-const { announcementsUpload, scholarshipUpload } = require('../../v1/http/middlewares/upload');
+const { scholarshipUpload } = require('../../v1/http/middlewares/upload');
 const multipartMiddleware = multipart();
 
 //---------------- Router ----------------
@@ -29,11 +29,11 @@ router.delete('/destroy-contact/:id', [auth.isAuthentication, auth.isAdmin], adm
 
 // announcement
 router.get('/add-announcement', [auth.isAuthentication, auth.isAdmin], announcementController().addAnnouncement);
-router.post('/save-announcement', [auth.isAuthentication, auth.isAdmin, announcementsUpload.single('announcementImage')], announcementController().saveAnnouncement);
+router.post('/save-announcement', [auth.isAuthentication, auth.isAdmin], announcementController().saveAnnouncement);
 router.get('/all-announcement', [auth.isAuthentication, auth.isAdmin], announcementController().allAnnouncement);
 router.patch('/update-state-announcement/:id', [auth.isAuthentication, auth.isAdmin], announcementController().updateStateAnnouncement);
 router.get('/edit-announcement/:id', [auth.isAuthentication, auth.isAdmin], announcementController().editAnnouncement);
-router.put('/update-announcement/:id', [auth.isAuthentication, auth.isAdmin, announcementsUpload.single('announcementImage')], announcementController().updateAnnouncement);
+router.put('/update-announcement/:id', [auth.isAuthentication, auth.isAdmin], announcementController().updateAnnouncement);
 router.delete('/soft-delete-announcement/:id', [auth.isAuthentication, auth.isAdmin], announcementController().softDelAnnouncement);
 router.get('/trash-announcement', [auth.isAuthentication, auth.isAdmin], announcementController().trashAnnouncement);
 router.patch('/restore-announcement/:id', [auth.isAuthentication, auth.isAdmin], announcementController().restoreAnnouncement);

@@ -57,11 +57,7 @@
                                 <br />
                                 <small>Deleted at: <%= moment(delAnn.deletedAt).format('DD-MM-YYYY HH:mm A') %></small>
                               </td>
-                              <% if(delAnn.image){ %>
-                                <td><img class="h-40 mb-4 mx-auto" src="/uploads/announcements/<%= delAnn.image %>" width="70" height="70" alt="announcement image"></td>
-                                <% } else { %>
                                 <td><img class="h-40 mb-4 mx-auto" src="/admin/img/announcement.png" width="70" height="70" alt="announcement image"></td>
-                                <% } %>
                               <td class="truncate-desc"><%= delAnn.description %></td>
                               <td class=" last">
                                 <a href="#" class="btn btn-info btn-sm btn-restore-delAnn" onclick="confirmRestoreAnnouncement('<%= delAnn._id %>', event)">

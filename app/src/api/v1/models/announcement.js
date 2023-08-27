@@ -7,7 +7,6 @@ const mongoosePaginate = require('mongoose-paginate-v2');
 const announcementSchema = new Schema({
     name: { type: String },
     slug: { type: String, slug: 'name', unique: true },
-    image: { type: String },
     status: { type: String },
     description: { type: String },
     content: { type: String }

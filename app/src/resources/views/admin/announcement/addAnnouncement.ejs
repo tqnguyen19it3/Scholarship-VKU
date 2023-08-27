@@ -23,20 +23,13 @@
                     </div>
                     <div class="x_content">
                         <br />
-                        <form action="/api/admin/save-announcement" id="add-announcement-form" method="POST" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data">
+                        <form action="/api/admin/save-announcement" id="add-announcement-form" method="POST" data-parsley-validate class="form-horizontal form-label-left">
                             <div class="item form-group">
                                 <!-- Announcement Name -->
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Name <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <input type="text" name="announcementName" required="required" class="form-control">
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 label-align">Image</label>
-                                 <div class="col-md-6 col-sm-6 ">
-                                    <input type="file" accept="image/jpeg, image/jpg, image/png, image/gif" id="announcementImageFileInput" name="announcementImage" class="form-control" style="border: none;">
-                                    <img id="previewImage" src="#" alt="Preview" width="100" height="100" style="display: none;">
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -79,18 +72,6 @@
 </div>
 
 <script type="text/javascript">
-    const fileInput = document.getElementById('announcementImageFileInput');
-        fileInput.addEventListener('change', function(event) {
-        // Lấy tệp tin đã chọn
-        const file = event.target.files[0];
-
-        if(file){
-            const previewImage = document.getElementById('previewImage');
-            const previewURL = URL.createObjectURL(file);
-            previewImage.src = previewURL;
-            previewImage.style.display = 'block';
-        }
-    });
 
     $('#add-announcement-form').submit(function() {
         const editorContent = CKEDITOR.instances.editorAddAnnouncement.getData().trim();

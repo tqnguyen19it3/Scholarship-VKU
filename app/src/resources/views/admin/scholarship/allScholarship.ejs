@@ -127,10 +127,9 @@
         axios.patch('/api/admin/update-state-scholarship/' + scholarshipId + '?_method=PATCH', { status: currentState === 'hide' ? 'show' : 'hide' })
           .then(res => {
             if(res.status === 200){
-              Swal.fire({
-                icon: 'success',
-                title: 'Successfully',
-                text: res.data.message,
+              Swal.fire('Successfully', res.data.message, 'success')
+                .then(() => {
+                location.reload(); // Reload lại trang
               });
             }
           })

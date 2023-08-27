@@ -61,11 +61,7 @@
                           <br />
                           <small>Created at: <%= moment(announcement.createdAt).format('DD-MM-YYYY HH:mm A') %></small>
                         </td>
-                        <% if(announcement.image){ %>
-                        <td><img class="h-40 mb-4 mx-auto" src="/uploads/announcements/<%= announcement.image %>" width="70" height="70" alt="announcement image"></td>
-                        <% } else { %>
                         <td><img class="h-40 mb-4 mx-auto" src="/admin/img/announcement.png" width="70" height="70" alt="announcement image"></td>
-                        <% } %>
                         <td class="truncate-description"><%= announcement.description %></td>
                         <td>
                           <% if(announcement.status === 'show'){ %>
@@ -133,10 +129,9 @@
         axios.patch('/api/admin/update-state-announcement/' + announcementId + '?_method=PATCH', { status: currentState === 'hide' ? 'show' : 'hide' })
           .then(res => {
             if(res.status === 200){
-              Swal.fire({
-                icon: 'success',
-                title: 'Successfully',
-                text: res.data.message,
+              Swal.fire('Successfully', res.data.message, 'success')
+                .then(() => {
+                location.reload(); // Reload lại trang
               });
             }
           })

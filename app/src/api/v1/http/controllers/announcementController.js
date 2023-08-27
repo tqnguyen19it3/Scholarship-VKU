@@ -21,9 +21,6 @@ function announcementController() {
                 description: req.body.announcementDesc,
                 content: req.body.announcementContent,
             });
-            if(req.file){
-                announcement.image = req.file.filename;
-            }
             announcement.save()
                 .then((response) => {
                     return res.cookie('adminSuccessMessage', 'Add announcement successfully!').redirect('back');
@@ -76,25 +73,6 @@ function announcementController() {
                 description: req.body.announcementDesc,
                 content: req.body.announcementContent,
             }
-            if(req.file){
-                announcementModel.findById(req.params.id)
-                    .then(ann => {
-                        if(ann.image){
-                            // Delete old image file exist
-                            fs.unlink(path.join(__dirname, '../../../../public/uploads/announcements/' + ann.image), (err) => {
-                                if (err) {
-                                    console.error(err);
-                                    return;
-                                }
-                            })
-                        }
-                    })
-                    .catch(err => {
-                        next(err);
-                    });
-
-                announcement.image = req.file.filename;
-            }
             announcementModel.updateOne({ _id: req.params.id }, announcement)
                 .then(() => {
                     return res.cookie('adminSuccessMessage', 'Update announcement successfully!').redirect('/api/admin/all-announcement');
@@ -140,16 +118,7 @@ function announcementController() {
         // [DELETE] / DESTROY CONTACT FROM TRASH
         destroyAnnouncement(req, res, next) {
             announcementModel.findOneAndDelete({ _id: req.params.id })
-            .then((item) => {
-                if(item.image){
-                    // Delete old image file exist
-                    fs.unlink(path.join(__dirname, '../../../../public/uploads/announcements/' + item.image), (err) => {
-                        if (err) {
-                            console.error(err);
-                            return;
-                        }
-                    })
-                }
+            .then(() => {
                 res.status(200).json({
                     message: 'Permanently delete this item successfully!'
                 });

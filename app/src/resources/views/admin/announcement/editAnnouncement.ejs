@@ -23,24 +23,13 @@
                     </div>
                     <div class="x_content">
                         <br />
-                        <form action="/api/admin/update-announcement/<%= announcement._id %>?_method=PUT" method="POST" data-parsley-validate class="form-horizontal form-label-left" enctype="multipart/form-data" id="update-announcement-form">
+                        <form action="/api/admin/update-announcement/<%= announcement._id %>?_method=PUT" method="POST" data-parsley-validate class="form-horizontal form-label-left" id="update-announcement-form">
                             <div class="item form-group">
                                 <!-- Announcement Name -->
                                 <label class="col-form-label col-md-3 col-sm-3 label-align">Name <span class="required">*</span>
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <input type="text" name="announcementName" required="required" class="form-control" value="<%= announcement.name %>">
-                                </div>
-                            </div>
-                            <div class="item form-group">
-                                <label class="control-label col-md-3 col-sm-3 label-align">Image </label>
-                                <div class="col-md-6 col-sm-6 ">
-                                    <input type="file" name="announcementImage" accept="image/jpeg, image/jpg, image/png, image/gif" id="announcementImageFileInput" class="form-control" style="border: none;"><br>
-                                    <% if(announcement.image){ %>
-                                        <img id="previewImage" src="/uploads/announcements/<%= announcement.image %>" alt="IMG" height="100" width="100">
-                                    <% } else { %>
-                                        <img id="previewImage" src="/admin/img/announcement.png" alt="IMG" height="100" width="100">
-                                    <% } %>
                                 </div>
                             </div>
                             <div class="item form-group">
@@ -87,21 +76,6 @@
 
 
 <script type="text/javascript">
-    const fileInput = document.getElementById('announcementImageFileInput');
-        fileInput.addEventListener('change', function(event) {
-        // Lấy tệp tin đã chọn
-        const file = event.target.files[0];
-
-        if(file){
-            var reader = new FileReader();
-
-            reader.addEventListener('load', function() {
-                previewImage.src = reader.result;
-            });
-
-            reader.readAsDataURL(file);
-        }
-    });
 
     $('#update-announcement-form').submit(function() {
         const editorContent = CKEDITOR.instances.editorUpdateAnnouncement.getData().trim();
