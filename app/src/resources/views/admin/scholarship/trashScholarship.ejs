@@ -35,12 +35,12 @@
                           </th>
                           
                           <th class="column-title">Name</th>
-                          <th class="column-title">Image</th>
                           <th class="column-title">Amount</th>
                           <th class="column-title">Total</th>
-                          <th class="column-title">Start date</th>
-                          <th class="column-title">End Date</th>
                           <th class="column-title">Sponsor</th>
+                          <th class="column-title">Start Date</th>
+                          <th class="column-title">End Date</th>
+                          <th class="column-title">Expiry Status</th>
                           <th class="column-title no-link last"><span class="nobr">Action</span>
                           </th>
                           <th class="bulk-actions" colspan="7">
@@ -62,16 +62,18 @@
                                 <br />
                                 <small>Deleted at: <%= moment(delScholarship.deletedAt).format('DD-MM-YYYY HH:mm A') %></small>
                               </td>
-                              <% if(delScholarship.image){ %>
-                                <td><img class="h-40 mb-4 mx-auto" src="/uploads/scholarships/<%= delScholarship.image %>" width="70" height="70" alt="scholarship image"></td>
-                                <% } else { %>
-                                <td><img class="h-40 mb-4 mx-auto" src="/admin/img/scholarship.jpg" width="70" height="70" alt="scholarship image"></td>
-                                <% } %>
-                              <td class="formattedAmount"><%= delScholarship.amount %></td>
-                              <td><%= delScholarship.total %></td>
+                              <td class="formattedAmount text-center"><%= delScholarship.amount %></td>
+                              <td class="text-center"><%= delScholarship.total %></td>
+                              <td><%= delScholarship.provider %></td>
                               <td><%= moment(delScholarship.start_deadline).format('DD-MM-YYYY') %></td>
                               <td><%= moment(delScholarship.end_deadline).format('DD-MM-YYYY') %></td>
-                              <td><%= delScholarship.provider %></td>
+                              <% if(delScholarship.end_deadline < new Date()) { %>
+                                <td class="text-center"><img src="/site/images/expired.png" alt="statusIMG" width="60px"></td>
+                              <% } else { %>
+                                  <td class="text-center">
+                                    
+                                  </td>
+                              <% } %>
                               <td class=" last">
                                 <a href="#" class="btn btn-info btn-sm btn-restore-delScholarship" onclick="confirmRestoreScholarship('<%= delScholarship._id %>', event)">
                                     <i class="fa fa-recycle"></i> <small>Restore</small>

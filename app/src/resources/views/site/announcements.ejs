@@ -33,24 +33,23 @@
                 <div class="row custom-block mb-3">
                     <div class="col-lg-2 col-md-4 col-12 order-2 order-md-0 order-lg-0">
                         <div class="custom-block-date-wrap d-flex d-lg-block d-md-block align-items-center mt-3 mt-lg-0 mt-md-0">
-                            <h6 class="custom-block-date mb-lg-1 mb-0 me-3 me-lg-0 me-md-0">24</h6>
+                            <h6 class="custom-block-date mb-lg-1 mb-0 me-3 me-lg-0 me-md-0"><%= moment(announcement.createdAt).format('DD') %></h6>
                             
-                            <strong class="text-white">Feb 2023</strong>
+                            <strong class="text-white"><%= moment(announcement.createdAt).format('MM-YYYY') %></strong>
                         </div>
                     </div>
 
-                    <div class="col-lg-4 col-md-8 col-12 order-1 order-lg-0">
+                    <div class="col-lg-3 col-md-8 col-12 order-1 order-lg-0">
                         <div class="custom-block-image-wrap">
-                            <a href="#">
+                            <a href="/chi-tiet-thong-bao/<%= announcement.slug %>/<%= announcement._id %>">
                                 <img src="/admin/img/announcement.png" class="custom-block-image img-fluid" alt="announcementIMG">
                                 <i class="custom-block-icon bi-link"></i>
                             </a>
                         </div>
                     </div>
-
-                    <div class="col-lg-6 col-12 order-3 order-lg-0">
+                    <div class="col-lg-7 col-12 order-3 order-lg-0">
                         <div class="custom-block-info mt-2 mt-lg-0">
-                            <a href="#" class="events-title mb-3"><%= announcement.name %></a>
+                            <a href="/chi-tiet-thong-bao/<%= announcement.slug %>/<%= announcement._id %>" class="events-title mb-3"><%= announcement.name %></a>
 
                             <p class="mb-0"><%= announcement.description %></p>
 
@@ -71,7 +70,7 @@
                                 </div> -->
 
                                 <div class="d-flex align-items-center ms-lg-auto">
-                                    <a href="#" class="btn custom-btn">Chi tiết</a>
+                                    <a href="/chi-tiet-thong-bao/<%= announcement.slug %>/<%= announcement._id %>" class="btn custom-btn">Chi tiết</a>
                                 </div>
                             </div>
                         </div>
@@ -81,24 +80,24 @@
                 <ul class="pagination justify-content-center">
                     <% if(hasPrevPage){ %>
                         <li class="page-item">
-                            <a class="page-link"href="/announcement/?page=<%= prev %>#announcement_list"><%= offset %>Previous </a>
+                            <a class="page-link" href="/thong-bao/?page=<%= prev %>#announcement_list"><%= offset %>Previous </a>
                         </li>
                     <% } %>
                     <% for(let i = 1; i <= pageTotal; i++){%>
                         <% if(i == currentPage){ %>
                             <li class="page-item active">
-                                <a class="page-link" href="/announcement/?page=<%= i %>#announcement_list"><%= i %></a>
+                                <a class="page-link" href="/thong-bao/?page=<%= i %>#announcement_list"><%= i %></a>
                             </li>
                         <% } else { %>
                             <li class="page-item">
-                                <a class="page-link" href="/announcement/?page=<%= i %>#announcement_list"><%= i %></a>
+                                <a class="page-link" href="/thong-bao/?page=<%= i %>#announcement_list"><%= i %></a>
                             </li>
                         <% } %>
                            
                     <% } %>
                     <% if(hasNextPage){ %>
                         <li class="page-item">
-                            <a class="page-link" href="/announcement/?page=<%= next %>#announcement_list">Next</a>
+                            <a class="page-link" href="/thong-bao/?page=<%= next %>#announcement_list">Next</a>
                         </li>
                     <% } %>
                 </ul>

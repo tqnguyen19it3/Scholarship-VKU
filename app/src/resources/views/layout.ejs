@@ -24,7 +24,6 @@
 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
-      
     </head>
     
     <body>
@@ -80,9 +79,9 @@
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarLightDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Trang</a>
 
                                 <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
-                                    <li><a class="dropdown-item" href="/announcement">Thông báo</a></li>  
-                                    <li><a class="dropdown-item" href="hoc-bong.html">Học bổng nhân bản</a></li>                
-                                    <li><a class="dropdown-item" href="ds-hs.html">Danh sách học sinh</a></li>
+                                    <li><a class="dropdown-item" href="/thong-bao">Thông báo</a></li>  
+                                    <li><a class="dropdown-item" href="/hoc-bong-nhan-ban">Học bổng nhân bản</a></li>                
+                                    <li><a class="dropdown-item" href="/danh-sach-hoc-siinh">Danh sách học sinh</a></li>
                                     <!-- <li><a class="dropdown-item" href="event-listing.html">Event Listing</a></li>
                                     <li><a class="dropdown-item" href="event-detail.html">Event Detail</a></li> -->
                                     
@@ -153,7 +152,7 @@
                             <strong class="text-white me-3">Liên hệ</strong>
 
                             <span class="contact-link">
-                            	(0236) 3667 129
+                            	<%= CSI.phoneNumber %>
                             </span>
                         </p>
                     </div>
@@ -185,9 +184,6 @@
                                     <a href="/api/admin/dashboard" class="btn btn-outline-primary px-4 ms-3 mb-2 mt-2 col-sm-9">Dashboard</a>
                                     <a href="" class="btn btn-primary px-4 ms-3 mb-2 mt-2">DSHS</a>
                                 </div>
-                                <!-- <div class="buttons mt-5">
-                                    <a style="cursor: pointer;" onclick="handleChangePassword()" data-bs-dismiss="offcanvas" class="btn btn-info px-4 ms-3 mb-2 mt-2">Đổi mật khẩu</a>
-                                </div> -->
                             </div>
                         </div>
                         <form class="text-center" method="POST" action="/api/auth/logout?_method=DELETE">
@@ -200,7 +196,7 @@
                             <strong class="text-white me-3">Liên hệ</strong>
 
                             <span class="contact-link">
-                            	(0236) 3667 129
+                            	<%= CSI.phoneNumber %>
                             </span>
                         </p>
                     </div>
@@ -232,9 +228,6 @@
                                 <a href="" id="fmb-profile-btn" class="btn btn-primary px-4 mb-2 mt-2">Hồ sơ</a>
                                 <a href="" class="btn btn-primary px-4 mb-2 mt-2">DSHS</a>
                             </div>
-                            <!-- <div class="buttons mt-5">
-                                <a style="cursor: pointer;" onclick="handleChangePassword()" data-bs-dismiss="offcanvas" class="btn btn-info px-4 ms-3 mb-2 mt-2">Đổi mật khẩu</a>
-                            </div> -->
                         </div>
                     </div>
                     <form class="text-center" method="POST" action="/api/auth/logout?_method=DELETE">
@@ -245,7 +238,7 @@
                             <strong class="text-white me-3">Liên hệ</strong>
 
                             <span class="contact-link">
-                            	(0236) 3667 129
+                            	<%= CSI.phoneNumber %>
                             </span>
                         </p>
                     </div>
@@ -276,9 +269,6 @@
                                 <a href="" id="sponsor-profile-btn" class="btn btn-primary px-4 mb-2 mt-2">Hồ sơ</a>
                                 <a href="" class="btn btn-primary px-4 mb-2 mt-2">DSHS</a>
                             </div>
-                            <!-- <div class="buttons mt-5">
-                                <a style="cursor: pointer;" onclick="handleChangePassword()" data-bs-dismiss="offcanvas" class="btn btn-info px-4 ms-3 mb-2 mt-2">Đổi mật khẩu</a>
-                            </div> -->
                         </div>
                     </div>
                     <form class="text-center" method="POST" action="/api/auth/logout?_method=DELETE">
@@ -289,7 +279,7 @@
                             <strong class="text-white me-3">Liên hệ</strong>
 
                             <span class="contact-link">
-                            	(0236) 3667 129
+                            	<%= CSI.phoneNumber %>
                             </span>
                         </p>
                     </div>
@@ -308,7 +298,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-6 col-12 me-auto mb-5 mb-lg-0">
-                        <a class="navbar-brand d-flex align-items-center" href="#">
+                        <a class="navbar-brand d-flex align-items-center" href="/">
                             <img src="/site/images/logoVKU.png" class="navbar-brand-image img-fluid" alt="logoVKU">
                             <span class="navbar-brand-text">
                                 Đại học
@@ -316,15 +306,15 @@
                             </span>
                             
                         </a><br>
-                        <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea perferendis distinctio quis ut accusantium eos asperiores, maiores odio assumenda provident, expedita magnam error voluptatum delectus nulla itaque ducimus ipsam sunt?</span>
+                        <span><%= CSI.footerContent %></span>
                     </div>
 
                     <div class="col-lg-3 col-12">
                         <h5 class="site-footer-title mb-4">Thời gian làm việc</h5>
 
                         <p class="d-flex border-bottom pb-3 mb-3 me-lg-3">
-                            <span>Thứ 2 - Thứ 6</span>
-                            8:00 sáng - 5:00 chiều
+                            <span><%= CSI.workingDates %></span>
+                            <%= CSI.workingHours %>
                         </p>
                         <br>
                         <p class="copyright-text">© 2023 VKU. All rights reserved. </p>
@@ -369,7 +359,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.js"></script>
         <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="jwt-decode.js"></script>
+        <script src="/jwt-decode.js"></script>
          <!-- carousel sponsor --->
         <script>
             $(document).ready(function(){
@@ -612,44 +602,33 @@
                     }
                 });
             }
+        </script>
 
-            
-            // handle change password
-            async function handleChangePassword() {
-                const { value: formValues } = await Swal.fire({
-                    title: 'Đổi mật khẩu',
-                    html:
-                    '<input id="oldPassword" type="password" pattern="[0-9a-zA-Z@#$%&]{6,}" placeholder="Mật khẩu cũ" class="swal2-input" required>' +
-                    '<input id="newPassword" type="password" pattern="[0-9a-zA-Z@#$%&]{6,}" placeholder="Mật khẩu mới" class="swal2-input" required>',
-                    focusConfirm: false,
-                    showCancelButton: true,
-                    preConfirm: async () => {
-                        const oldPassword = document.getElementById('oldPassword').value;
-                        const newPassword = document.getElementById('newPassword').value;
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            // Lấy danh sách các thẻ <td> dựa trên lớp CSS
+            var tdElements = document.getElementsByClassName('formattedAmount');
 
-                        try {
-                            const response = await axios.post('/api/auth/reset-password', { oldPassword, newPassword });
-                            if (response.status === 200) {
-                                return response.data;
-                            } else {
-                                throw new Error('Đổi mật khẩu thất bại. Vui lòng thử lại sau.');
-                            }
-                        } catch (error) {
-                            Swal.showValidationMessage(`Lỗi: ${error}`);
-                        }
-                    },
-                    allowOutsideClick: () => !Swal.isLoading()
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Xử lý phản hồi từ máy chủ (nếu cần)
-                        Swal.fire({
-                            title: 'Thành công',
-                            text: result.value.message,
-                            icon: 'success'
-                        });
-                    }
-                });
+            // Lặp qua danh sách các thẻ <td>
+            for (var i = 0; i < tdElements.length; i++) {
+                var tdElement = tdElements[i];
+
+                // Lấy nội dung của thẻ <td>
+                var amount = tdElement.textContent;
+
+                // Định dạng số tiền
+                var formattedAmount = formatCurrency(amount);
+
+                // Cập nhật nội dung trong thẻ <td> với số tiền đã định dạng
+                tdElement.textContent = formattedAmount;
             }
+            });
+
+            function formatCurrency(amount) {
+            var formattedValue = parseFloat(amount).toLocaleString('en-US');
+            return formattedValue + " VNĐ";
+            }
+
         </script>
        
     </body>

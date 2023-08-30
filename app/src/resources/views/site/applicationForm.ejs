@@ -1,0 +1,108 @@
+<section class="hero-section hero-50 d-flex justify-content-center align-items-center" id="section_1">
+
+    <div class="section-overlay"></div>
+
+    <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#3D405B" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path> <path fill="#3D405B" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path> <path fill="#3D405B" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path><path fill="#3D405B" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path><path fill="#3D405B" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path><path fill="#3D405B" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path><path fill="#3D405B" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path></svg>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-6 col-12">
+
+                <h1 class="text-white mb-4 pb-2">Học bổng nhân bản</h1>
+
+                <a href="#applicationForm" class="btn custom-btn smoothscroll me-3">Nộp hồ sơ</a>
+            </div>
+
+        </div>
+    </div>
+
+    <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#ffffff" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path> <path fill="#ffffff" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path> <path fill="#ffffff" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path></svg>
+</section>
+
+<section class="membership-section section-padding" id="applicationForm">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12 col-12 text-center mx-auto mb-lg-5 mb-4">
+                <h2>Mẫu ứng tuyển học bổng</h2>
+            </div>
+
+            <div class="col-lg-10 col-12 mx-auto ">
+                <form action="/submit-candidate-profile/<%= scholarship._id %>" method="POST" class="custom-form membership-form shadow-lg" role="form" enctype="multipart/form-data">
+                    <h4 class="text-white mb-4"></h4>
+                    <div class="form-floating">
+                        <input type="text" class="form-control" placeholder="Tên học bổng" value="<%= scholarship.name %>" readonly>
+                        
+                        <label for="floatingInput">Tên học bổng</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Họ & tên" required="">
+                        
+                        <label for="floatingInput">Họ & tên</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Địa chỉ Email" required="">
+                        
+                        <label for="floatingInput">Địa chỉ Email</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" name="phoneNumber" id="phoneNumber" pattern="[0-9]{10}" class="form-control" placeholder="Số điện thoại" required="">
+                        
+                        <label for="floatingInput">Số điện thoại</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="date" id="dob" name="dob" class="form-control" placeholder="Ngày sinh" required>
+
+                        <label for="floatingInput">Ngày sinh</label>
+                    </div>
+                    <div class="form-floating">
+                        <select id="gender" name="gender" class="form-control" placeholder="Giới tính" required>
+                            <option value="">--Chọn giới tính--</option>
+                            <option value="male">Nam</option>
+                            <option value="female">Nữ</option>
+                            <option value="other">Khác</option>
+                        </select>
+                        
+                        <label for="floatingInput">Giới tính</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="file" name="avatar" id="avatar" class="form-control" placeholder="File ảnh 3x4" accept="image/*" required="">
+                        
+                        <label for="floatingInput">Ảnh đại diện 3x4</label>
+                        <img id="previewAvatar" src="#" alt="Preview" width="80" height="100" style="display: none; margin: 0px 111px 15px;">
+                    </div>
+                    <div class="form-floating">
+                        <input type="file" name="document" id="document" class="form-control" placeholder="File hồ sơ" accept=".doc, .docx, .pdf" required="">
+                        
+                        <label for="floatingInput">File hồ sơ</label>
+                    </div>
+                    <div class="form-floating">
+                        <textarea class="form-control" id="moreInfo" name="moreInfo" placeholder="Thông tin thêm"></textarea>
+                        
+                        <label for="floatingTextarea"> Thông tin thêm</label>
+                    </div>
+
+                    <button type="submit" class="form-control">Nộp hồ sơ</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const fileInput = document.getElementById('fileAvatar');
+        fileInput.addEventListener('change', function(event) {
+        // Lấy tệp tin đã chọn
+        const file = event.target.files[0];
+
+        if(file){
+            const previewImage = document.getElementById('previewAvatar');
+            const previewURL = URL.createObjectURL(file);
+            previewImage.src = previewURL;
+            previewImage.style.display = 'block';
+        }
+    });
+</script>

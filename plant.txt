@@ -8,5 +8,8 @@ ckeditor upload img --- tạm ok (chưa xử lý validate khi upload file ko ph�
 scholarship --- tạm ok (còn xử lý chỗ provider từ db load ra thay vì mảng cố định cho trước)
 xóa mềm + destroy member --- ok
 chỉnh sửa hồ sơ người dùng bên admin
-chuyển cái đổi mật khẩu qua bên profile
 xử lý phân quyền cho fund management board 
+
+load dữ liệu ra page (tạm ok)
+upload middleware candidate chưa ok lắm (2 file ảnh hoặc cả 2 file doc hoặc file doc, file ảnh đảo lộn)
+không cho nộp nhiều hồ sơ cho 1 loại hb (không thêm candidate vào DB nhưng ảnh với file doc vẫn đc upload) 

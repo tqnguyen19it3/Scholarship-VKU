@@ -1,0 +1,142 @@
+<section class="hero-section hero-50 d-flex justify-content-center align-items-center" id="section_1">
+
+    <div class="section-overlay"></div>
+
+    <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#3D405B" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path> <path fill="#3D405B" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path> <path fill="#3D405B" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path><path fill="#3D405B" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path><path fill="#3D405B" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path><path fill="#3D405B" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path><path fill="#3D405B" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path></svg>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-6 col-12">
+
+                <h1 class="text-white mb-4 pb-2">Học bổng nhân bản</h1>
+
+                <a href="#scholarship_list" class="btn custom-btn smoothscroll me-3">Danh sách chi tiết</a>
+            </div>
+
+        </div>
+    </div>
+
+    <svg viewBox="0 0 1962 178" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><path fill="#ffffff" d="M 0 114 C 118.5 114 118.5 167 237 167 L 237 167 L 237 0 L 0 0 Z" stroke-width="0"></path> <path fill="#ffffff" d="M 236 167 C 373 167 373 128 510 128 L 510 128 L 510 0 L 236 0 Z" stroke-width="0"></path> <path fill="#ffffff" d="M 509 128 C 607 128 607 153 705 153 L 705 153 L 705 0 L 509 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 704 153 C 812 153 812 113 920 113 L 920 113 L 920 0 L 704 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 919 113 C 1048.5 113 1048.5 148 1178 148 L 1178 148 L 1178 0 L 919 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 1177 148 C 1359.5 148 1359.5 129 1542 129 L 1542 129 L 1542 0 L 1177 0 Z" stroke-width="0"></path><path fill="#ffffff" d="M 1541 129 C 1751.5 129 1751.5 138 1962 138 L 1962 138 L 1962 0 L 1541 0 Z" stroke-width="0"></path></svg>
+</section>
+
+<section class="membership-section section-padding" id="scholarship_list">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12 col-12 text-center mx-auto mb-lg-5 mb-4">
+                <h2>Học bổng nhân bản</h2>
+            </div>
+            <% if(scholarships.length > 0){ %>
+                <div class="col-lg-12 col-12 mb-3 mb-lg-0">
+                    <h4 class="mb-4 pb-lg-2">Học bổng đã và đang triển khai</h4>
+
+                    <div class="table-responsive">
+                        <table class="table text-center">
+                            <thead>
+                                <tr>
+                                    <th style="width: 22%;">Tên học bổng</th>
+                                    
+                                    <th style="width: 13%;">Số lượng</th>
+                                    
+                                    <th style="width: 13%;">Giá trị</th>
+
+                                    <th style="width: 13%;">Tài trợ</th>
+
+                                    <th style="width: 13%;">Ngày bắt đầu / kết thúc</th>
+
+                                    <th style="width: 13%;">Trạng thái</th>
+                                    
+                                    <th style="width: 13%;"></th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <% scholarships.forEach(function(scholarship) { %>
+                                    <tr>
+                                        <th scope="row" class="text-center"><%= scholarship.name %></th>
+                                        
+                                        <td><%= scholarship.total %></td>
+                                        
+                                        <td class="formattedAmount"><%= scholarship.amount %> VNĐ</td>
+
+                                        <td><%= scholarship.provider %></td>
+
+                                        <td>Từ<br><%= moment(scholarship.start_deadline).format('DD-MM-YYYY') %><br>đến<br><%= moment(scholarship.end_deadline).format('DD-MM-YYYY') %></td>
+
+                                        <% if(scholarship.end_deadline < new Date()) { %>
+                                            <td class="status-cell"><img src="/site/images/expired.png" alt="statusIMG" width="60px"></td>
+
+                                            <td><button class="btn btn-secondary click-scroll" disabled="true">Chi tiết <i class="fa fa-angle-double-right"></i></button></td>
+                                        <% } else { %>
+                                            <td class="status-cell">
+                                            </td>
+
+                                            <td><a href="/chi-tiet-hoc-bong-nhan-ban/<%= scholarship.slug %>/<%= scholarship._id %>" class="btn btn-success click-scroll">Chi tiết <i class="fa fa-angle-double-right"></i></a></td>
+                                        <% } %>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="alert alert-warning text-center">
+                    <strong>Thông báo!</strong> Hiện chưa có bất kỳ học bổng nào từ chúng tôi
+                </div>
+            <% } %>
+
+
+            <!-- <div class="col-lg-5 col-12 mx-auto">
+                <h4 class="mb-4 pb-lg-2">Nộp hồ sơ!</h4>
+                <form action="#" method="post" class="custom-form membership-form shadow-lg" role="form">
+                    <h4 class="text-white mb-4">Mẫu ứng tuyển</h4>
+
+                    <div class="form-floating">
+                        <input type="text" name="full-name" id="full-name" class="form-control" placeholder="Họ & tên" required="">
+                        
+                        <label for="floatingInput">Họ & tên</label>
+                    </div>
+
+                    <div class="form-floating">
+                        <input type="email" name="email" id="email" pattern="[^ @]*@[^ @]*" class="form-control" placeholder="Địa chỉ Email" required="">
+                        
+                        <label for="floatingInput">Địa chỉ Email</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="text" name="phone" id="phone" pattern="[0-9]{10}" class="form-control" placeholder="Số điện thoại" required="">
+                        
+                        <label for="floatingInput">Số điện thoại</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="date" id="ngaySinh" name="ngaySinh" class="form-control" placeholder="Ngày sinh" required>
+
+                        <label for="floatingInput">Ngày sinh</label>
+                    </div>
+                    <div class="form-floating">
+                        <select id="gioiTinh" name="gioiTinh" class="form-control" placeholder="Ngày sinh" required>
+                            <option value="">--Chọn giới tính--</option>
+                            <option value="nam">Nam</option>
+                            <option value="nu">Nữ</option>
+                            <option value="khac">Khác</option>
+                        </select>
+                        
+                        <label for="floatingInput">Giới tính</label>
+                    </div>
+                    <div class="form-floating">
+                        <input type="file" name="file" id="file" class="form-control" placeholder="File" accept=".doc, .docx, .pdf" required="">
+                        
+                        <label for="floatingInput">File hồ sơ</label>
+                    </div>
+                    <div class="form-floating">
+                        <textarea class="form-control" id="message" name="message" placeholder="Describe message here"></textarea>
+                        
+                        <label for="floatingTextarea"> Thông tin thêm</label>
+                    </div>
+
+                    <button type="submit" class="form-control">Nộp</button>
+                </form>
+            </div> -->
+        </div>
+    </div>
+</section>

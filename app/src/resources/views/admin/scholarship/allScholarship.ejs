@@ -37,12 +37,12 @@
                         <input type="checkbox" id="check-all" class="flat">
                       </th>
                       <th class="column-title">Name</th>
-                      <th class="column-title">Image</th>
                       <th class="column-title">Amount</th>
                       <th class="column-title">Total</th>
-                      <th class="column-title">Start date</th>
-                      <th class="column-title">End Date</th>
                       <th class="column-title">Sponsor</th>
+                      <th class="column-title">Start Date</th>
+                      <th class="column-title">End Date</th>
+                      <th class="column-title">Expiry Status</th>
                       <th class="column-title">Status</th>
                       <th class="column-title no-link last"><span class="nobr">Action</span>
                       </th>
@@ -57,7 +57,7 @@
                   <% if(scholarships.length > 0){
                     scholarships.forEach(function(scholarship) { %>
                       <tr class="even pointer">
-                        <td class="a-center ">
+                        <td class="a-center">
                           <input type="checkbox" class="flat" name="table_records">
                         </td>
                         <td>
@@ -65,17 +65,19 @@
                           <br />
                           <small>Created at: <%= moment(scholarship.createdAt).format('DD-MM-YYYY HH:mm A') %></small>
                         </td>
-                        <% if(scholarship.image){ %>
-                        <td><img class="h-40 mb-4 mx-auto" src="/uploads/scholarships/<%= scholarship.image %>" width="70" height="70" alt="scholarship image"></td>
-                        <% } else { %>
-                        <td><img class="h-40 mb-4 mx-auto" src="/admin/img/scholarship.jpg" width="70" height="70" alt="scholarship image"></td>
-                        <% } %>
-                        <td class="formattedAmount"><%= scholarship.amount %></td>
-                        <td><%= scholarship.total %></td>
+                        <td class="formattedAmount text-center"><%= scholarship.amount %></td>
+                        <td class="text-center"><%= scholarship.total %></td>
+                        <td><%= scholarship.provider %></td>
                         <td><%= moment(scholarship.start_deadline).format('DD-MM-YYYY') %></td>
                         <td><%= moment(scholarship.end_deadline).format('DD-MM-YYYY') %></td>
-                        <td><%= scholarship.provider %></td>
-                        <td>
+                        <% if(scholarship.end_deadline < new Date()) { %>
+                          <td class="text-center"><img src="/site/images/expired.png" alt="statusIMG" width="60px"></td>
+                        <% } else { %>
+                            <td class="text-center">
+                              
+                            </td>
+                        <% } %>
+                        <td class="text-center">
                           <% if(scholarship.status === 'show'){ %>
                             <label>
                               <input type="checkbox" class="js-switch" data-state="<%= scholarship.status %>" data-id="<%= scholarship._id %>" checked /> 
@@ -86,7 +88,7 @@
                             </label>
                           <% } %>
                         </td>
-                        <td class=" last">
+                        <td class="last">
                             <a href="/api/admin/edit-scholarship/<%= scholarship._id %>" class="btn btn-info btn-sm">
                                 <i class="fa fa-edit"></i> <small>Edit</small>
                             </a>

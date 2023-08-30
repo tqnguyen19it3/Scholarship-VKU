@@ -78,7 +78,7 @@ function authController() {
                 res.cookie('accessToken', accessTokenUser, { maxAge: process.env.ACCESS_EXPIRED_IN * 1000 });
                 res.cookie('refreshToken', refreshTokenUser, { maxAge: process.env.REFRESH_EXPIRED_IN * 1000 });
 
-                return res.redirect('/');
+                return res.redirect('back');
             } catch (error) {
                 next(error);
             }
