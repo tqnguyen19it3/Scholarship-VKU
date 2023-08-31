@@ -27,7 +27,7 @@
 
                 <div class="x_content">
                   <div class="table-responsive">
-                    <table class="table table-striped jambo_table bulk_action" id="datatable">
+                    <table class="table table-striped jambo_table bulk_action" id="datatable" style="width:100%">
                       <thead>
                         <tr class="headings">
                           <th>
@@ -63,16 +63,25 @@
                                 <small>Deleted at: <%= moment(delScholarship.deletedAt).format('DD-MM-YYYY HH:mm A') %></small>
                               </td>
                               <td class="formattedAmount text-center"><%= delScholarship.amount %></td>
-                              <td class="text-center"><%= delScholarship.total %></td>
+                              <% if(delScholarship.total < 1) { %>
+                                <td class="text-center">
+                                  <strong style="color: red;">Hết suất!</strong>
+                                </td>
+                              <% } else { %>
+                                <td class="text-center"><%= delScholarship.total %></td>
+                              <% } %>
                               <td><%= delScholarship.provider %></td>
                               <td><%= moment(delScholarship.start_deadline).format('DD-MM-YYYY') %></td>
                               <td><%= moment(delScholarship.end_deadline).format('DD-MM-YYYY') %></td>
                               <% if(delScholarship.end_deadline < new Date()) { %>
                                 <td class="text-center"><img src="/site/images/expired.png" alt="statusIMG" width="60px"></td>
-                              <% } else { %>
+                              <% } else if(delScholarship.total < 1) { %>
                                   <td class="text-center">
-                                    
+                                    <strong style="color: red;">Hết suất!</strong>
                                   </td>
+                              <% } else { %>
+                                <td class="text-center">
+                                </td>
                               <% } %>
                               <td class=" last">
                                 <a href="#" class="btn btn-info btn-sm btn-restore-delScholarship" onclick="confirmRestoreScholarship('<%= delScholarship._id %>', event)">
@@ -98,31 +107,8 @@
       </div>
   </div>
 </div>
+
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
-      // Lấy danh sách các thẻ <td> dựa trên lớp CSS
-      var tdElements = document.getElementsByClassName('formattedAmount');
-
-      // Lặp qua danh sách các thẻ <td>
-      for (var i = 0; i < tdElements.length; i++) {
-        var tdElement = tdElements[i];
-
-        // Lấy nội dung của thẻ <td>
-        var amount = tdElement.textContent;
-
-        // Định dạng số tiền
-        var formattedAmount = formatCurrency(amount);
-
-        // Cập nhật nội dung trong thẻ <td> với số tiền đã định dạng
-        tdElement.textContent = formattedAmount;
-      }
-    });
-
-    function formatCurrency(amount) {
-      var formattedValue = parseFloat(amount).toLocaleString('en-US');
-      return formattedValue + " VNĐ";
-  }
-
 // khôi phục scholarship
 function confirmRestoreScholarship(scholarshipId, event) {
   event.preventDefault();

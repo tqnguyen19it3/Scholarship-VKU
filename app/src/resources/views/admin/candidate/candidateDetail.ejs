@@ -1,0 +1,173 @@
+<div class="right_col" role="main">
+    <div class="">
+      <div class="page-title">
+        <div class="fa-hover col-md-3 col-sm-4"><a href="/api/admin/all-candidate" style="color: green;"><h5><i class="fa fa-reply"></i> Back</h5></a>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+
+      <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Candidate's Profile Details</h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Settings 1</a>
+                      <a class="dropdown-item" href="#">Settings 2</a>
+                    </div>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+            <div class="x_content">
+
+              <div class="col-md-7 col-sm-7 ">
+                <div class="product-image">
+                  <img src="/uploads/candidates/avatar/<%= candidate.avatar %>" alt="avatar" />
+                </div>
+              </div>
+
+              <div class="col-md-5 col-sm-5 " style="border:0px solid #e5e5e5;">
+
+                <h3 class="prod_title">Details of Scholarship Application</h3>
+
+                <p><%= candidate.scholarshipId.description %></p>
+                <br />
+
+                <div class="">
+                  <div class="product_price">
+                    <h1 class="price"><%= candidate.scholarshipId.name %></h1> <br>
+                    <span class="price-tax">Amount: <span class="formattedAmount"><%= candidate.scholarshipId.amount %></span></span> <br>
+                    <span class="price-tax">Total number of scholarships: <%= candidate.scholarshipId.total %></span> <br>
+                    <span class="price-tax">Deadline for submission: <%= moment(candidate.scholarshipId.start_deadline).format('DD-MM-YYYY') %> to <%= moment(candidate.scholarshipId.end_deadline).format('DD-MM-YYYY') %></span> <br>
+                    <span class="price-tax">Provider: <%= candidate.scholarshipId.provider %></span> <br>
+                    <br>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="x_content">
+              <section class="content invoice">
+                <div class="row">
+                  <div class="  invoice-header">
+                    <h1>
+                      <i class="fa fa-globe"></i> Submitted at: 
+                      <small>Date <%= moment(candidate.createdAt).format('DD-MM-YYYY') %></small>
+                    </h1>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <p class="lead">Personal Information</p>
+                    <div class="table-responsive">
+                      <table class="table">
+                        <tbody>
+                          <tr>
+                            <th style="width:50%">Name:</th>
+                            <td><%= candidate.name %></td>
+                          </tr>
+                          <tr>
+                            <th>Email</th>
+                            <td><%= candidate.email %></td>
+                          </tr>
+                          <tr>
+                            <th>Phone</th>
+                            <td><%= candidate.phoneNumber %></td>
+                          </tr>
+                          <tr>
+                            <th>Day of birth:</th>
+                            <td><%= moment(candidate.dob).format('DD-MM-YYYY') %></td>
+                          </tr>
+                          <tr>
+                            <th>Gender:</th>
+                            <td><%= candidate.gender %></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <p class="lead">More Info:</p>
+                    <p class="text-muted well well-sm no-shadow" style="margin-top: 10px;">
+                      <%= candidate.moreInfo %>
+                    </p>
+                    <% if(candidate.isApproved === 'pending'){ %>
+                      <form id="approvalForm" method="POST" action="/api/admin/approved-candidate/<%= candidate._id %>?_method=PATCH">
+                        <input type="hidden" name="approved" value="approved">
+                        <button type="button" class="btn btn-success" onclick="handleApprovalConfirmation()">Approved</button>
+                      </form>
+                      <form id="disapprovalForm" method="POST" action="/api/admin/disapproved-candidate/<%= candidate._id %>?_method=PATCH">
+                        <input type="hidden" name="disapproved" value="disapproved">
+                        <button type="button" class="btn btn-danger" onclick="handleDisapprovalConfirmation()">Disapproved</button>
+                      </form>
+                    <% } %>
+                  </div>
+                </div>
+
+                <div class="row no-print">
+                  <div class=" ">
+                    <button class="btn btn-default" onclick="window.print();"><i class="fa fa-print"></i> Print</button>
+                    <a href="/uploads/candidates/form/<%= candidate.document %>" class="btn btn-primary pull-right" download>
+                      <i class="fa fa-download"></i> The Scholarship Application
+                    </a>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<script>
+  // Xử lý sự kiện nhấn nút "approved"
+  function handleApprovalConfirmation() {
+    Swal.fire({
+      title: 'Confirm',
+      text: 'Are you sure you want to confirm?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Approved',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Nếu người dùng xác nhận, gửi yêu cầu đến máy chủ
+        document.getElementById('approvalForm').submit();
+      }
+    })
+    .catch((errorMessage) => {
+      console.error('Catch với tham số lỗi ' + errorMessage);
+    });
+  }
+
+  // Xử lý sự kiện nhấn nút "approved"
+  function handleDisapprovalConfirmation() {
+    Swal.fire({
+      title: 'Confirm',
+      text: 'Are you sure you want to confirm?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Disapproved',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Nếu người dùng xác nhận, gửi yêu cầu đến máy chủ
+        document.getElementById('disapprovalForm').submit();
+      }
+    })
+    .catch((errorMessage) => {
+      console.error('Catch với tham số lỗi ' + errorMessage);
+    });
+  }
+</script>

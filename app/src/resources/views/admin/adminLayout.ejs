@@ -130,24 +130,14 @@
                         </li>
                       </ul>
                     </li>
+                    <li><a><i class="fa fa-users"></i> Manage Candidate <span class="fa fa-chevron-down"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="/api/admin/all-candidate">Candidate List</a></li>
+                      </ul>
+                    </li>
                     <li><a><i class="fa fa-desktop"></i> Client-side Interface <span class="fa fa-chevron-down"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="/api/admin/client-side-interface-information">Edit Basic Display Information</a></li>
-                      </ul>
-                    </li>
-                    <li><a><i class="fa fa-table"></i> Tables <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="tables.html">Tables</a></li>
-                      </ul>
-                    </li>
-                    <li><a><i class="fa fa-bar-chart-o"></i> Data Presentation <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="chartjs.html">Chart JS</a></li>
-                      </ul>
-                    </li>
-                    <li><a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
                       </ul>
                     </li>
                   </ul>
@@ -297,7 +287,7 @@
     <script src="/admin/vendors/datatables.net-buttons/js/buttons.html5.min.js"></script>
     <script src="/admin/vendors/datatables.net-buttons/js/buttons.print.min.js"></script>
     <!-- <script src="/admin/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js"></script> -->
-    <!-- <script src="/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script> -->
+    <script src="/admin/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
     <script src="/admin/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
     <script src="/admin/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
     <!-- <script src="/admin/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script> -->
@@ -323,7 +313,6 @@
         }
       });
     </script>
-
 
     <script>
      // lấy giá trị thông báo và gán vào biến tương ứng
@@ -445,6 +434,32 @@
   
           return true;
       }
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Lấy danh sách các thẻ <td> dựa trên lớp CSS
+      var tdElements = document.getElementsByClassName('formattedAmount');
+
+      // Lặp qua danh sách các thẻ <td>
+      for (var i = 0; i < tdElements.length; i++) {
+        var tdElement = tdElements[i];
+
+        // Lấy nội dung của thẻ <td>
+        var amount = tdElement.textContent;
+
+        // Định dạng số tiền
+        var formattedAmount = formatCurrency(amount);
+
+        // Cập nhật nội dung trong thẻ <td> với số tiền đã định dạng
+        tdElement.textContent = formattedAmount;
+      }
+    });
+
+    function formatCurrency(amount) {
+      var formattedValue = parseFloat(amount).toLocaleString('en-US');
+      return formattedValue + " VNĐ";
+    }
   </script>
   </body>
 </html>

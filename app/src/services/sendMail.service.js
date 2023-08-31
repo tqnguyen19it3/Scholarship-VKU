@@ -172,8 +172,96 @@ const sendEmailCandidateSubmitForm = async (candidate, subject, html) => {
     }
 };
 
+const sendEmailApprovedCandidate = async (toMail, candidateName, subject, html) => {
+    try {
+        const transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.GMAIL_ACCOUNT,
+                pass: process.env.GMAIL_PASSWORD
+            }
+        });
+
+        const mailGenerator = new mailGen({
+            theme: "cerberus",
+            product: {
+                name: "VKU",
+                logo: "https://upload.wikimedia.org/wikipedia/commons/b/b6/Logo_tr%C6%B0%E1%BB%9Dng_%C4%90%E1%BA%A1i_h%E1%BB%8Dc_C%C3%B4ng_ngh%E1%BB%87_th%C3%B4ng_tin_v%C3%A0_Truy%E1%BB%81n_th%C3%B4ng_Vi%E1%BB%87t_-_H%C3%A0n%2C_%C4%90%E1%BA%A1i_h%E1%BB%8Dc_%C4%90%C3%A0_N%E1%BA%B5ng.png",
+                link: "http://localhost:5500/"
+            },
+        });
+    
+        const emailContent = {
+            body: {
+                name: candidateName,
+                intro: "Congratulations! We are pleased to inform you that you have successfully passed the application stage.",
+                outro: "If you are not interested, please ignore this email",
+            },
+        };
+    
+        const mailOptions = {
+            from: "noreply@vku.udn.vn",
+            to: toMail,
+            subject: subject,
+            text: html,
+            html: mailGenerator.generate(emailContent),
+        };
+    
+        await transporter.sendMail(mailOptions);
+    } catch (error) {
+        throw new Error("Failed to send email");
+    }
+};
+
+const sendEmailDisapprovedCandidate = async (toMail, candidateName, subject, html) => {
+    try {
+        const transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
+            auth: {
+                user: process.env.GMAIL_ACCOUNT,
+                pass: process.env.GMAIL_PASSWORD
+            }
+        });
+
+        const mailGenerator = new mailGen({
+            theme: "cerberus",
+            product: {
+                name: "VKU",
+                logo: "https://upload.wikimedia.org/wikipedia/commons/b/b6/Logo_tr%C6%B0%E1%BB%9Dng_%C4%90%E1%BA%A1i_h%E1%BB%8Dc_C%C3%B4ng_ngh%E1%BB%87_th%C3%B4ng_tin_v%C3%A0_Truy%E1%BB%81n_th%C3%B4ng_Vi%E1%BB%87t_-_H%C3%A0n%2C_%C4%90%E1%BA%A1i_h%E1%BB%8Dc_%C4%90%C3%A0_N%E1%BA%B5ng.png",
+                link: "http://localhost:5500/"
+            },
+        });
+    
+        const emailContent = {
+            body: {
+                name: candidateName,
+                intro: "Condolences! We regret to inform you that you did not pass the application stage.",
+                outro: "If you are not interested, please ignore this email",
+            },
+        };
+    
+        const mailOptions = {
+            from: "noreply@vku.udn.vn",
+            to: toMail,
+            subject: subject,
+            text: html,
+            html: mailGenerator.generate(emailContent),
+        };
+    
+        await transporter.sendMail(mailOptions);
+    } catch (error) {
+        throw new Error("Failed to send email");
+    }
+};
+
 module.exports = { 
     sendPasswordEmail,
     sendPasswordEmailAddMember,
-    sendEmailCandidateSubmitForm 
+    sendEmailCandidateSubmitForm,
+    sendEmailApprovedCandidate,
+    sendEmailDisapprovedCandidate
 }

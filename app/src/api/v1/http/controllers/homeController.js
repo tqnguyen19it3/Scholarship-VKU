@@ -133,9 +133,6 @@ function homeController() {
                 const CSI = await CSI_infoModel.findOne();
                 const scholarshipDetail = await scholarshipModel.findOne({ _id: req.params.id, status: "show" });
                 if(scholarshipDetail){
-                    if(scholarshipDetail.end_deadline < new Date()){
-                        throw createError.NotFound(`Thất bại! Không thể tìm thấy trang này`);
-                    }
                     res.render('site/scholarshipDetail', { scholarshipDetail, moment, CSI });
                 } else {
                     throw createError.NotFound(`Thất bại! Không thể tìm thấy trang này`);
@@ -151,6 +148,9 @@ function homeController() {
                 const scholarship = await scholarshipModel.findOne({ _id: req.params.id, status: "show" });
                 if(scholarship){
                     if(scholarship.end_deadline < new Date()){
+                        throw createError.NotFound(`Thất bại! Không thể tìm thấy trang này`);
+                    }
+                    if(scholarship.total < 1){
                         throw createError.NotFound(`Thất bại! Không thể tìm thấy trang này`);
                     }
                     res.render('site/applicationForm', { scholarship, moment, CSI });
@@ -184,8 +184,9 @@ function homeController() {
 
                 // check email exits
                 const existingCandidate = await candidateModel.findOne({ email: infoCandidate.email, scholarshipId: infoCandidate.scholarshipId});
+                const existingCandidateDeleted = await candidateModel.findOneDeleted({ email: infoCandidate.email, scholarshipId: infoCandidate.scholarshipId});
 
-                if (existingCandidate) {
+                if (existingCandidate || existingCandidateDeleted) {
                     return res.cookie('errorMessage', `Hình như bạn đã nộp hồ sơ cho học bổng này rồi, bạn không thể nộp nhiều hồ sơ cho cùng loại học bổng`).redirect('back');
                 }
 

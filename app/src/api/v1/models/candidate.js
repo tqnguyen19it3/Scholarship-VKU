@@ -15,7 +15,8 @@ const candidateSchema = new Schema({
     gender: { type: String, required: true},
     avatar: { type: String, required: true },
     document: { type: String, required: true },
-    moreInfo: { type: String }
+    moreInfo: { type: String },
+    isApproved: { type: String, default: 'pending' }
 }, { timestamps: true });
 
 //add plugins

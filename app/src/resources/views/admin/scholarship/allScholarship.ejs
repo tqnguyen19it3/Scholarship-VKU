@@ -30,7 +30,7 @@
 
             <div class="x_content">
               <div class="table-responsive">
-                <table class="table table-striped jambo_table bulk_action" id="datatable-buttons">
+                <table class="table table-striped jambo_table bulk_action" id="datatable-buttons" style="width:100%">
                   <thead>
                     <tr class="headings">
                       <th>
@@ -66,16 +66,26 @@
                           <small>Created at: <%= moment(scholarship.createdAt).format('DD-MM-YYYY HH:mm A') %></small>
                         </td>
                         <td class="formattedAmount text-center"><%= scholarship.amount %></td>
-                        <td class="text-center"><%= scholarship.total %></td>
+                        <% if(scholarship.total < 1) { %>
+                          <td class="text-center">
+                            <strong style="color: red;">Hết suất!</strong>
+                          </td>
+                        <% } else { %>
+                          <td class="text-center"><%= scholarship.total %></td>
+                        <% } %>
+                        
                         <td><%= scholarship.provider %></td>
                         <td><%= moment(scholarship.start_deadline).format('DD-MM-YYYY') %></td>
                         <td><%= moment(scholarship.end_deadline).format('DD-MM-YYYY') %></td>
                         <% if(scholarship.end_deadline < new Date()) { %>
                           <td class="text-center"><img src="/site/images/expired.png" alt="statusIMG" width="60px"></td>
-                        <% } else { %>
+                        <% } else if(scholarship.total < 1) { %>
                             <td class="text-center">
-                              
+                              <strong style="color: red;">Hết suất!</strong>
                             </td>
+                        <% } else { %>
+                          <td class="text-center">
+                          </td>
                         <% } %>
                         <td class="text-center">
                           <% if(scholarship.status === 'show'){ %>
@@ -115,30 +125,6 @@
 
 
   <script>
-
-    document.addEventListener('DOMContentLoaded', function() {
-      // Lấy danh sách các thẻ <td> dựa trên lớp CSS
-      var tdElements = document.getElementsByClassName('formattedAmount');
-
-      // Lặp qua danh sách các thẻ <td>
-      for (var i = 0; i < tdElements.length; i++) {
-        var tdElement = tdElements[i];
-
-        // Lấy nội dung của thẻ <td>
-        var amount = tdElement.textContent;
-
-        // Định dạng số tiền
-        var formattedAmount = formatCurrency(amount);
-
-        // Cập nhật nội dung trong thẻ <td> với số tiền đã định dạng
-        tdElement.textContent = formattedAmount;
-      }
-    });
-
-    function formatCurrency(amount) {
-      var formattedValue = parseFloat(amount).toLocaleString('en-US');
-      return formattedValue + " VNĐ";
-    }
     
     document.addEventListener('DOMContentLoaded', function(){
       let btnUpdateStatusAnn = $('.js-switch');

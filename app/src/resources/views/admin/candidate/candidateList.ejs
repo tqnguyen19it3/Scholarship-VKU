@@ -1,0 +1,326 @@
+<div class="right_col" role="main">
+    <div class="">
+      <div class="page-title">
+        <div class="fa-hover col-md-3 col-sm-4">
+          <a href="/api/admin/trash-candidate" style="color: red;">
+            <h5><i class="fa fa-trash"></i> Manage Trash (<%= candidateDeletedCount %>)</h5>
+          </a>
+        </div>
+      </div>
+      <div class="clearfix"></div>
+      <div class="row">
+        <div class="col-md-12 col-sm-12 ">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Manage The Pending Candidate Table</h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Settings 1</a>
+                    </div>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content">
+              <div class="table-responsive">
+                <table id="datatable-checkbox" class="table table-striped jambo_table bulk_action" style="width:100%">
+                  <thead>
+                    <tr class="headings">
+                      <th>
+                        <input type="checkbox" id="check-all" class="flat">
+                      </th>
+                      <th class="column-title">Name</th>
+                      <th class="column-title">Email</th>
+                      <th class="column-title">Avatar</th>
+                      <th class="column-title">Scholarship</th>
+                      <th class="column-title">Slot</th>
+                      <th class="column-title">Deadline Date</th>
+                      <th class="column-title">Profile Status</th>
+                      <th class="column-title no-link last"><span class="nobr">Action</span>
+                      </th>
+                      <th class="bulk-actions" colspan="7">
+                        <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    
+                  <% if(pendingCandidates.length > 0){
+                    pendingCandidates.forEach(function(pendingCandidate) { %>
+                      <tr class="even pointer">
+                        <td class="a-center">
+                          <input type="checkbox" class="flat" name="table_records">
+                        </td>
+                        <td>
+                          <%= pendingCandidate.name %>
+                        </td>
+                        <td>
+                            <%= pendingCandidate.email %>
+                        </td>
+                        <td><img class="h-40 mb-4 mx-auto" src="/uploads/candidates/avatar/<%= pendingCandidate.avatar %>" width="50" height="70" alt="avatar"></td>
+                        <td><a href="/chi-tiet-hoc-bong-nhan-ban/<%= pendingCandidate.scholarshipId.slug %>/<%= pendingCandidate.scholarshipId._id %>" target="_blank"><%= pendingCandidate.scholarshipId.name %></a></td>
+                        <% if(pendingCandidate.scholarshipId.total < 1) { %>
+                            <td class="text-center">
+                              <strong style="color: red;">Hết suất!</strong>
+                            </td>
+                          <% } else { %>
+                            <td class="text-center"><%= pendingCandidate.scholarshipId.total %></td>
+                        <% } %>
+                        <td><%= moment(pendingCandidate.scholarshipId.end_deadline).format('DD-MM-YYYY') %></td>
+                        <td class="text-center">
+                            <span class="badge badge-warning">Pending...</span>
+                        </td>
+                        <td class="last">
+                            <a href="/api/admin/view-candidate-detail/<%= pendingCandidate._id %>" class="btn btn-info btn-sm">
+                                <i class="fa fa-eye"></i> <small>View</small>
+                            </a>
+                            <a href="#" class="btn btn-danger btn-sm"  onclick="confirmSoftDelCandidate('<%= pendingCandidate._id %>', event)">
+                              <i class="fa fa-trash"></i> <small>Trash</small>
+                            </a>
+                        </td>
+                      </tr>
+                    <% })
+                    } else { %>
+                        <tr class="even pointer text-center">
+                        <td colspan="8" style="color: brown; font-weight: bold;"> No records found</td>
+                        </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+ 
+        <div class="col-md-12 col-sm-12 ">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Manage The Approved Candidate Table</h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Settings 1</a>
+                    </div>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content">
+              <div class="table-responsive">
+                <table class="table table-striped jambo_table bulk_action" id="datatable-buttons" style="width:100%">
+                  <thead>
+                    <tr class="headings">
+                      <th>
+                        <input type="checkbox" id="check-all" class="flat">
+                      </th>
+                      <th class="column-title">Name</th>
+                      <th class="column-title">Email</th>
+                      <th class="column-title">Avatar</th>
+                      <th class="column-title">Scholarship</th>
+                      <th class="column-title">Slot</th>
+                      <th class="column-title">Deadline Date</th>
+                      <th class="column-title">Profile Status</th>
+                      <th class="column-title no-link last"><span class="nobr">Action</span>
+                      </th>
+                      <th class="bulk-actions" colspan="7">
+                        <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    
+                  <% if(approvedCandidates.length > 0){
+                    approvedCandidates.forEach(function(approvedCandidate) { %>
+                      <tr class="even pointer">
+                        <td class="a-center">
+                          <input type="checkbox" class="flat" name="table_records">
+                        </td>
+                        <td>
+                          <%= approvedCandidate.name %>
+                        </td>
+                        <td>
+                            <%= approvedCandidate.email %>
+                        </td>
+                        <td><img class="h-40 mb-4 mx-auto" src="/uploads/candidates/avatar/<%= approvedCandidate.avatar %>" width="50" height="70" alt="avatar"></td>
+                        <td><a href="/chi-tiet-hoc-bong-nhan-ban/<%= approvedCandidate.scholarshipId.slug %>/<%= approvedCandidate.scholarshipId._id %>" target="_blank"><%= approvedCandidate.scholarshipId.name %></a></td>
+                        <% if(approvedCandidate.scholarshipId.total < 1) { %>
+                            <td class="text-center">
+                              <strong style="color: red;">Hết suất!</strong>
+                            </td>
+                          <% } else { %>
+                            <td class="text-center"><%= approvedCandidate.scholarshipId.total %></td>
+                        <% } %>
+                        <td><%= moment(approvedCandidate.scholarshipId.end_deadline).format('DD-MM-YYYY') %></td>
+                        <td class="text-center">
+                            <span class="badge badge-success">Approved</span>
+                        </td>
+                        <td class="last">
+                            <a href="/api/admin/view-candidate-detail/<%= approvedCandidate._id %>" class="btn btn-info btn-sm">
+                                <i class="fa fa-eye"></i> <small>View</small>
+                            </a>
+                            <a href="#" class="btn btn-danger btn-sm"  onclick="confirmSoftDelCandidate('<%= approvedCandidate._id %>', event)">
+                              <i class="fa fa-trash"></i> <small>Trash</small>
+                            </a>
+                        </td>
+                      </tr>
+                    <% })
+                    } else { %>
+                        <tr class="even pointer text-center">
+                        <td colspan="8" style="color: brown; font-weight: bold;"> No records found</td>
+                        </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+        <div class="col-md-12 col-sm-12 ">
+          <div class="x_panel">
+            <div class="x_title">
+              <h2>Manage The Disapproved Candidate Table</h2>
+              <ul class="nav navbar-right panel_toolbox">
+                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                      <a class="dropdown-item" href="#">Settings 1</a>
+                    </div>
+                </li>
+                <li><a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
+            </div>
+
+            <div class="x_content">
+              <div class="table-responsive">
+                <table class="table table-striped jambo_table bulk_action" id="datatable-keytable" style="width:100%">
+                  <thead>
+                    <tr class="headings">
+                      <th>
+                        <input type="checkbox" id="check-all" class="flat">
+                      </th>
+                      <th class="column-title">Name</th>
+                      <th class="column-title">Email</th>
+                      <th class="column-title">Avatar</th>
+                      <th class="column-title">Scholarship</th>
+                      <th class="column-title">Slot</th>
+                      <th class="column-title">Deadline Date</th>
+                      <th class="column-title">Profile Status</th>
+                      <th class="column-title no-link last"><span class="nobr">Action</span>
+                      </th>
+                      <th class="bulk-actions" colspan="7">
+                        <a class="antoo" style="color:#fff; font-weight:500;">Bulk Actions ( <span class="action-cnt"> </span> ) <i class="fa fa-chevron-down"></i></a>
+                      </th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    
+                  <% if(disapprovedCandidates.length > 0){
+                    disapprovedCandidates.forEach(function(disapprovedCandidate) { %>
+                      <tr class="even pointer">
+                        <td class="a-center">
+                          <input type="checkbox" class="flat" name="table_records">
+                        </td>
+                        <td>
+                          <%= disapprovedCandidate.name %>
+                        </td>
+                        <td>
+                            <%= disapprovedCandidate.email %>
+                        </td>
+                        <td><img class="h-40 mb-4 mx-auto" src="/uploads/candidates/avatar/<%= disapprovedCandidate.avatar %>" width="50" height="70" alt="avatar"></td>
+                        <td><a href="/chi-tiet-hoc-bong-nhan-ban/<%= disapprovedCandidate.scholarshipId.slug %>/<%= disapprovedCandidate.scholarshipId._id %>" target="_blank"><%= disapprovedCandidate.scholarshipId.name %></a></td>
+                        <% if(disapprovedCandidate.scholarshipId.total < 1) { %>
+                            <td class="text-center">
+                              <strong style="color: red;">Hết suất!</strong>
+                            </td>
+                          <% } else { %>
+                            <td class="text-center"><%= disapprovedCandidate.scholarshipId.total %></td>
+                        <% } %>
+                        <td><%= moment(disapprovedCandidate.scholarshipId.end_deadline).format('DD-MM-YYYY') %></td>
+                        <td class="text-center">
+                            <span class="badge badge-danger">Disapproved</span>
+                        </td>
+                        <td class="last">
+                            <a href="/api/admin/view-candidate-detail/<%= disapprovedCandidate._id %>" class="btn btn-info btn-sm">
+                                <i class="fa fa-eye"></i> <small>View</small>
+                            </a>
+                            <a href="#" class="btn btn-danger btn-sm"  onclick="confirmSoftDelCandidate('<%= disapprovedCandidate._id %>', event)">
+                              <i class="fa fa-trash"></i> <small>Trash</small>
+                            </a>
+                        </td>
+                      </tr>
+                    <% })
+                    } else { %>
+                        <tr class="even pointer text-center">
+                        <td colspan="8" style="color: brown; font-weight: bold;"> No records found</td>
+                        </tr>
+                    <% } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+  <script>
+
+     // xóa mềm candidate
+     function confirmSoftDelCandidate(candidateId, event) {
+      event.preventDefault();// Ngăn chặn hành vi mặc định của thẻ <a>
+
+      Swal.fire({
+        title: 'Move to trash',
+        text: 'Do you want to move this candidate to the trash?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Move',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Nếu người dùng xác nhận xóa
+          axios.delete(`/api/admin/soft-delete-candidate/${candidateId}`)
+            .then((response) => {
+              // Xóa thành công
+              if(response.status === 200){
+                Swal.fire('Successfully', response.data.message, 'success')
+                  .then(() => {
+                  location.reload(); // Reload lại trang
+                });
+              } else {
+                Swal.fire('Failed', 'Something went wrong!', 'error');
+              }
+            })
+            .catch((error) => {
+              // Xử lý lỗi khi xóa không thành công
+              Swal.fire('Failed', 'Something went wrong!', 'error');
+            });
+        }
+      });
+    }
+  </script>
+
+

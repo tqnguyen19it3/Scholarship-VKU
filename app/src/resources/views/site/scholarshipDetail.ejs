@@ -47,8 +47,11 @@
 
                         <div class="col-lg-4 col-12 my-3 my-lg-0">
                             <span class="custom-block-span">Số lượng:</span>
-
-                            <p class="mb-0"><%= scholarshipDetail.total %> suất</p>
+                            <% if(scholarshipDetail.total > 0){ %>
+                                <p class="mb-0"><%= scholarshipDetail.total %> suất</p>
+                            <% } else { %>
+                                <p class="mb-0" style="color: red;">Hết suất</p>
+                            <% } %>
                         </div>
 
                         <div class="col-lg-4 col-12">
@@ -63,17 +66,18 @@
                         <div class="col-lg-6 col-12">
                             <p class="mb-0"><%= scholarshipDetail.provider %></p>
                         </div>
-                        <div class="col-lg-6 col-12">
-                            <div class="row">
-                                <div class="col-lg-6 col-12">
-                                    <a href="/uploads/scholarships/DonXinXetCapHB_2023.docx" class="btn custom-btn smoothscroll" download>Tải về mẫu đơn</a>
-                                </div>
-                                <div class="col-lg-6 col-12">
-                                    <a href="/nop-ho-so/<%= scholarshipDetail.slug %>/<%= scholarshipDetail._id %>" class="btn custom-btn smoothscroll">Nộp hồ sơ</a>
+                        <% if(scholarshipDetail.total > 0 && scholarshipDetail.end_deadline > new Date()){ %>
+                            <div class="col-lg-6 col-12">
+                                <div class="row">
+                                    <div class="col-lg-6 col-12">
+                                        <a href="/uploads/scholarships/DonXinXetCapHB_2023.docx" class="btn custom-btn smoothscroll" download>Tải về mẫu đơn</a>
+                                    </div>
+                                    <div class="col-lg-6 col-12">
+                                        <a href="/nop-ho-so/<%= scholarshipDetail.slug %>/<%= scholarshipDetail._id %>" class="btn custom-btn smoothscroll">Nộp hồ sơ</a>
+                                    </div>
                                 </div>
                             </div>
-                           
-                        </div>
+                        <% } %>
                     </div>
 
                 </div>

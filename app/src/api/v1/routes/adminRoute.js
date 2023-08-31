@@ -10,6 +10,7 @@ const faqController = require('../http/controllers/faqController');
 const funFactController = require('../http/controllers/funFactController');
 const userManagementController = require('../http/controllers/userManagementController');
 const aboutUsController = require('../http/controllers/aboutUsController');
+const candidateController = require('../http/controllers/candidateController');
 
 //---------------- Middleware ----------------
 const auth = require('../../v1/http/middlewares/auth');
@@ -89,6 +90,17 @@ router.get('/trash-fund-management-board', [auth.isAuthentication, auth.isAdmin]
     // sponsor
 router.get('/sponsorship-management', [auth.isAuthentication, auth.isAdmin], userManagementController().sponsorshipManagement);
 router.get('/trash-sponsorship-management', [auth.isAuthentication, auth.isAdmin], userManagementController().trashSponsorshipManagement);
+
+// candidate
+router.get('/all-candidate', [auth.isAuthentication, auth.isAdmin], candidateController().allCandidate);
+router.get('/view-candidate-detail/:id', [auth.isAuthentication, auth.isAdmin], candidateController().viewCandidateDetail);
+router.patch('/approved-candidate/:id', [auth.isAuthentication, auth.isAdmin], candidateController().approvedCandidate);
+router.patch('/disapproved-candidate/:id', [auth.isAuthentication, auth.isAdmin], candidateController().disapprovedCandidate);
+router.delete('/soft-delete-candidate/:id', [auth.isAuthentication, auth.isAdmin], candidateController().softDelCandidate);
+router.get('/trash-candidate', [auth.isAuthentication, auth.isAdmin], candidateController().trashCandidate);
+router.patch('/restore-candidate/:id', [auth.isAuthentication, auth.isAdmin], candidateController().restoreCandidate);
+router.delete('/destroy-candidate/:id', [auth.isAuthentication, auth.isAdmin], candidateController().destroyCandidate);
+
 
 // about us management
 router.get('/about-us-management', [auth.isAuthentication, auth.isAdmin], aboutUsController().aboutUsManagement);
