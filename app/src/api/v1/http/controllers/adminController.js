@@ -5,6 +5,9 @@ const moment = require('moment');
 const contactModel = require('../../models/contact');
 const userModel = require('../../models/user');
 const CSI_infoModel = require('../../models/CSI_info');
+const announcementModel = require('../../models/announcement');
+const candidateModel = require('../../models/candidate');
+const scholarshipModel = require('../../models/scholarship');
 
 function adminController() {
     return {
@@ -15,7 +18,11 @@ function adminController() {
                 const contactInfo = await contactModel.find().sort({ createdAt: -1 }).limit(2);
                 const contactCount = await contactModel.count();
                 const deletedContactCount = await contactModel.countDocumentsDeleted();
-                res.render('admin/dashboard/adminHome' , { layout: 'admin/adminLayout', userInfo, contactInfo, contactCount, deletedContactCount, moment });
+                const announcementCount = await announcementModel.count();
+                const scholarshipCount = await scholarshipModel.count();
+                const candidateCount = await candidateModel.count();
+                const userCount = await userModel.count();
+                res.render('admin/dashboard/adminHome' , { layout: 'admin/adminLayout', userInfo, contactInfo, contactCount, deletedContactCount, announcementCount, scholarshipCount, userCount, candidateCount, moment });
             } catch (error) {
                 next(error);
             }

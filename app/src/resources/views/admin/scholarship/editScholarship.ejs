@@ -78,21 +78,23 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <select class="js-multiple-select form-control" multiple="multiple" name="scholarshipProvider">
-                                        <% if (scholarship.provider.length > 0) {
+                                        <% 
+                                        let pro = provider.map((item) => item.company);
+                                          if (scholarship.provider.length > 0) {
                                             for (let i = 0; i < scholarship.provider.length; i++) { %>
-                                                <% if (provider.includes(scholarship.provider[i])) { %>
+                                                <% if (pro.includes(scholarship.provider[i])) { %>
                                                     <option value="<%= scholarship.provider[i] %>" selected><%= scholarship.provider[i] %></option>
                                                 <% } 
                                             }
-                                            var newOptions = provider.filter(function(option) {
+                                            var newOptions = pro.filter(function(option) {
                                                 return !scholarship.provider.includes(option);
                                             });
                                             for (let g = 0; g < newOptions.length; g++) { %>
                                                 <option value="<%= newOptions[g] %>"><%= newOptions[g] %></option>
                                             <% }
                                         }else {
-                                            for (let j = 0; j < provider.length; j++) { %>
-                                                <option value="<%= provider[j] %>"><%= provider[j] %></option>
+                                            for (let j = 0; j < pro.length; j++) { %>
+                                                <option value="<%= pro[j] %>"><%= pro[j] %></option>
                                             <% }
                                         } %>
                                       </select>

@@ -5,23 +5,15 @@ const path = require('path');
 
 //models
 const scholarshipModel = require('../../models/scholarship');
+const userModel = require('../../models/user');
 
 function scholarshipController() {
     return {
         // [GET] / ADD SCHOLARSHIP PAGE
         async addScholarship(req, res, next) {
             const userInfo = req.payload;
-            const provider = [
-                "Design",
-                "HTML5",
-                "CSS3",
-                "jQuery",
-                "BS4",
-                "Bootstrap",
-                "WordPress",
-                "FrontEnd"
-            ];
-            return res.render('admin/scholarship/addScholarship' , { layout: 'admin/adminLayout', userInfo, provider });
+            const sponsors = await userModel.find({ role: "Sponsor" });
+            return res.render('admin/scholarship/addScholarship' , { layout: 'admin/adminLayout', userInfo, sponsors });
         },
         // [POST] / ADD SCHOLARSHIP
         saveScholarship(req, res, next) {
@@ -75,25 +67,15 @@ function scholarshipController() {
             });
         },
          // [GET] / EDIT SCHOLARSHIP PAGE
-        editScholarship(req, res, next) {
-            const userInfo = req.payload;
-            scholarshipModel.findById(req.params.id)
-                .then(scholarship => {
-                    const provider = [
-                        "Design",
-                        "HTML5",
-                        "CSS3",
-                        "jQuery",
-                        "BS4",
-                        "Bootstrap",
-                        "WordPress",
-                        "FrontEnd"
-                    ];
-                    res.render('admin/scholarship/editScholarship', { layout: 'admin/adminLayout', userInfo, scholarship, provider })
-                })
-                .catch(err => {
-                    next(err);
-                });
+        async editScholarship(req, res, next) {
+            try {
+              const userInfo = req.payload;
+              const scholarship = await scholarshipModel.findById(req.params.id);
+              const provider = await userModel.find({ role: "Sponsor" });
+              res.render('admin/scholarship/editScholarship', { layout: 'admin/adminLayout', userInfo, scholarship, provider });
+            } catch (err) {
+              next(err);
+            }
         },
         // // [PUT] / UPDATE SCHOLARSHIP
         updateScholarship(req, res, next) {

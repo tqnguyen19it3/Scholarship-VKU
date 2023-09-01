@@ -5,7 +5,6 @@ Lấy lại accessToken khi hết hạn
 Xử lý thêm chỗ handleError
 ckeditor upload img --- tạm ok (chưa xử lý validate khi upload file ko phải file ảnh + xóa + quản lý các file đã upload để tái sử dụng)
 
-scholarship --- tạm ok (còn xử lý chỗ provider từ db load ra thay vì mảng cố định cho trước)
 chỉnh sửa hồ sơ người dùng bên admin
 xử lý phân quyền cho fund management board 
 

@@ -74,8 +74,8 @@
                                 </label>
                                 <div class="col-md-6 col-sm-6 ">
                                     <select class="js-multiple-select form-control" multiple="multiple" name="scholarshipProvider">
-                                        <% for (let i = 0; i < provider.length; i++) { %>
-                                            <option value="<%= provider[i] %>"><%= provider[i] %></option>
+                                        <% for (let i = 0; i < sponsors.length; i++) { %>
+                                            <option value="<%= sponsors[i].company %>"><%= sponsors[i].company %></option>
                                         <% } %>
                                     </select>
                                 </div>
